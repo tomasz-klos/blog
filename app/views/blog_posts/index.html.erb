@@ -1,4 +1,5 @@
 <h1>My Blog Posts</h1>
+<%= link_to "New Blog Post", new_blog_post_path %>
 <% @blog_posts.each do |blog_post| %>
   <h2><%= link_to blog_post.title, blog_post %></h2>
   <p><%= blog_post.body %></p>

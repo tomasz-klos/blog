@@ -1,0 +1,31 @@
+<%= form_with model: @blog_post do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <% if form.object.errors[:title].any? %>
+      <ul>
+        <% form.object.errors[:title].each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+  <div>
+    <% if form.object.errors[:body].any? %>
+      <ul>
+        <% form.object.errors[:body].each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= form.button %>
+  </div>
+<% end %>

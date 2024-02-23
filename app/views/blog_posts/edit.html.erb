@@ -1,4 +1,18 @@
-<%= link_to "Back", @blog_post %>
-<h1>Edit blog post <%= @blog_post.title %></h1>
-<%= render 'form', locals: { blog_post: @blog_post } %>
-<%= button_to "Delete", @blog_post, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<section class="relative flex flex-col items-center gap-32 flex-1">
+  <div class="absolute left-0 top-4">
+    <%= link_to "go back", :back, class: "btn-primary" %>
+  </div>
+  <hgroup class="flex flex-col gap-4 pt-32">
+    <h1 class="text-5xl font-medium text-center">
+      Edit blog post <span class="text-violet-500"><%= @blog_post.title %></span>
+    </h1>
+    <p class="text-zinc-500 text-center">
+      Make changes to your blog post. It's up to you.
+    </p>
+  </hgroup>
+  <div class="flex flex-col items-center gap-12 w-full">
+    <%= render 'form', locals: { blog_post: @blog_post } %>
+    <%= button_to "Delete", @blog_post, method: :delete, data: { turbo_confirm: "
+  Are you sure you want to delete this blog post?" }, class: "btn-danger" %>
+  </div>
+</section>

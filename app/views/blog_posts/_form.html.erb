@@ -1,4 +1,5 @@
 <%= form_with model: @blog_post, html: { class: "form" } do |form| %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
   <div class="field">
     <%= form.label :title, class: "input-label" %>
     <%= form.text_field :title, class: "input" %>
@@ -13,13 +14,13 @@
     <% end %>
   </div>
   <div class="field">
-    <%= form.label :body, class: "input-label" %>
-    <%= form.text_area :body,  class: "input" %>
+    <%= form.label :content, class: "input-label" %>
+    <%= form.rich_text_area :content, class: "textarea" %>
   </div>
   <div>
-    <% if form.object.errors[:body].any? %>
+    <% if form.object.errors[:content].any? %>
       <ul>
-        <% form.object.errors[:body].each do |message| %>
+        <% form.object.errors[:content].each do |message| %>
           <li class="error-message"><%= message %></li>
         <% end %>
       </ul>

@@ -1,10 +1,29 @@
-<section class="relative flex flex-col pt-12 gap-32">
+<section class="relative flex flex-col pt-32 gap-32">
   <div class="absolute left-0 top-4">
-    <%= link_to "go back to posts", blog_posts_path, class: "p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+    <%= link_to "go back to posts", blog_posts_path, class: "btn-primary" %>
   </div>
-  <div class="flex flex-col gap-4">
-    <p class="text-zinc-500 text-center ml-auto"><%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
-    <h1 class="text-3xl font-medium text-center"><%= @blog_post.title %></h1>
-    <p class="text-zinc-500 text-center"><%= @blog_post.body %></p>
+  <div class="flex flex-col gap-32">
+    <% if @blog_post.user == current_user %>
+      <div class="absolute right-0 flex justify-center gap-4">
+        <%= link_to "edit", edit_blog_post_path(@blog_post), class: "btn-primary" %>
+      </div>
+    <% end %>
+    <div class="flex flex-col items-center gap-4">
+      <h1 class="text-5xl font-medium text-center"><%= @blog_post.title %></h1>
+      <div class="flex gap-4 items-center">
+        <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
+        <span class="w-1 h-1 rounded-full bg-violet-500 flex items-center justify-center">
+        </span>
+        <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%I:%M %p") %></p>
+      </div>
+      <div class="flex gap-4 items-center">
+        <span class="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center">
+        </span>
+        <p class="text-zinc-500"><%= @blog_post.user.email %></p>
+      </div>
+    </div>
+    <div>
+      <p class="text-zinc-500 text-center"><%= @blog_post.body %></p>
+    </div>
   </div>
 </section>

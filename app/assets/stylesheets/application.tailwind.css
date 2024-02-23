@@ -11,6 +11,10 @@
     @apply p-3 bg-violet-500 text-sm text-zinc-100 rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition cursor-pointer;
   }
 
+  .btn-danger {
+    @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition cursor-pointer;
+  }
+
   .link-primary {
     @apply text-zinc-300 hover:text-violet-700 transition cursor-pointer;
   }

@@ -30,6 +30,10 @@
   max-width: 50%;
 }
 
+.attachment > img {
+  margin-inline: auto;
+}
+
 .trix-content action-text-attachment .attachment {
   padding: 0 !important;
   max-width: 100% !important;

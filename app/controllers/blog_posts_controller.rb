@@ -26,7 +26,7 @@ class BlogPostsController < ApplicationController
 
   def update
     if @blog_post.update(blog_post_params)
-      redirect_to @blog_post
+      redirect_to @blog_post, notice: 'Blog post was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end

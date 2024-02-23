@@ -34,9 +34,9 @@
         <span class="text-zinc-500 text-sm"><%= blog_post.created_at.strftime("%B %d, %Y") %></span>
         <h3 class="text-2xl font-medium"><%= blog_post.title %></h3>
         <% if !blog_post.content.nil? %>        
-        <p class="text-zinc-500">
-          <%= blog_post.content.body.to_plain_text.truncate(100) %>
-        </p>
+          <p class="text-zinc-500">
+            <%= blog_post.content.body.to_plain_text.truncate(100) %>
+          </p>
         <% end %>
         <div class="flex justify-end">
           <%= link_to "Read More", blog_post, class: "p-3 text-sm text-violet-500 rounded-lg transition hover:underline" %>

@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html class="scroll-smooth">
   <head>
     <title>Blog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <header>
-      <nav>
-        <ul>
-          <li><%= link_to "Home", blog_posts_root_path %></li>
-          <li><%= link_to "New Blog Post", new_blog_post_path %></li>
-          <% if user_signed_in? %>
-            <li><%= link_to "Profile", edit_user_registration_path %></li>
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to "Login", new_user_session_path %></li>
-            <li><%= link_to "Sign up", new_user_registration_path %></li>
-          <% end %>
-        </ul>
-      </nav>
-    </header>
-    <main>
+  <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
+    <% if notice || alert %>
+      <aside class="fixed top-32 border rounded-lg right-6 p-4">
+        <% if notice %>
+          <p class="text-green-500"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="text-red-500"><%= alert %></p>
+        <% end %>
+      </aside>
+    <% end %>
+    <%= render "partials/header" %>
+    <main class="flex flex-col flex-1 mx-auto min-w-full px-8 lg:min-w-[65vw]">
       <%= yield %>
     </main>
+    <footer class="flex justify-center p-12">
+      <p class="text-zinc-300">
+        © 
+        <%= Time.now.year %>
+        Blog</p>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,15 @@
+<header class="sticky top-0 backdrop-blur-sm bg-zinc-900/20 p-6">
+  <nav class="flex">
+    <ul class="flex gap-4 ml-auto">
+      <li class="flex"><%= link_to "Home", blog_posts_root_path, class: "p-3 hover:text-violet-500 transition" %></li>
+      <li class="flex"><%= link_to "New Blog Post", new_blog_post_path, class: "p-3 hover:text-violet-500 transition" %></li>
+      <% if user_signed_in? %>
+        <li class="flex"><%= link_to "Profile", edit_user_registration_path, class: "p-3 hover:text-violet-500 transition" %></li>
+        <li class="flex"><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %></li>
+      <% else %>
+        <li class="flex"><%= link_to "Login", new_user_session_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %></li>
+        <li class="flex"><%= link_to "Sign up", new_user_registration_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %></li>
+      <% end %>
+    </ul>
+  </nav>
+</header>

@@ -8,10 +8,10 @@
     </h1>
   </hgroup>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
     <div class="field">
       <%= f.label :email, class: "input-label" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+      <%= render "devise/shared/error_messages", object: resource, field: :email %>
     </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -22,14 +22,17 @@
       <% if @minimum_password_length %>
         <em><%= @minimum_password_length %> characters minimum</em>
       <% end %>
+      <%= render "devise/shared/error_messages", object: resource, field: :password %>
     </div>
     <div class="field">
       <%= f.label :password_confirmation, class: "input-label" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
+      <%= render "devise/shared/error_messages", object: resource, field: :password_confirmation %>
     </div>
     <div class="field">
       <%= f.label :current_password, class: "input-label" %> (we need your current password to confirm your changes)
       <%= f.password_field :current_password, autocomplete: "current-password", class: "input" %>
+      <%= render "devise/shared/error_messages", object: resource, field: :current_password %>
     </div>
     <div class="actions">
       <%= f.submit "Update", class: "btn-secondary mt-3" %>

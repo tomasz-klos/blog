@@ -1,7 +1,42 @@
-<h1>My Blog Posts</h1>
-
-<%= link_to "New Blog Post", new_blog_post_path %>
-<% @blog_posts.each do |blog_post| %>
-  <h2><%= link_to blog_post.title, blog_post %></h2>
-  <p><%= blog_post.body %></p>
-<% end %>
+<section class="flex flex-col justify-center gap-32 min-h-svh">
+  <hgroup class="flex flex-col gap-8">
+    <h1 class="text-5xl font-medium text-center">
+      Welcome to <span class="text-purple-500">the Blog</span> !
+    </h1>
+    <p class="text-zinc-500 text-center">
+      Look at all these blog posts! You can read them all, or you can write your own. It's up to you.
+    </p>
+  </hgroup>
+  <div class="flex flex-col gap-4">
+    <% if user_signed_in? %>
+      <div class="flex justify-center">
+        <%= link_to "New Blog Post", new_blog_post_path, class: "p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+      </div>
+    <% else %>
+      <p class="text-center">You must be signed in to create a new blog post.</p>
+      <div class="flex justify-center gap-4">
+        <%= link_to "Login", new_user_session_path, class: "px-4 py-3 bg-zinc-500 text-base text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+        <%= link_to "Sign up", new_user_registration_path, class: "px-4 py-3 bg-zinc-500 text-base text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="flex justify-center">
+    <%= link_to "#blog-post-list", class: "p-3 text-sm text-zinc-100 rounded-lg hover:text-violet-500 transition" do %>
+      Skip to Blog Posts
+    <% end %>
+  </div>
+</section>
+<section id="blog-post-list" class="flex flex-col justify-center gap-16 min-h-screen">
+  <h2 class="text-3xl font-medium text-center">All Blog Posts</h2>
+  <div class="flex flex-col items-center gap-8 w-full">
+    <% @blog_posts.each do |blog_post| %>
+      <article class="flex flex-col gap-4 rounded-lg border border-purple-50 p-4 w-full max-w-screen-sm">
+        <span class="text-zinc-500 text-sm"><%= blog_post.created_at.strftime("%B %d, %Y") %></span>
+        <h3 class="text-2xl font-medium"><%= blog_post.title %></h3>
+        <p class="text-zinc-500"><%= blog_post.body %></p>
+        <div class="flex justify-end">
+          <%= link_to "Read More", blog_post, class: "p-3 text-sm text-violet-500 rounded-lg transition hover:underline" %>
+        </div>
+      </article>
+    <% end %>
+  </div>

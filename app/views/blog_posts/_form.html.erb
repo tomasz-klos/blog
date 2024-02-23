@@ -1,7 +1,7 @@
-<%= form_with model: @blog_post do |form| %>
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<%= form_with model: @blog_post, html: { class: "flex flex-col gap-4 w-full max-w-[35vw]" } do |form| %>
+  <div class="field flex flex-col gap-4">
+    <%= form.label :title, class: "font-medium" %>
+    <%= form.text_field :title, class: "w-full bg-zinc-900 border rounded-lg text-zinc-100 focus:border-purple-500 focus:ring-0 transition" %>
   </div>
   <div>
     <% if form.object.errors[:title].any? %>
@@ -12,9 +12,9 @@
       </ul>
     <% end %>
   </div>
-  <div class="field">
+  <div class="field flex flex-col gap-4">
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body,  class: "w-full bg-zinc-900 border rounded-lg text-zinc-100 focus:border-purple-500 focus:ring-0 transition" %>
   </div>
   <div>
     <% if form.object.errors[:body].any? %>
@@ -26,6 +26,6 @@
     <% end %>
   </div>
   <div class="actions">
-    <%= form.button %>
+    <%= form.button class: "p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
   </div>
 <% end %>

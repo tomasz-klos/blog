@@ -1,0 +1,27 @@
+<section class="flex flex-col items-center gap-32 flex-1">
+  <hgroup class="flex flex-col gap-4 pt-32">
+    <h1 class="text-5xl font-medium text-center">
+      Log <span class="text-purple-500">In</span>
+    </h1>
+  </hgroup>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form"}) do |f| %>
+    <div class="field">
+      <%= f.label :email, class: "input-label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+    </div>
+    <div class="field">
+      <%= f.label :password, class: "input-label" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
+    </div>
+    <% if devise_mapping.rememberable? %>
+      <div class="checkbox-field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit "Log in", class: "btn-secondary mt-3" %>
+    </div>
+    <%= render "devise/shared/links" %>
+  <% end %>
+</section>

@@ -14,13 +14,13 @@
     <% end %>
   </div>
   <div class="field">
-    <%= form.label :body, class: "input-label" %>
-    <%= form.text_area :body,  class: "input" %>
+    <%= form.label :content, class: "input-label" %>
+    <%= form.rich_text_area :content, rows: 10, class: "input" %>
   </div>
   <div>
-    <% if form.object.errors[:body].any? %>
+    <% if form.object.errors[:content].any? %>
       <ul>
-        <% form.object.errors[:body].each do |message| %>
+        <% form.object.errors[:content].each do |message| %>
           <li class="error-message"><%= message %></li>
         <% end %>
       </ul>

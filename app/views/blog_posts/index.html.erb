@@ -33,7 +33,7 @@
       <article class="flex flex-col gap-4 rounded-lg border border-violet-50 p-4 w-full max-w-screen-sm">
         <span class="text-zinc-500 text-sm"><%= blog_post.created_at.strftime("%B %d, %Y") %></span>
         <h3 class="text-2xl font-medium"><%= blog_post.title %></h3>
-        <p class="text-zinc-500"><%= blog_post.body %></p>
+        <p class="text-zinc-500"><%= blog_post.content %></p>
         <div class="flex justify-end">
           <%= link_to "Read More", blog_post, class: "p-3 text-sm text-violet-500 rounded-lg transition hover:underline" %>
         </div>

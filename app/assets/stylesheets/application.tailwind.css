@@ -24,11 +24,11 @@
   }
 
   .form {
-    @apply flex flex-col gap-6 w-full max-w-[35vw];
+    @apply flex flex-col gap-6 w-full md:max-w-[55vw] lg:max-w-[45vw];
   }
 
   .field {
-    @apply flex flex-col gap-4;
+    @apply flex flex-col gap-4 w-full;
   }
 
   .checkbox-field {
@@ -36,11 +36,15 @@
   }
 
   .input {
-    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900 !important;
+    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .input-label {
     @apply text-zinc-100 text-base font-medium;
+  }
+
+  .textarea {
+    @apply w-full min-h-[400px] p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .error-message {

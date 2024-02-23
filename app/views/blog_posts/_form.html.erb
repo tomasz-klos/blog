@@ -15,7 +15,7 @@
   </div>
   <div class="field">
     <%= form.label :content, class: "input-label" %>
-    <%= form.rich_text_area :content, rows: 10, class: "input" %>
+    <%= form.rich_text_area :content, class: "textarea" %>
   </div>
   <div>
     <% if form.object.errors[:content].any? %>

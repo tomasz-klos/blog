@@ -1,0 +1,22 @@
+<%= form_with(model: [ @blog_post, @comment ], id: dom_id(@comment), local: false, html: { class: "form mx-auto" }) do |form| %>
+  <div class="flex flex-col gap-4">
+    <div class="field">
+      <%= form.label :content, class: "input-label hidden" %>
+      <div class="trix-wrapper">
+      <%= form.rich_text_area :content, placeholder: "Leave a comment", class: "rich-textarea" %>
+      </div>
+      </div>
+      <div>
+    <% if form.object.errors[:content].any? %>
+      <ul>
+        <% form.object.errors[:content].each do |message| %>
+          <li class="error-message"><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+    <div class="flex">
+      <%= form.button "Add comment", class: "btn-primary" %>
+    </div>
+  </div>
+<% end %>

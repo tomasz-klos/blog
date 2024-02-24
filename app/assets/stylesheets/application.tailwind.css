@@ -47,7 +47,31 @@
     @apply w-full min-h-[400px] p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
+  .trix-wrapper {
+    @apply w-full;
+  }
+
+  .rich-textarea {
+    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+  }
+
   .error-message {
     @apply text-red-500 text-sm;
+  }
+
+  .divider {
+    @apply w-full h-px bg-zinc-800 mt-px;
+  }
+
+  .dot-divider {
+    @apply w-1 h-1 rounded-full bg-violet-500 flex items-center justify-center;
+  }
+
+  .avatar {
+    @apply w-8 h-8 rounded-full bg-violet-500;
+  }
+
+  .panel-header {
+    @apply absolute left-0 top-4 flex items-center justify-between w-full;
   }
 }

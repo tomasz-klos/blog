@@ -1,5 +1,5 @@
 <%= form_with model: @blog_post, html: { class: "form" } do |form| %>
-  <%= form.hidden_field :user_id, value: current_user.id %>
+  
   <div class="field">
     <%= form.label :title, class: "input-label" %>
     <%= form.text_field :title, class: "input" %>

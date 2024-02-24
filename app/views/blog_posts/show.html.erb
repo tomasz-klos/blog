@@ -1,18 +1,19 @@
-<section class="relative flex flex-col pt-32 gap-32">
-  <div class="absolute left-0 top-4">
+<section class="relative flex flex-col pt-32 gap-40">
+  <div class="panel-header">
     <%= link_to "go back to posts", blog_posts_path, class: "btn-primary" %>
-  </div>
-  <div class="flex flex-col gap-32">
-    <% if @blog_post.user == current_user %>
+
+     <% if @blog_post.user == current_user %>
       <div class="absolute right-0 flex justify-center gap-4">
         <%= link_to "edit", edit_blog_post_path(@blog_post), class: "btn-primary" %>
       </div>
     <% end %>
+  </div>
+  <div class="flex flex-col gap-32">
     <div class="flex flex-col items-center gap-4">
       <h1 class="text-5xl font-medium text-center"><%= @blog_post.title %></h1>
       <div class="flex gap-4 items-center">
         <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
-        <span class="w-1 h-1 rounded-full bg-violet-500 flex items-center justify-center">
+        <span class="dot-divider">
         </span>
         <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%I:%M %p") %></p>
       </div>
@@ -22,9 +23,39 @@
         <p class="text-zinc-500"><%= @blog_post.user.email %></p>
       </div>
     </div>
-    <div>
-      <p class="text-zinc-500 text-center"><%= @blog_post.content %></p>
-      
+      <%= @blog_post.content %>
+  </div>
+
+  <span class="divider"></span>
+
+  <div class="flex flex-col gap-40">
+    <div class="flex flex-col gap-4">
+      <h2 class="text-3xl font-medium text-center">
+        Comments
+      </h2>
+      <div class="flex flex-col gap-4">
+        <%= turbo_stream_from "comments" %>
+        <%= turbo_frame_tag "comments", class: "flex flex-col gap-4" do %>
+          <% if @blog_post.comments.any? %>
+              <% @blog_post.comments.each do |comment| %>
+                <%= render partial: 'comments/comment', locals: { comment: comment } %>
+              <% end %>
+          <% else %>
+              <p class="text-zinc-500 text-center">No comments yet</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="flex flex-col gap-12">
+      <h2 class="text-3xl font-medium text-center">Add a comment</h2>
+
+      <% if user_signed_in? %>
+        <%= turbo_frame_tag "comment-form" do %>
+          <%= render 'comments/form', blog_post: @blog_post, comment: @comment %>
+        <% end %>
+      <% else %>
+        <p class="text-zinc-500 text-center">You need to <%= link_to "sign in", new_user_session_path, class: "text-violet-500" %> to add a comment</p>
+      <% end %>      
     </div>
   </div>
 </section>

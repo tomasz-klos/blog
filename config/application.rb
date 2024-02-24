@@ -21,5 +21,6 @@ module Blog
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.view_component.preview_routes = true
+    config.view_component.preview_paths << Rails.root.join('app', 'components', '**')
   end
 end

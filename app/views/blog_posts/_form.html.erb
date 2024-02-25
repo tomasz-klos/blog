@@ -1,31 +1,17 @@
-<%= form_with model: @blog_post, html: { class: "form" } do |form| %>
+<%= form_with(model: @blog_post, html: { class: "form" }) do |form| %>
   
   <div class="field">
-    <%= form.label :title, class: "input-label" %>
+    <%= form.label :title, class: field_label_classes(form, :title) %>
     <%= form.text_field :title, class: "input" %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :title)) %>
   </div>
-  <div>
-    <% if form.object.errors[:title].any? %>
-      <ul>
-        <% form.object.errors[:title].each do |message| %>
-          <li class="error-message"><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
+  
   <div class="field">
-    <%= form.label :content, class: "input-label" %>
+    <%= form.label :content, class: field_label_classes(form, :content) %>
     <%= form.rich_text_area :content, class: "textarea" %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
   </div>
-  <div>
-    <% if form.object.errors[:content].any? %>
-      <ul>
-        <% form.object.errors[:content].each do |message| %>
-          <li class="error-message"><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
+
   <div class="actions">
     <%= form.button class: "btn-secondary mt-3" %>
   </div>

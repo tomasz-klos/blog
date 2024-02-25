@@ -39,8 +39,16 @@
     @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
-  .input-label {
+  .field-error {
+    @apply border-red-500 focus:border-red-500;
+  }
+
+  .field-label {
     @apply text-zinc-100 text-base font-medium;
+  }
+
+  .error {
+    @apply text-red-500;
   }
 
   .textarea {

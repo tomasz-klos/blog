@@ -7,6 +7,8 @@ require 'view_component'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Rails.load
+
 module Blog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

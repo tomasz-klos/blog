@@ -1,23 +1,24 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["form", "submit"];
+  static targets = ["form", "submit", "cancel"];
   static COMMENT_INPUT_SELECTOR = "trix-editor";
 
   connect() {
-    this.initialize();
+    this.setOnLoad();
     this.setupFormEventListener();
     this.setupTurboSubmitEventListener();
   }
 
-  initialize() {
+  setOnLoad() {
     this.initialValue = this.getCommentInputValue().trim();
-    this.updateSubmitButtonState();
+    this.cancelHref = this.cancelTarget.href;
+    this.updateButtonsState();
   }
 
   setupFormEventListener() {
     this.commentInputTarget.addEventListener("trix-change", () => {
-      this.updateSubmitButtonState();
+      this.updateButtonsState();
     });
   }
 
@@ -27,9 +28,11 @@ export default class extends Controller {
     });
   }
 
-  updateSubmitButtonState() {
+  updateButtonsState() {
     const trimmedValue = this.getCommentInputValue().trim();
+
     this.submitTarget.disabled = trimmedValue === this.initialValue || trimmedValue === "";
+    this.cancelTarget.href = trimmedValue === "" ? "javascript:void(0)" : this.cancelHref;
   }
 
   resetForm() {

@@ -60,7 +60,7 @@
   }
 
   .rich-textarea {
-    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y break-words focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .error-message {

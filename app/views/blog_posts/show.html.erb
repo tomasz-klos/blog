@@ -50,7 +50,8 @@
       <h2 class="text-3xl font-medium text-center">Add a comment</h2>
 
       <% if user_signed_in? %>
-        <%= turbo_frame_tag "comment-form" do %>
+     
+        <%= turbo_frame_tag dom_id(@comment) do %>
           <%= render 'comments/form', blog_post: @blog_post, comment: @comment %>
         <% end %>
       <% else %>

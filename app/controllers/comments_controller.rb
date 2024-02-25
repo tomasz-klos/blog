@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
 
   def create
     @blog_post = BlogPost.find(params[:blog_post_id])
@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.turbo_stream do
-          turbo_stream.prepend('comments', partial: 'comments/comment', locals: { comment: @comment})
+          turbo_stream.prepend('comments', partial: 'comments/comment', locals: { comment: @comment })
         end
       else
         format.turbo_stream do
@@ -30,7 +30,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
 
   private
 

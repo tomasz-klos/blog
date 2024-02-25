@@ -10,13 +10,13 @@
   <div class="flex flex-col gap-4">
     <% if user_signed_in? %>
       <div class="flex justify-center">
-        <%= link_to "New Blog Post", new_blog_post_path, class: "p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+        <%= link_to "New Blog Post", new_blog_post_path, class: "btn-primary" %>
       </div>
     <% else %>
       <p class="text-center">You must be signed in to create a new blog post.</p>
       <div class="flex justify-center gap-4">
-        <%= link_to "Login", new_user_session_path, class: "px-4 py-3 bg-zinc-500 text-base text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
-        <%= link_to "Sign up", new_user_registration_path, class: "px-4 py-3 bg-zinc-500 text-base text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+        <%= link_to "Login", new_user_session_path, class: "btn-primary" %>
+        <%= link_to "Sign up", new_user_registration_path, class: "btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -31,18 +31,7 @@
   <div class="flex flex-col items-center gap-8 w-full">
     <% if @blog_posts.any? %>
       <% @blog_posts.each do |blog_post| %>
-        <article class="flex flex-col gap-4 rounded-lg border border-zinc-800 p-4 w-full max-w-screen-sm">
-          <span class="text-zinc-500 text-sm"><%= blog_post.created_at.strftime("%B %d, %Y") %></span>
-          <h3 class="text-2xl font-medium"><%= blog_post.title %></h3>
-          <% if !blog_post.content.nil? %>        
-            <p class="text-zinc-500">
-              <%= blog_post.content.body.to_plain_text.truncate(100) %>
-            </p>
-          <% end %>
-          <div class="flex justify-end">
-            <%= link_to "Read More", blog_post, class: "p-3 text-sm text-violet-500 rounded-lg transition hover:underline" %>
-          </div>
-        </article>
+        <%= render(Post::Component.new(post: blog_post)) %>
       <% end %>
     <% else %>
       <p class="text-center">No blog posts yet. Be the first to write one!</p>

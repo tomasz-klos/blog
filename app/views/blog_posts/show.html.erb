@@ -38,7 +38,7 @@
         <%= turbo_frame_tag "comments", class: "flex flex-col gap-4" do %>
           <% if @blog_post.comments.any? %>
               <% @blog_post.comments.each do |comment| %>
-                <%= render(CommentComponent.new(comment: comment)) %>
+                 <%= render partial: 'comments/comment', locals: { comment: comment } %>
               <% end %>
           <% else %>
               <p class="text-zinc-500 text-center">No comments yet</p>
@@ -50,7 +50,8 @@
       <h2 class="text-3xl font-medium text-center">Add a comment</h2>
 
       <% if user_signed_in? %>
-        <%= turbo_frame_tag "comment-form" do %>
+     
+        <%= turbo_frame_tag dom_id(@comment) do %>
           <%= render 'comments/form', blog_post: @blog_post, comment: @comment %>
         <% end %>
       <% else %>

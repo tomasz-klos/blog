@@ -1,0 +1,7 @@
+<% if form.object.errors[field].any? %>
+  <ul>
+    <% form.object.errors[field].each do |message| %>
+      <li class="error-message"><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>

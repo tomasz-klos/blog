@@ -1,0 +1,11 @@
+<article class="flex flex-col gap-4 rounded-lg p-6 border border-zinc-800 shadow-md shadow-zinc-800/20">
+  <div class="flex gap-4 items-center">
+    <div class="flex items-center gap-2">
+      <span class="avatar"></span>
+      <p class="text-sm"><%= comment.user.email %></p>
+    </div>
+    <span class="dot-divider"></span>
+    <p class="text-sm"><%= time_ago_in_words(comment.created_at) %> ago</p>
+  </div>
+  <p><%= comment.content %></p>
+</article>

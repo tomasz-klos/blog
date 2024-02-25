@@ -7,6 +7,8 @@ require 'view_component'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Rails.load
+
 module Blog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -21,5 +23,6 @@ module Blog
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.view_component.preview_routes = true
+    config.view_component.preview_paths << Rails.root.join('app', 'components', '**')
   end
 end

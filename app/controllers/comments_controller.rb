@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
         end
       else
         format.turbo_stream do
-          turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
+          render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
         end
       end
     end

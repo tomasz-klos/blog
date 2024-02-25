@@ -1,16 +1,17 @@
-<%= form_with(model: [ @blog_post, @comment ], local: false, html: { class: "form mx-auto" }) do |form| %>
+<%= form_with(model: [ @blog_post, @comment ], local: false, html: { class: "form mx-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
   <div class="flex flex-col gap-4">
   
-    <div class="field">
+    <div class="field"">
       <%= form.label :content, class: "hidden" %>
       <div class="trix-wrapper">
-      <%= form.rich_text_area :content, placeholder: "Leave a comment", class: "rich-textarea" %>
+      <%= form.rich_text_area :content, placeholder: "Leave a comment", class: "rich-textarea trix-content" %>
       </div>
 
       <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
     </div>
-    <div class="flex">
-      <%= form.button "Add comment", class: "btn-primary" %>
+    <div class="flex gap-4">
+      <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
+      <%= link_to "Cancel", @blog_post, class: "btn-cancel btn-md" %>
     </div>
   </div>
 <% end %>

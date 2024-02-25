@@ -5,14 +5,30 @@
 @layer components {
   .btn-primary {
     @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition cursor-pointer;
+
+    &:disabled {
+      @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
+    }
   }
 
   .btn-secondary {
     @apply p-3 bg-violet-500 text-sm text-zinc-100 rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition cursor-pointer;
+
+    &:disabled {
+      @apply bg-zinc-500 text-zinc-400 cursor-not-allowed shadow-none;
+    }
+  }
+
+  .btn-cancel {
+    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-zinc-600 transition cursor-pointer;
   }
 
   .btn-danger {
     @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition cursor-pointer;
+  }
+
+  .btn-md {
+    @apply px-3 py-1.5 text-sm;
   }
 
   .link-primary {
@@ -81,5 +97,9 @@
 
   .panel-header {
     @apply absolute left-0 top-4 flex items-center justify-between w-full;
+  }
+
+  .comment {
+    @apply flex flex-col gap-4 rounded-lg p-6 border border-zinc-800 shadow-md shadow-zinc-800/20;
   }
 }

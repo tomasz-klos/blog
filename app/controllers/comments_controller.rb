@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update destroy]
   before_action :set_blog_post, only: %i[create edit update destroy]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   def create
     @comment = @blog_post.comments.build(comment_params)
@@ -28,17 +29,15 @@ class CommentsController < ApplicationController
   def update
     @comment = @blog_post.comments.find(params[:id])
 
-    
-      if @comment.update(comment_params)
+    if @comment.update(comment_params)
       redirect_to @blog_post
-      else
-        respond_to do |format|
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
-          end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
         end
       end
-    
+    end
   end
 
   def destroy
@@ -62,5 +61,12 @@ class CommentsController < ApplicationController
     @blog_post = BlogPost.find(params[:blog_post_id])
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path
+  end
+
+  def authorize_user!
+    @comment = @blog_post.comments.find(params[:id])
+    return if @comment.user == current_user
+
+    redirect_to @blog_post
   end
 end

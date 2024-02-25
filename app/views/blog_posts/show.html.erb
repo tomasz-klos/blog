@@ -36,8 +36,8 @@
       <div class="flex flex-col gap-4">
         <%= turbo_stream_from "comments" %>
         <%= turbo_frame_tag "comments", class: "flex flex-col gap-4" do %>
-          <% if @blog_post.comments.any? %>
-              <% @blog_post.comments.each do |comment| %>
+          <% if @comments.any? %>
+              <% @comments.each do |comment| %>
                  <%= render partial: 'comments/comment', locals: { comment: comment } %>
               <% end %>
           <% else %>
@@ -48,12 +48,8 @@
     </div>
     <div class="flex flex-col gap-12">
       <h2 class="text-3xl font-medium text-center">Add a comment</h2>
-
       <% if user_signed_in? %>
-     
-        <%= turbo_frame_tag dom_id(@comment) do %>
-          <%= render 'comments/form', blog_post: @blog_post, comment: @comment %>
-        <% end %>
+          <%= render 'comments/form', locals: { blog_post: @blog_post, comment: @comment } %> 
       <% else %>
         <p class="text-zinc-500 text-center">You need to <%= link_to "sign in", new_user_session_path, class: "text-violet-500" %> to add a comment</p>
       <% end %>      

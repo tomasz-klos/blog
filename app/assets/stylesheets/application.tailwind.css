@@ -102,4 +102,8 @@
   .comment {
     @apply flex flex-col gap-4 rounded-lg p-6 border border-zinc-800 shadow-md shadow-zinc-800/20;
   }
+
+  .badge {
+    @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-900 rounded-lg;
+  }
 }

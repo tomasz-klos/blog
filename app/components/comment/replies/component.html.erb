@@ -1,0 +1,47 @@
+<div data-controller="custom-toggle">
+  <button 
+    type="button"
+    data-action="click->custom-toggle#toggle touch->custom-toggle#toggle"
+  >
+    <span 
+      class="text-sm font-medium underline"
+      data-custom-toggle-target="show"
+    >
+      <% if replies.any? %>
+        Show answers (<%= replies.count %>)
+      <% else %>
+        No answers yet - be the first to answer!
+      <% end %>
+    </span>
+    <span 
+      class="hidden text-sm font-medium underline"
+      data-custom-toggle-target="hide"
+    >
+      Hide answers
+    </span>
+  </button>
+      
+  <div 
+    class="hidden flex flex-col gap-4 pt-4"
+    data-custom-toggle-target="toggleable"
+  >
+  <%= turbo_stream_from "replies_#{comment.id}" %>
+  <%= turbo_frame_tag "replies_#{comment.id}", class: "flex flex-col gap-4" do %>
+    <% if replies.any? %>
+      <% replies.each do |reply| %>
+        <%= render "replies/reply", reply: reply %>
+      <% end %>
+    <% else %>
+        <p class="text-sm font-medium">No answers yet - be the first to answer!</p>
+    <% end %>
+  <% end %>
+
+    <div class="flex flex-col gap-4 pt-12">
+    <% if replies.any? %>
+      <%= link_to "Add an answer", new_blog_post_comment_reply_path(comment.blog_post, comment, comment.replies.build), class: "text-sm font-medium underline" %>
+    <% else %>
+      <%= render "replies/form", reply: comment.replies.build %>
+    <% end %>
+    </div>
+  </div>
+</div>

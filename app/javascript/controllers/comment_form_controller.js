@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["form", "submit", "cancel"];
+  static targets = ["form", "submit"];
   static COMMENT_INPUT_SELECTOR = "trix-editor";
 
   connect() {
@@ -12,7 +12,6 @@ export default class extends Controller {
 
   setOnLoad() {
     this.initialValue = this.getCommentInputValue().trim();
-    this.cancelHref = this.cancelTarget.href;
     this.updateButtonsState();
   }
 
@@ -32,7 +31,6 @@ export default class extends Controller {
     const trimmedValue = this.getCommentInputValue().trim();
 
     this.submitTarget.disabled = trimmedValue === this.initialValue || trimmedValue === "";
-    this.cancelTarget.href = trimmedValue === "" ? "javascript:void(0)" : this.cancelHref;
   }
 
   resetForm() {

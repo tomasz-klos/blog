@@ -1,23 +1,28 @@
 <div data-controller="custom-toggle">
   <button 
     type="button"
+    class="relative flex items-center gap-2"
     data-action="click->custom-toggle#toggle touch->custom-toggle#toggle"
   >
+    <%= turbo_stream_from "replies_#{comment.id}_count", class: "absolute" %>
     <span 
-      class="text-sm font-medium underline"
+      class="text-sm font-medium"
       data-custom-toggle-target="show"
     >
       <% if replies.any? %>
-        Show answers (<%= replies.count %>)
+        Show answers 
       <% else %>
         No answers yet - be the first to answer!
       <% end %>
     </span>
     <span 
-      class="hidden text-sm font-medium underline"
+      class="hidden text-sm font-medium"
       data-custom-toggle-target="hide"
     >
       Hide answers
+    </span>
+    <span>
+      <%= render "replies/replies_count", comment: comment, replies: replies %>
     </span>
   </button>
       
@@ -25,23 +30,21 @@
     class="hidden flex flex-col gap-4 pt-4"
     data-custom-toggle-target="toggleable"
   >
-  <%= turbo_stream_from "replies_#{comment.id}" %>
-  <%= turbo_frame_tag "replies_#{comment.id}", class: "flex flex-col gap-4" do %>
-    <% if replies.any? %>
-      <% replies.each do |reply| %>
-        <%= render "replies/reply", reply: reply %>
+    <%= turbo_stream_from "replies_#{comment.id}" %>
+    <%= turbo_frame_tag "replies_#{comment.id}", class: "flex flex-col gap-4" do %>
+      <% if replies.any? %>
+        <% replies.each do |reply| %>
+          <%= render "replies/reply", reply: reply %>
+        <% end %>
       <% end %>
-    <% else %>
-        <p class="text-sm font-medium">No answers yet - be the first to answer!</p>
     <% end %>
-  <% end %>
 
     <div class="flex flex-col gap-4 pt-12">
-    <% if replies.any? %>
-      <%= link_to "Add an answer", new_blog_post_comment_reply_path(comment.blog_post, comment, comment.replies.build), class: "text-sm font-medium underline" %>
-    <% else %>
-      <%= render "replies/form", reply: comment.replies.build %>
-    <% end %>
+      <% if replies.any? %>
+        <%= link_to "Add an answer", new_blog_post_comment_reply_path(comment.blog_post, comment, comment.replies.build), class: "text-sm font-medium underline" %>
+      <% else %>
+        <%= render "replies/form", reply: comment.replies.build %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
   before_action :set_comment, except: %i[show]
-  before_action :authorize_user!, except: %i[show]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   def new
     @reply = @comment.replies.build
@@ -15,22 +15,19 @@ class RepliesController < ApplicationController
     @reply.user_id = current_user.id
     @reply.comment_id = @comment.id
 
-    puts "reply: #{@reply.inspect}"
-
     respond_to do |format|
       if @reply.save
-        puts "reply saved #{@reply.inspect}"
         format.turbo_stream do
           turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
-                                          locals: { reply: @reply })
+                                                         locals: { reply: @reply })
+          turbo_stream.replace("replies_#{@comment_id}_count", partial: 'replies/replies_count',
+                                                               locals: { comment: @comment, replies: @comment.replies })
+          # turbo_stream.remove(@comment)
         end
       else
-
-        puts "reply not saved #{@reply}"
-        puts "reply errors: #{@reply.errors.full_messages}"
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                                    locals: { reply: @reply })
+                                                            locals: { reply: @reply })
         end
       end
     end
@@ -40,28 +37,24 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
 
     render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                              locals: { reply: @reply })
+                                                      locals: { reply: @reply })
   end
 
   def update
     @reply = @comment.replies.find(params[:id])
 
-    puts "reply_params: #{reply_params}"
-    puts "reply: #{@reply.inspect}"
-
     if @reply.update(reply_params)
-
       respond_to do |format|
         format.turbo_stream do
-          turbo_stream.append("replies_#{@comment_id}", partial: 'replies/reply',
-                                         locals: { reply: @reply })
+          turbo_stream.replace(@reply, partial: 'replies/reply',
+                                       locals: { reply: @reply })
         end
       end
     else
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                                    locals: { reply: @reply })
+                                                            locals: { reply: @reply })
         end
       end
     end
@@ -81,7 +74,6 @@ class RepliesController < ApplicationController
   private
 
   def reply_params
-    puts "reply params: #{params}"
     params.require(:reply).permit(:content)
   end
 
@@ -92,6 +84,12 @@ class RepliesController < ApplicationController
   end
 
   def authorize_user!
-    nil if @comment.user == current_user
+    @reply = @comment.replies.find(params[:id])
+
+    if @reply.user != current_user
+      redirect_to blog_posts_root_path, alert: 'You are not authorized to perform this action.'
+      return false
+    end
+    true
   end
 end

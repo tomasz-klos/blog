@@ -67,6 +67,6 @@ class CommentsController < ApplicationController
     @comment = @blog_post.comments.find(params[:id])
     return if @comment.user == current_user
 
-    redirect_to @blog_post
+    redirect_to @blog_post, alert: 'You are not authorized to perform this action.'
   end
 end

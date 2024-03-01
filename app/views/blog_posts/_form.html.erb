@@ -8,7 +8,7 @@
   
   <div class="field">
     <%= form.label :content, class: field_label_classes(form, :content) %>
-    <%= form.rich_text_area :content, class: "textarea" %>
+    <%= form.rich_text_area :content, class: "textarea trix-content" %>
     <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
   </div>
 

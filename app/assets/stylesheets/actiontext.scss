@@ -98,14 +98,43 @@
   max-width: 100% !important;
 }
 
-.trix-button-row {
-  gap: 0.5rem;
+.trix-wrapper {
+  trix-toolbar {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+  }
 }
 
-.trix-button-group:not(:first-child) {
-  margin-left: 0 !important;
+.trix-button-row {
+  gap: 0.5rem;
+  overflow-x: hidden !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+}
+
+.trix-button-group {
+  margin: 0 !important;
+  &:not(:first-child) {
+    margin-left: 0 !important;
+  }
+}
+
+.trix-button-group-spacer {
+  display: none !important;
 }
 
 .trix-button {
   background: #f4f4f5 !important;
+
+  &:hover {
+    background: #e4e4e7 !important;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.trix-active {
+    background: #e4e4e7 !important;
+  }
 }

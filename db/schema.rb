@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_24_164011) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_28_121418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,14 +64,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_164011) do
 
   create_table "comments", force: :cascade do |t|
     t.bigint "blog_post_id", null: false
-    t.bigint "parent_comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.text "content", default: "", null: false
     t.index ["blog_post_id"], name: "index_comments_on_blog_post_id"
-    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_164011) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "blog_posts", "users"
   add_foreign_key "comments", "blog_posts"
-  add_foreign_key "comments", "comments", column: "parent_comment_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
 end

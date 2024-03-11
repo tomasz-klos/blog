@@ -7,8 +7,10 @@ class Reply < ApplicationRecord
   after_update_commit { broadcast_replace_to "replies_#{comment_id}" }
   after_destroy_commit { broadcast_remove_to "replies_#{comment_id}" }
   after_destroy_commit do
-    broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment_id}_count",
-                                                        partial: 'replies/replies_count', locals: { comment:, replies: comment.replies }
+    if comment.present?
+      broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment_id}_count",
+                                                          partial: 'replies/replies_count', locals: { comment:, replies: comment.replies }
+    end
   end
 
   belongs_to :user

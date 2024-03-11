@@ -3,29 +3,28 @@
     type="button"
     class="relative flex items-center gap-2"
     data-action="click->custom-toggle#toggle touch->custom-toggle#toggle"
-  >
+    >
     <%= turbo_stream_from "replies_#{comment.id}_count", class: "absolute" %>
     <span 
       class="text-sm font-medium"
       data-custom-toggle-target="show"
     >
       <% if replies.any? %>
-        Show answers 
+        Show replies
       <% else %>
-        No answers yet - be the first to answer!
+        Be the first to reply
       <% end %>
     </span>
     <span 
       class="hidden text-sm font-medium"
       data-custom-toggle-target="hide"
     >
-      Hide answers
+      Hide replies
     </span>
     <span>
       <%= render "replies/replies_count", comment: comment, replies: replies %>
     </span>
   </button>
-      
   <div 
     class="hidden flex flex-col gap-4 pt-4"
     data-custom-toggle-target="toggleable"
@@ -38,13 +37,8 @@
         <% end %>
       <% end %>
     <% end %>
-
     <div class="flex flex-col gap-4 pt-12">
-      <% if replies.any? %>
-        <%= link_to "Add an answer", new_blog_post_comment_reply_path(comment.blog_post, comment, comment.replies.build), class: "text-sm font-medium underline" %>
-      <% else %>
-        <%= render "replies/form", reply: comment.replies.build %>
-      <% end %>
+      <%= render partial: "replies/form", locals: { comment: comment, reply: comment.replies.build } %>
     </div>
   </div>
 </div>

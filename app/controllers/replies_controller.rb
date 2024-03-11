@@ -11,23 +11,22 @@ class RepliesController < ApplicationController
   end
 
   def create
-    @reply = @comment.replies.build(reply_params)
+    @reply = @comment.replies.build(reply_params(@comment.id))
     @reply.user_id = current_user.id
     @reply.comment_id = @comment.id
 
     respond_to do |format|
       if @reply.save
         format.turbo_stream do
-          turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
+         turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
                                                          locals: { reply: @reply })
           turbo_stream.replace("replies_#{@comment_id}_count", partial: 'replies/replies_count',
                                                                locals: { comment: @comment, replies: @comment.replies })
-          # turbo_stream.remove(@comment)
         end
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                            locals: { reply: @reply })
+                                                            locals: { comment: @comment, reply: @reply })
         end
       end
     end
@@ -37,13 +36,13 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
 
     render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                      locals: { reply: @reply })
+                                                      locals: { comment: @comment,reply: @reply })
   end
 
   def update
     @reply = @comment.replies.find(params[:id])
 
-    if @reply.update(reply_params)
+    if @reply.update(reply_params(@comment.id))
       respond_to do |format|
         format.turbo_stream do
           turbo_stream.replace(@reply, partial: 'replies/reply',
@@ -54,7 +53,7 @@ class RepliesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                            locals: { reply: @reply })
+                                                            locals: {comment: @comment, reply: @reply })
         end
       end
     end
@@ -73,8 +72,8 @@ class RepliesController < ApplicationController
 
   private
 
-  def reply_params
-    params.require(:reply).permit(:content)
+  def reply_params(comment_id)
+    params.require("reply_#{comment_id}").permit(:content)
   end
 
   def set_comment

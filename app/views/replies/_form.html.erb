@@ -1,19 +1,16 @@
 <%= turbo_frame_tag(dom_id(reply)) do %>
   <%= form_with(model: [ reply.comment.blog_post, reply.comment, reply ], local: false, html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
-    
       <div class="field"">
         <%= form.label :content, class: "hidden" %>
         <div class="trix-wrapper">
-        <%= form.rich_text_area :content, placeholder: "Leave a comment", class: "rich-textarea trix-content" %>
+          <%= form.rich_text_area :content, id: "reply_#{reply.comment.id}[content]", name: "reply_#{reply.comment.id}[content]", placeholder: "Leave a comment", class: "rich-textarea trix-content" %>
+          <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
         </div>
-  
-        <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
+        <div class="flex gap-4">
+          <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
+          <%= link_to "Cancel", reply.comment.blog_post, class: "btn-cancel btn-md" %>
+        </div>
       </div>
-      <div class="flex gap-4">
-        <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
-        <%= link_to "Cancel", reply.comment.blog_post, class: "btn-cancel btn-md" %>
-      </div>
-    </div>
+    <% end %>
   <% end %>
-<% end %>

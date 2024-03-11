@@ -7,15 +7,11 @@ class CommentsController < ApplicationController
     @comment = @blog_post.comments.build(comment_params)
     @comment.user_id = current_user.id
 
+    return if @comment.save
+
     respond_to do |format|
-      if @comment.save
-        format.turbo_stream do
-          turbo_stream.prepend('comments', partial: 'comments/comment', locals: { comment: @comment })
-        end
-      else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
-        end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
       end
     end
   end
@@ -29,10 +25,12 @@ class CommentsController < ApplicationController
   def update
     @comment = @blog_post.comments.find(params[:id])
 
-    if @comment.update(comment_params)
-      redirect_to @blog_post
-    else
-      respond_to do |format|
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.turbo_stream do
+          turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
+        end
+      else
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
         end

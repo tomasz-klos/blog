@@ -1,15 +1,10 @@
 <div
-  class="w-fit"
+  class="flex w-fit"
   data-controller="custom-dropdown"
   data-action="click->custom-dropdown#toggle click@window->custom-dropdown#hide"
   >
   <div id="dropdown-button" class="relative flex justify-center">
-    <button 
-      class="inline-block select-none rounded p-2 transition-colors hover:bg-zinc-700 aria-expanded:bg-zinc-700"
-      data-custom-dropdown-target="button"
-    >
-      <%= icon("more-horizontal", title: "More options", class: "text-zinc-500") %>
-    </button>
+    <%= button %>
     <%= content_tag(
       :div,
       "",

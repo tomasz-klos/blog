@@ -1,6 +1,8 @@
 class Common::Dropdown::Component < ApplicationComponent
   option :position, default: -> { 'center' }, optional: true
 
+  renders_one :button, Common::Dropdown::Button::Component
+
   def menu_position
     case position
     when 'left'

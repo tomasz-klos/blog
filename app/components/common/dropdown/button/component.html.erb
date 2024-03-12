@@ -1,0 +1,10 @@
+<%= button_tag(
+  class: "#{class_name} flex select-none rounded p-2 transition-colors hover:bg-zinc-700 aria-expanded:bg-zinc-700",
+  data: { "custom-dropdown-target": "button" }
+) do %>
+  <% if content.present? %>
+    <%= content %>
+  <% else %>
+    <%= icon("more-horizontal", title: "More options", class: "text-zinc-500") %>
+  <% end %>
+<% end %>

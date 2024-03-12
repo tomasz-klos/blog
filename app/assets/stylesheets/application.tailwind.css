@@ -106,4 +106,8 @@
   .badge {
     @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-900 rounded-lg;
   }
+
+  .menu-item {
+    @apply flex items-center px-3 py-2 text-sm text-zinc-300 rounded min-w-[100px] hover:bg-zinc-700 transition cursor-pointer;
+  }
 }

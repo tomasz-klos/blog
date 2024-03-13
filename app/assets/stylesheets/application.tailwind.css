@@ -116,7 +116,7 @@ h6 {
   }
 
   .panel-header {
-    @apply absolute left-0 top-4 flex items-center justify-between w-full;
+    @apply absolute left-0 top-12 flex items-center justify-between w-full;
   }
 
   .comment {

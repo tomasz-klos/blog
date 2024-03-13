@@ -1,9 +1,9 @@
-<header class="sticky top-0 backdrop-blur-sm bg-zinc-900/20 py-6 px-6 lg:px-12 z-[1]">
+<header class="sticky top-0 backdrop-blur-sm bg-zinc-900/20 py-6 px-6 shadow-md shadow-zinc-800/20 lg:px-12 z-[1]">
   <nav class="flex">
     <ul class="flex gap-4 items-center w-full lg:gap-8">
       <li class="flex">
         <%= link_to blog_posts_root_path do %>
-          <%= image_tag 'logo', class: "w-40", alt: "Dev Blog logo" %>
+          <%= image_tag 'logo', class: "w-24", alt: "Dev Blog logo" %>
         <% end %>
       </li>
       <li class="flex ml-auto">
@@ -21,7 +21,7 @@
             <%= link_to "Profile", edit_user_registration_path, class: "menu-item" %>
           </li>
           <li class="flex">
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "menu-item" %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, form_class: "menu-item" %>
           </li>
         <% end %>
       <% else %>

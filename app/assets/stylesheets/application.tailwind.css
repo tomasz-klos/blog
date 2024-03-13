@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@font-face {
+  font-family: "beautifully-delicious";
+  src: url("BDSans-Regular.woff2") format("woff2"),
+    url("BDSans-Regular.woff") format("woff");
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-serif;
+}
+
 @layer components {
   .btn-primary {
     @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition cursor-pointer;
@@ -92,11 +112,11 @@
   }
 
   .avatar {
-    @apply w-8 h-8 rounded-full bg-violet-500;
+    @apply flex w-8 h-8 rounded-full bg-violet-500;
   }
 
   .panel-header {
-    @apply absolute left-0 top-4 flex items-center justify-between w-full;
+    @apply absolute left-0 top-12 flex items-center justify-between w-full;
   }
 
   .comment {
@@ -105,5 +125,9 @@
 
   .badge {
     @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-900 rounded-lg;
+  }
+
+  .menu-item {
+    @apply flex items-center px-3 py-2 text-sm text-zinc-300 rounded w-full min-w-[100px] hover:bg-zinc-700 transition cursor-pointer;
   }
 }

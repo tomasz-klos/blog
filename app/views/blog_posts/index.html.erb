@@ -1,19 +1,19 @@
 <section class="flex flex-col justify-center gap-32 min-h-svh">
   <hgroup class="flex flex-col gap-8">
     <h1 class="text-5xl font-medium text-center">
-      Welcome to <span class="text-violet-500">the Blog</span> !
+      Welcome to <span class="text-violet-500">Dev Blog</span> !
     </h1>
     <p class="text-zinc-500 text-center">
-      Look at all these blog posts! You can read them all, or you can write your own. It's up to you.
+      Look at all these posts! You can read them all, or you can write your own. It's up to you.
     </p>
   </hgroup>
   <div class="flex flex-col gap-4">
     <% if user_signed_in? %>
       <div class="flex justify-center">
-        <%= link_to "New Blog Post", new_blog_post_path, class: "btn-primary" %>
+        <%= link_to "Write Post", new_blog_post_path, class: "btn-primary" %>
       </div>
     <% else %>
-      <p class="text-center">You must be signed in to create a new blog post.</p>
+      <p class="text-center">You must be signed in to create a new post.</p>
       <div class="flex justify-center gap-4">
         <%= link_to "Login", new_user_session_path, class: "btn-primary" %>
         <%= link_to "Sign up", new_user_registration_path, class: "btn-primary" %>
@@ -22,18 +22,18 @@
   </div>
   <div class="flex justify-center">
     <%= link_to "#blog-post-list", class: "p-3 text-sm text-zinc-100 rounded-lg hover:text-violet-500 transition" do %>
-      Skip to Blog Posts
+      Skip to Posts
     <% end %>
   </div>
 </section>
 <section class="flex flex-col justify-center gap-16 min-h-screen">
-  <h2 id="blog-post-list" class="text-3xl font-medium text-center">All Blog Posts</h2>
+  <h2 id="blog-post-list" class="text-3xl font-medium text-center">All Posts</h2>
   <div class="flex flex-col items-center gap-8 w-full">
     <% if @blog_posts.any? %>
       <% @blog_posts.each do |blog_post| %>
         <%= render(Post::Component.new(post: blog_post)) %>
       <% end %>
     <% else %>
-      <p class="text-center">No blog posts yet. Be the first to write one!</p>
+      <p class="text-center">No blog yet. Be the first to write one!</p>
     <% end %>
   </div>

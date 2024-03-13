@@ -7,6 +7,7 @@ class Comment < ApplicationRecord
   belongs_to :user
 
   has_many :replies, class_name: '::Reply', foreign_key: 'comment_id', dependent: :destroy
+  has_many :likes, as: :likable
 
   has_rich_text :content
   validates :content, presence: true

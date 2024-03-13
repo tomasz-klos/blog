@@ -21,6 +21,17 @@
       <% end %>
     </div>
   </div>
-  <p><%= comment.content %></p>
+  <%= comment.content %>
+  <div>
+    <%= button_to "Like", like_blog_post_comment_path(comment.blog_post, comment), method: :post %>
+    <%= button_to "Unlike", unlike_blog_post_comment_path(comment.blog_post, comment), method: :delete %>
+  </div>
+  <div>
+    <% if comment.likes.count.positive? %>
+      <p><%= comment.likes.count %> likes</p>
+    <% else %>
+      0 likes
+    <% end %>
+  </div>
   <%= render(Comment::Replies::Component.new(comment: comment, replies: comment.replies)) %>
 </article>

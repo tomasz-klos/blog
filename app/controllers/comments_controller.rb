@@ -49,6 +49,19 @@ class CommentsController < ApplicationController
     end
   end
 
+  def like
+    @blog_post = BlogPost.find(params[:blog_post_id])
+    @comment = @blog_post.comments.find(params[:id])
+    @comment.likes.create(user_id: current_user.id)
+  end
+
+  def unlike
+    @blog_post = BlogPost.find(params[:blog_post_id])
+    @comment = @blog_post.comments.find(params[:id])
+    like_to_remove = @comment.likes.find_by(user: current_user)
+    like_to_remove&.destroy
+  end
+
   private
 
   def comment_params

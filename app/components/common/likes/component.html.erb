@@ -1,0 +1,26 @@
+<% if current_user %>
+  <%= button_to path, method: :post, class: "btn-like" do %>
+    <span>
+      <% if liked_by_current_user? %>
+        <%= icon("thumbs-down", class: "mr-2", title: "Unlike", variant: :outline) %>
+      <% else %>
+        <%= icon("thumbs-up", class: "mr-2", title: "Like", variant: :outline) %>
+      <% end %>
+    </span>
+    <span>
+      <% if likes.count.positive? %>
+        <p><%= likes.count %> likes</p>
+      <% else %>
+        0 likes
+      <% end %>
+    </span>
+  <% end %>
+<% else %>
+  <span>
+    <% if likes.count.positive? %>
+      <p><%= likes.count %> likes</p>
+    <% else %>
+      0 likes
+    <% end %>
+  </span>
+<% end %>

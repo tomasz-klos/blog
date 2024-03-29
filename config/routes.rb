@@ -7,7 +7,11 @@ Rails.application.routes.draw do
       member do
         post 'toggle_like'
       end
-      resources :replies, only: %i[new create edit update destroy]
+      resources :replies, only: %i[new create edit update destroy] do
+        member do
+          post 'toggle_like'
+        end
+      end
     end
   end
 

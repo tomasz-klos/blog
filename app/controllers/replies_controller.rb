@@ -18,7 +18,7 @@ class RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         format.turbo_stream do
-         turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
+          turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
                                                          locals: { reply: @reply })
           turbo_stream.replace("replies_#{@comment_id}_count", partial: 'replies/replies_count',
                                                                locals: { comment: @comment, replies: @comment.replies })
@@ -36,7 +36,7 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
 
     render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                      locals: { comment: @comment,reply: @reply })
+                                                      locals: { comment: @comment, reply: @reply })
   end
 
   def update
@@ -53,7 +53,7 @@ class RepliesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                            locals: {comment: @comment, reply: @reply })
+                                                            locals: { comment: @comment, reply: @reply })
         end
       end
     end
@@ -68,6 +68,13 @@ class RepliesController < ApplicationController
         turbo_stream.remove(@reply)
       end
     end
+  end
+
+  def toggle_like
+    @reply = @comment.replies.find(params[:id])
+    @reply.toggle_like(current_user)
+
+    render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/reply', locals: { reply: @reply })
   end
 
   private

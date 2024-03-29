@@ -21,6 +21,9 @@
       <% end %>
     </div>
   </div>
-  <p><%= comment.content %></p>
+  <%= comment.content %>
+  <div class="flex items-center gap-2">
+    <%= render(Common::Likes::Component.new(current_user: Current.user, target: comment, likes: comment.likes, path: toggle_like_blog_post_comment_path(comment.blog_post, comment))) %>
+  </div>
   <%= render(Comment::Replies::Component.new(comment: comment, replies: comment.replies)) %>
 </article>

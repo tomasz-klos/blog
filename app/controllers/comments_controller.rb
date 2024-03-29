@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create edit update destroy]
-  before_action :set_blog_post, only: %i[create edit update destroy]
+  before_action :authenticate_user!, only: %i[create edit update destroy toggle_like]
+  before_action :set_blog_post, only: %i[create edit update destroy toggle_like]
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def create
@@ -47,6 +47,13 @@ class CommentsController < ApplicationController
         turbo_stream.remove(@comment)
       end
     end
+  end
+
+  def toggle_like
+    @comment = @blog_post.comments.find(params[:id])
+    @comment.toggle_like(current_user)
+
+    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
   end
 
   private

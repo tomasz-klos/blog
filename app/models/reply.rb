@@ -1,4 +1,6 @@
 class Reply < ApplicationRecord
+  include Likable
+
   after_create_commit { broadcast_append_to "replies_#{comment_id}", target: "replies_#{comment_id}" }
   after_create_commit do
     broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment.id}_count",
@@ -15,6 +17,8 @@ class Reply < ApplicationRecord
 
   belongs_to :user
   belongs_to :comment, class_name: 'Comment', foreign_key: 'comment_id'
+
+  has_many :likes, as: :likable, dependent: :destroy
 
   has_rich_text :content
   validates :content, presence: true

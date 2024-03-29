@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_28_121418) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_29_193512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,8 +68,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_121418) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.text "content", default: "", null: false
+    t.integer "likes_count"
     t.index ["blog_post_id"], name: "index_comments_on_blog_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "likable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "likable_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -78,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_121418) do
     t.bigint "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count"
     t.index ["comment_id"], name: "index_replies_on_comment_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
   end
@@ -99,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_121418) do
   add_foreign_key "blog_posts", "users"
   add_foreign_key "comments", "blog_posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "users"
   add_foreign_key "replies", "comments"
   add_foreign_key "replies", "users"
 end

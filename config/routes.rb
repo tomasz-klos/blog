@@ -4,7 +4,14 @@ Rails.application.routes.draw do
 
   resources :blog_posts do
     resources :comments, only: %i[create edit update destroy] do
-      resources :replies, only: %i[new create edit update destroy]
+      member do
+        post 'toggle_like'
+      end
+      resources :replies, only: %i[new create edit update destroy] do
+        member do
+          post 'toggle_like'
+        end
+      end
     end
   end
 

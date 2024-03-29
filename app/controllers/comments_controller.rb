@@ -51,13 +51,7 @@ class CommentsController < ApplicationController
 
   def toggle_like
     @comment = @blog_post.comments.find(params[:id])
-    like = @comment.likes.find_by(user: current_user)
-
-    if like
-      like.destroy
-    else
-      @comment.likes.create(user: current_user)
-    end
+    @comment.toggle_like(current_user)
 
     render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
   end

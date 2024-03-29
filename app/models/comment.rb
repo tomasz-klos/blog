@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+  include Likable
   after_create_commit { broadcast_append_to 'comments' }
   after_update_commit { broadcast_replace_to 'comments' }
   after_destroy_commit { broadcast_remove_to 'comments' }
@@ -13,6 +14,6 @@ class Comment < ApplicationRecord
   validates :content, presence: true
 
   def liked_by?(user)
-    likes.exists?(user: user)
+    likes.exists?(user:)
   end
 end

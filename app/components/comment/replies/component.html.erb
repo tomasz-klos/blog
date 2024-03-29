@@ -38,7 +38,11 @@
       <% end %>
     <% end %>
     <div class="flex flex-col gap-4 pt-12">
-      <%= render partial: "replies/form", locals: { comment: comment, reply: comment.replies.build } %>
+      <% if Current.user %>
+        <%= render partial: "replies/form", locals: { comment: comment, reply: comment.replies.build } %>
+      <% else %>
+        <p class="text-zinc-500 text-center">You need to <%= link_to "sign in", new_user_session_path, class: "text-violet-500", target: "_top" %> to add a reply</p>
+      <% end %>
     </div>
   </div>
 </div>

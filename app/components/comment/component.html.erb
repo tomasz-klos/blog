@@ -22,15 +22,32 @@
     </div>
   </div>
   <%= comment.content %>
-  <div>
-    <%= button_to "Like", like_blog_post_comment_path(comment.blog_post, comment), method: :post %>
-    <%= button_to "Unlike", unlike_blog_post_comment_path(comment.blog_post, comment), method: :delete %>
-  </div>
-  <div>
-    <% if comment.likes.count.positive? %>
-      <p><%= comment.likes.count %> likes</p>
+  <div class="flex items-center gap-2">
+    <% if Current.user %>
+      <%= button_to toggle_like_blog_post_comment_path(comment.blog_post, comment), method: :post, class: "btn-like" do %>
+        <span>
+          <% if comment.liked_by?(Current.user) %>
+            <%= icon("thumbs-down", class: "mr-2", title: "Unlike", variant: :outline) %>
+          <% else %>
+            <%= icon("thumbs-up", class: "mr-2", title: "Like", variant: :outline) %>
+          <% end %>
+        </span>
+        <span>
+          <% if comment.likes.count.positive? %>
+            <p><%= comment.likes.count %> likes</p>
+          <% else %>
+            0 likes
+          <% end %>
+        </span>
+      <% end %>
     <% else %>
-      0 likes
+      <span>
+        <% if comment.likes.count.positive? %>
+          <p><%= comment.likes.count %> likes</p>
+        <% else %>
+          0 likes
+        <% end %>
+      </span>
     <% end %>
   </div>
   <%= render(Comment::Replies::Component.new(comment: comment, replies: comment.replies)) %>

@@ -47,6 +47,10 @@ h6 {
     @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition cursor-pointer;
   }
 
+  .btn-like {
+    @apply flex items-center gap-4 border border-zinc-100 rounded-lg p-2 hover:border-violet-500 transition;
+  }
+
   .btn-md {
     @apply px-3 py-1.5 text-sm;
   }

@@ -11,4 +11,8 @@ class Comment < ApplicationRecord
 
   has_rich_text :content
   validates :content, presence: true
+
+  def liked_by?(user)
+    likes.exists?(user: user)
+  end
 end

@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   resources :blog_posts do
     resources :comments, only: %i[create edit update destroy] do
       member do
-        post 'like'
-        delete 'unlike'
+        post 'toggle_like'
       end
       resources :replies, only: %i[new create edit update destroy]
     end

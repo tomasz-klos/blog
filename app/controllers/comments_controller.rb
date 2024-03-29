@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create edit update destroy]
-  before_action :set_blog_post, only: %i[create edit update destroy]
+  before_action :authenticate_user!, only: %i[create edit update destroy toggle_like]
+  before_action :set_blog_post, only: %i[create edit update destroy toggle_like]
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def create
@@ -49,17 +49,17 @@ class CommentsController < ApplicationController
     end
   end
 
-  def like
-    @blog_post = BlogPost.find(params[:blog_post_id])
+  def toggle_like
     @comment = @blog_post.comments.find(params[:id])
-    @comment.likes.create(user_id: current_user.id)
-  end
+    like = @comment.likes.find_by(user: current_user)
 
-  def unlike
-    @blog_post = BlogPost.find(params[:blog_post_id])
-    @comment = @blog_post.comments.find(params[:id])
-    like_to_remove = @comment.likes.find_by(user: current_user)
-    like_to_remove&.destroy
+    if like
+      like.destroy
+    else
+      @comment.likes.create(user: current_user)
+    end
+
+    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
   end
 
   private

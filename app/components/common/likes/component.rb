@@ -7,6 +7,6 @@ class Common::Likes::Component < ApplicationComponent
   def liked_by_current_user?
     return false unless current_user
 
-    likes.exists?(user: current_user)
+    target.liked_by_user?(current_user)
   end
 end

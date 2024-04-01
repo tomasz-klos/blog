@@ -22,5 +22,5 @@
     </div>
   </div>
   <p><%= reply.content %></p>
-  <%= render(Common::Likes::Component.new(current_user: Current.user, target: reply,likes: reply.likes, path: toggle_like_blog_post_comment_reply_path(reply.comment.blog_post,reply.comment, reply))) %>
+  <%= render(Common::Likes::Component.new(current_user: current_user, target: reply,likes: reply.likes, path: toggle_like_blog_post_comment_reply_path(reply.comment.blog_post,reply.comment, reply))) %>
 </article>

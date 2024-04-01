@@ -11,7 +11,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
+        render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form',
+                                                            locals: { comment: @comment })
       end
     end
   end
@@ -28,7 +29,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.turbo_stream do
-          turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
+          turbo_stream.replace(@comment, partial: 'comments/comment',
+                                         locals: { comment: @comment, current_user: })
         end
       else
         format.turbo_stream do
@@ -53,7 +55,8 @@ class CommentsController < ApplicationController
     @comment = @blog_post.comments.find(params[:id])
     @comment.toggle_like(current_user)
 
-    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
+    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment',
+                                                        locals: { comment: @comment, current_user: })
   end
 
   private

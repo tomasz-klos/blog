@@ -4,7 +4,7 @@
     class="relative flex items-center gap-2"
     data-action="click->custom-toggle#toggle touch->custom-toggle#toggle"
     >
-    <%= turbo_stream_from "replies_#{comment.id}_count", class: "absolute" %>
+    <%= turbo_stream_from(dom_id(comment, :replies_count), class: "absolute") %>
     <span 
       class="text-sm font-medium"
       data-custom-toggle-target="show"
@@ -29,8 +29,8 @@
     class="hidden flex flex-col gap-4 pt-4"
     data-custom-toggle-target="toggleable"
   >
-    <%= turbo_stream_from "replies_#{comment.id}" %>
-    <%= turbo_frame_tag "replies_#{comment.id}", class: "flex flex-col gap-4" do %>
+    <%= turbo_stream_from(dom_id(comment, :replies)) %>
+    <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col gap-4") do %>
       <% if replies.any? %>
         <% replies.each do |reply| %>
           <%= render "replies/reply", reply: reply %>

@@ -1,4 +1,6 @@
 class RepliesController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :authenticate_user!, except: %i[show]
   before_action :set_comment, except: %i[show]
   before_action :authorize_user!, only: %i[edit update destroy]
@@ -18,10 +20,10 @@ class RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         format.turbo_stream do
-          turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
-                                                         locals: { reply: @reply })
-          turbo_stream.replace("replies_#{@comment_id}_count", partial: 'replies/replies_count',
-                                                               locals: { comment: @comment, replies: @comment.replies })
+          turbo_stream.prepend(dom_id(@comment, :replies), partial: 'replies/reply',
+                                                           locals: { reply: @reply })
+          turbo_stream.replace(dom_id(@comment, :replies_count), partial: 'replies/replies_count',
+                                                                 locals: { comment: @comment, replies: @comment.replies })
         end
       else
         format.turbo_stream do
@@ -35,7 +37,7 @@ class RepliesController < ApplicationController
   def edit
     @reply = @comment.replies.find(params[:id])
 
-    render turbo_stream: turbo_stream.replace("content_reply_#{@reply.id}",
+    render turbo_stream: turbo_stream.replace(dom_id(@reply, :content),
                                               partial: 'replies/form',
                                               locals: {
                                                 comment: @comment, reply: @reply

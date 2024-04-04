@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :authenticate_user!, only: %i[create edit update destroy toggle_like]
   before_action :set_blog_post, only: %i[create edit update destroy toggle_like]
   before_action :authorize_user!, only: %i[edit update destroy]
@@ -11,7 +13,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
+        render(turbo_stream: turbo_stream.replace(@comment,
+                                                  partial: 'comments/form',
+                                                  locals: { comment: @comment }))
       end
     end
   end
@@ -19,18 +23,18 @@ class CommentsController < ApplicationController
   def edit
     @comment = @blog_post.comments.find(params[:id])
 
-    render turbo_stream: turbo_stream.replace("content_comment_#{@comment.id}",
+    render(turbo_stream: turbo_stream.replace(dom_id(@comment, :content),
                                               partial: 'comments/form',
-                                              locals: { comment: @comment })
+                                              locals: { comment: @comment }))
   end
 
   def update
     @comment = @blog_post.comments.find(params[:id])
 
     if @comment.update(comment_params)
-      render partial: 'comments/comment', locals: { comment: @comment }
+      render(partial: 'comments/comment', locals: { comment: @comment })
     else
-      render partial: 'comments/form', locals: { comment: @comment }
+      render(partial: 'comments/form', locals: { comment: @comment })
     end
   end
 
@@ -49,7 +53,7 @@ class CommentsController < ApplicationController
     @comment = @blog_post.comments.find(params[:id])
     @comment.toggle_like(current_user)
 
-    render partial: 'comments/comment', locals: { comment: @comment }
+    render(partial: 'comments/comment', locals: { comment: @comment })
   end
 
   private
@@ -61,13 +65,13 @@ class CommentsController < ApplicationController
   def set_blog_post
     @blog_post = BlogPost.find(params[:blog_post_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path
+    redirect_to(root_path)
   end
 
   def authorize_user!
     @comment = @blog_post.comments.find(params[:id])
     return if @comment.user == current_user
 
-    redirect_to @blog_post, alert: 'You are not authorized to perform this action.'
+    redirect_to(@blog_post, alert: 'You are not authorized to perform this action.')
   end
 end

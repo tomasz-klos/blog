@@ -1,4 +1,4 @@
-<%= turbo_frame_tag(dom_id(@comment, :content),class: "contents", data: { turbo_frame: "content_comment_#{@comment.id}" }) do %>
+<%= turbo_frame_tag(dom_id(@comment, :content),class: "contents", data: { turbo_frame: dom_id(@comment, :content) }) do %>
   <%= form_with(model: [ @blog_post, @comment ], html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field">

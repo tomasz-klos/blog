@@ -13,4 +13,22 @@ class Comment < ApplicationRecord
 
   has_rich_text :content
   validates :content, presence: true
+
+  private
+
+  def broadcast_append_to_comments
+    broadcast_append_to 'comments', target: 'comments',
+                                    partial: 'comments/comment',
+                                    locals: { comment: self, user: }
+  end
+
+  def broadcast_replace_to_comments
+    broadcast_replace_to 'comments', target: "comment_#{id}",
+                                     partial: 'comments/comment',
+                                     locals: { comment: self, user: }
+  end
+
+  def broadcast_remove_to_comments
+    broadcast_remove_to 'comments', target: "comment_#{id}"
+  end
 end

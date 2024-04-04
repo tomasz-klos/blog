@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 
     render(turbo_stream: turbo_stream.replace(dom_id(@comment, :content),
                                               partial: 'comments/form',
-                                              locals: { comment: @comment }))
+                                              locals: { blog_post: @comment.blog_post, comment: @comment }))
   end
 
   def update
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       render(partial: 'comments/comment', locals: { comment: @comment })
     else
-      render(partial: 'comments/form', locals: { comment: @comment })
+      render(partial: 'comments/form', locals: { blog_post: @comment.blog_post, comment: @comment })
     end
   end
 

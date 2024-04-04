@@ -10,7 +10,11 @@
       </div>
       <div class="flex gap-4">
         <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
-        <%= link_to "Cancel", @blog_post, class: "btn-cancel btn-md" %>
+        <% if @comment.new_record? %>
+          <%= button_tag "Cancel", type: :reset, class: "btn-cancel btn-md" %>
+        <% else %>
+          <%= link_to "Cancel", @comment.blog_post, class: "btn-cancel btn-md" %>
+        <% end %>
       </div>
     </div>
   <% end %>

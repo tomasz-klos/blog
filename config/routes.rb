@@ -3,14 +3,16 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :blog_posts do
-    resources :comments, only: %i[create edit update destroy] do
+    resources :comments, only: %i[create]
+  end
+
+  resources :comments, only: %i[edit update destroy] do
+    member do
+      post 'toggle_like'
+    end
+    resources :replies do
       member do
         post 'toggle_like'
-      end
-      resources :replies, only: %i[new create edit update destroy] do
-        member do
-          post 'toggle_like'
-        end
       end
     end
   end

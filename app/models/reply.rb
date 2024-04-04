@@ -1,17 +1,21 @@
 class Reply < ApplicationRecord
+  include ActionView::RecordIdentifier
   include Likable
 
-  after_create_commit { broadcast_append_to "replies_#{comment_id}", target: "replies_#{comment_id}" }
+  after_create_commit { broadcast_append_to dom_id(comment, :replies), target: dom_id(comment, :replies) }
   after_create_commit do
-    broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment.id}_count",
-                                                        partial: 'replies/replies_count', locals: { comment:, replies: comment.replies }
+    broadcast_replace_to dom_id(comment, :replies_count), target: dom_id(comment, :replies_count),
+                                                          partial: 'replies/replies_count',
+                                                          locals: { comment:, replies: comment.replies }
   end
-  after_update_commit { broadcast_replace_to "replies_#{comment_id}" }
-  after_destroy_commit { broadcast_remove_to "replies_#{comment_id}" }
+  after_update_commit { broadcast_replace_to dom_id(comment, :replies) }
+  after_destroy_commit { broadcast_remove_to dom_id(comment, :replies) }
   after_destroy_commit do
     if comment.present?
-      broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment_id}_count",
-                                                          partial: 'replies/replies_count', locals: { comment:, replies: comment.replies }
+      broadcast_replace_to dom_id(comment, :replies_count),
+                           target: dom_id(comment, :replies_count),
+                           partial: 'replies/replies_count',
+                           locals: { comment:, replies: comment.replies }
     end
   end
 

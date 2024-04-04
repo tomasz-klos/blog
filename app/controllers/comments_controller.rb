@@ -19,7 +19,9 @@ class CommentsController < ApplicationController
   def edit
     @comment = @blog_post.comments.find(params[:id])
 
-    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
+    render turbo_stream: turbo_stream.replace("content_comment_#{@comment.id}",
+                                              partial: 'comments/form',
+                                              locals: { comment: @comment })
   end
 
   def update
@@ -28,11 +30,15 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.turbo_stream do
-          turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
+          turbo_stream.replace("form_comment_#{@comment.id}",
+                               partial: 'comments/comment',
+                               locals: { comment: @comment })
         end
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/form', locals: { comment: @comment })
+          render turbo_stream: turbo_stream.replace(@comment,
+                                                    partial: 'comments/form',
+                                                    locals: { comment: @comment })
         end
       end
     end

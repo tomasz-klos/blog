@@ -21,7 +21,7 @@
       <% end %>
     </div>
   </div>
-  <%= comment.content %>
+  <%= render(partial: 'comments/content', locals: { comment: comment }) %>
   <div class="flex items-center gap-2">
     <%= render(Common::Likes::Component.new(current_user: Current.user, target: comment, likes: comment.likes, path: toggle_like_blog_post_comment_path(comment.blog_post, comment))) %>
   </div>

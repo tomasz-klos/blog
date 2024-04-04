@@ -27,20 +27,10 @@ class CommentsController < ApplicationController
   def update
     @comment = @blog_post.comments.find(params[:id])
 
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.turbo_stream do
-          turbo_stream.replace("form_comment_#{@comment.id}",
-                               partial: 'comments/comment',
-                               locals: { comment: @comment })
-        end
-      else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@comment,
-                                                    partial: 'comments/form',
-                                                    locals: { comment: @comment })
-        end
-      end
+    if @comment.update(comment_params)
+      render partial: 'comments/comment', locals: { comment: @comment }
+    else
+      render partial: 'comments/form', locals: { comment: @comment }
     end
   end
 
@@ -59,7 +49,7 @@ class CommentsController < ApplicationController
     @comment = @blog_post.comments.find(params[:id])
     @comment.toggle_like(current_user)
 
-    render turbo_stream: turbo_stream.replace(@comment, partial: 'comments/comment', locals: { comment: @comment })
+    render partial: 'comments/comment', locals: { comment: @comment }
   end
 
   private

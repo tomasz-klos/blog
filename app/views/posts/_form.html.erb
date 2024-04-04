@@ -1,0 +1,17 @@
+<%= form_with(model: @post, html: { class: "form" }) do |form| %>
+  <div class="field">
+    <%= form.label :title, class: field_label_classes(form, :title) %>
+    <%= form.text_field :title, class: "input" %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :title)) %>
+  </div>
+  <div class="field">
+    <%= form.label :content, class: field_label_classes(form, :content) %>
+    <div class="trix-wrapper">
+      <%= form.rich_text_area :content, class: "rich-textarea trix-content min-h-[400px]" %>
+    </div>
+    <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
+  </div>
+  <div class="actions">
+    <%= form.button class: "btn-secondary mt-3" %>
+  </div>
+<% end %>

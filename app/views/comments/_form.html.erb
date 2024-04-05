@@ -1,5 +1,5 @@
 <%= turbo_frame_tag(dom_id(@comment, :content),class: "contents", data: { turbo_frame: dom_id(@comment, :content) }) do %>
-  <%= form_with(model: [ @blog_post, @comment ], html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
+  <%= form_with(model: [ @post, @comment ], html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field">
         <%= form.label :content, class: "hidden" %>
@@ -13,7 +13,7 @@
         <% if @comment.new_record? %>
           <%= button_tag "Cancel", type: :reset, class: "btn-cancel btn-md" %>
         <% else %>
-          <%= link_to "Cancel", @comment.blog_post, class: "btn-cancel btn-md" %>
+          <%= link_to "Cancel", @comment.post, class: "btn-cancel btn-md" %>
         <% end %>
       </div>
     </div>

@@ -29,7 +29,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Blog post was successfully updated.'
+      redirect_to @post, notice: 'Post was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to posts_root_path, notice: 'Blog post was successfully destroyed.'
+      redirect_to posts_root_path, notice: 'Post was successfully destroyed.'
     else
       redirect_to @post
     end

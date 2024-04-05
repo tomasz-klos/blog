@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def create
-    @blog_post = BlogPost.find(params[:blog_post_id])
-    @comment = @blog_post.comments.build(comment_params)
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
 
     return if @comment.save
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 
     render(turbo_stream: turbo_stream.replace(dom_id(@comment, :content),
                                               partial: 'comments/form',
-                                              locals: { blog_post: @comment.blog_post, comment: @comment }))
+                                              locals: { post: @comment.post, comment: @comment }))
   end
 
   def update
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       render(partial: 'comments/comment', locals: { comment: @comment })
     else
-      render(partial: 'comments/form', locals: { blog_post: @comment.blog_post, comment: @comment })
+      render(partial: 'comments/form', locals: { post: @comment.post, comment: @comment })
     end
   end
 
@@ -66,6 +66,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     return if @comment.user == current_user
 
-    redirect_to(@blog_post, alert: 'You are not authorized to perform this action.')
+    redirect_to(@post, alert: 'You are not authorized to perform this action.')
   end
 end

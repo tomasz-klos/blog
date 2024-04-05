@@ -6,7 +6,7 @@ class Comment < ApplicationRecord
   after_update_commit :broadcast_comment_update
   after_destroy_commit :broadcast_comment_deletion
 
-  belongs_to :blog_post, counter_cache: :comments_count
+  belongs_to :post, counter_cache: :comments_count
   belongs_to :user
 
   has_many :replies, class_name: '::Reply', foreign_key: 'comment_id', dependent: :destroy

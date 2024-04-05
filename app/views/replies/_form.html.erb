@@ -12,7 +12,7 @@
           <% if reply.new_record? %>
             <%= button_tag "Cancel", type: :reset, class: "btn-cancel btn-md" %>
           <% else %>
-            <%= link_to "Cancel", reply.comment.blog_post, class: "btn-cancel btn-md" %>
+            <%= link_to "Cancel", reply.comment.post, class: "btn-cancel btn-md" %>
           <% end %>
         </div>
       </div>

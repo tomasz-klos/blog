@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :blog_posts do
+  resources :posts do
     resources :comments, only: %i[create]
   end
 
@@ -17,5 +17,5 @@ Rails.application.routes.draw do
   end
 
   # Defines the root path route ("/")
-  root 'blog_posts#index', as: 'blog_posts_root'
+  root 'posts#index', as: 'posts_root'
 end

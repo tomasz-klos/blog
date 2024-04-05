@@ -86,14 +86,14 @@ class RepliesController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:comment_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to(blog_posts_root_path)
+    redirect_to(posts_root_path)
   end
 
   def authorize_user!
     @reply = @comment.replies.find(params[:id])
 
     if @reply.user != current_user
-      redirect_to(blog_posts_root_path, alert: 'You are not authorized to perform this action.')
+      redirect_to(posts_root_path, alert: 'You are not authorized to perform this action.')
       return false
     end
     true

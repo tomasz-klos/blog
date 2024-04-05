@@ -2,12 +2,12 @@
   <nav class="flex">
     <ul class="flex gap-4 items-center w-full lg:gap-8">
       <li class="flex">
-        <%= link_to blog_posts_root_path do %>
+        <%= link_to posts_root_path do %>
           <%= image_tag 'logo', class: "w-24", alt: "Dev Blog logo" %>
         <% end %>
       </li>
       <li class="flex ml-auto">
-        <%= link_to "Write post", new_blog_post_path, class: "p-3 hover:text-violet-500 transition" %>
+        <%= link_to "Write post", new_post_path, class: "p-3 hover:text-violet-500 transition" %>
       </li>
       <% if user_signed_in? %>
         <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>

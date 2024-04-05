@@ -1,28 +1,28 @@
 <section class="relative flex flex-col pt-32 gap-40">
   <div class="panel-header">
-    <%= link_to "go back to posts", blog_posts_path, class: "btn-primary" %>
-    <% if @blog_post.user == current_user %>
+    <%= link_to "go back to posts", posts_path, class: "btn-primary" %>
+    <% if @post.user == current_user %>
       <div class="absolute right-0 flex justify-center gap-4">
-        <%= link_to "edit", edit_blog_post_path(@blog_post), class: "btn-primary" %>
+        <%= link_to "edit", edit_post_path(@post), class: "btn-primary" %>
       </div>
     <% end %>
   </div>
   <div class="flex flex-col gap-32">
     <div class="flex flex-col items-center gap-4">
-      <h1 class="text-5xl font-medium text-center"><%= @blog_post.title %></h1>
+      <h1 class="text-5xl font-medium text-center"><%= @post.title %></h1>
       <div class="flex gap-4 items-center">
-        <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
+        <p class="text-zinc-500"><%= @post.created_at.strftime("%B %d, %Y") %></p>
         <span class="dot-divider">
         </span>
-        <p class="text-zinc-500"><%= @blog_post.created_at.strftime("%I:%M %p") %></p>
+        <p class="text-zinc-500"><%= @post.created_at.strftime("%I:%M %p") %></p>
       </div>
       <div class="flex gap-4 items-center">
         <span class="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center">
         </span>
-        <p class="text-zinc-500"><%= @blog_post.user.email %></p>
+        <p class="text-zinc-500"><%= @post.user.email %></p>
       </div>
     </div>
-    <%= @blog_post.content %>
+    <%= @post.content %>
   </div>
   <span class="divider"></span>
   <div class="flex flex-col gap-6 w-full md:max-w-[75%] md:mx-auto">
@@ -44,7 +44,7 @@
     <div class="flex flex-col gap-4">
       <h2 class="text-base font-medium">Add a comment</h2>
       <% if user_signed_in? %>
-        <%= render('comments/form', locals: { blog_post: @blog_post, comment: @comment }) %>
+        <%= render('comments/form', locals: { post: @post, comment: @comment }) %>
       <% else %>
         <p class="text-zinc-500 text-center">You need to <%= link_to "sign in", new_user_session_path, class: "text-violet-500" %> to add a comment</p>
       <% end %>

@@ -8,6 +8,6 @@ class Comment::Component < ApplicationComponent
   end
 
   def author_of_post?
-    !author? && (comment.blog_post.user == comment.user)
+    !author? && (comment.post.user == comment.user)
   end
 end

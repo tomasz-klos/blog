@@ -9,6 +9,6 @@ class Comment::Reply::Component < ApplicationComponent
   end
 
   def author_of_post?
-    !author? && (reply.comment.blog_post.user == reply.user)
+    !author? && (reply.comment.post.user == reply.user)
   end
 end

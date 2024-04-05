@@ -1,4 +1,6 @@
 class RepliesController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :authenticate_user!, except: %i[show]
   before_action :set_comment, except: %i[show]
   before_action :authorize_user!, only: %i[edit update destroy]
@@ -6,8 +8,9 @@ class RepliesController < ApplicationController
   def new
     @reply = @comment.replies.build
 
-    render turbo_stream: turbo_stream.append(@comment, partial: 'replies/form',
-                                                       locals: { comment: @comment, reply: @reply })
+    render(turbo_stream: turbo_stream.append(@comment,
+                                             partial: 'replies/form',
+                                             locals: { comment: @comment, reply: @reply }))
   end
 
   def create
@@ -18,15 +21,19 @@ class RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         format.turbo_stream do
-          turbo_stream.prepend("replies_#{@comment_id}", partial: 'replies/reply',
-                                                         locals: { reply: @reply })
-          turbo_stream.replace("replies_#{@comment_id}_count", partial: 'replies/replies_count',
-                                                               locals: { comment: @comment, replies: @comment.replies })
+          turbo_stream.prepend(dom_id(@comment, :replies),
+                               partial: 'replies/reply',
+                               locals: { reply: @reply })
+          turbo_stream.replace(dom_id(@comment, :replies_count),
+                               partial: 'replies/replies_count',
+                               locals: { comment: @comment,
+                                         replies: @comment.replies })
         end
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                            locals: { comment: @comment, reply: @reply })
+          render(turbo_stream: turbo_stream.replace(@reply,
+                                                    partial: 'replies/form',
+                                                    locals: { comment: @comment, reply: @reply }))
         end
       end
     end
@@ -35,27 +42,20 @@ class RepliesController < ApplicationController
   def edit
     @reply = @comment.replies.find(params[:id])
 
-    render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                      locals: { comment: @comment, reply: @reply })
+    render(turbo_stream: turbo_stream.replace(dom_id(@reply, :content),
+                                              partial: 'replies/form',
+                                              locals: {
+                                                comment: @comment, reply: @reply
+                                              }))
   end
 
   def update
     @reply = @comment.replies.find(params[:id])
 
     if @reply.update(reply_params(@comment.id))
-      respond_to do |format|
-        format.turbo_stream do
-          turbo_stream.replace(@reply, partial: 'replies/reply',
-                                       locals: { reply: @reply })
-        end
-      end
+      render(partial: 'replies/reply', locals: { reply: @reply })
     else
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/form',
-                                                            locals: { comment: @comment, reply: @reply })
-        end
-      end
+      render(partial: 'replies/form', locals: { comment: @comment, reply: @reply })
     end
   end
 
@@ -74,7 +74,7 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
     @reply.toggle_like(current_user)
 
-    render turbo_stream: turbo_stream.replace(@reply, partial: 'replies/reply', locals: { reply: @reply })
+    render(partial: 'replies/reply', locals: { reply: @reply })
   end
 
   private
@@ -86,14 +86,14 @@ class RepliesController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:comment_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to blog_posts_root_path
+    redirect_to(posts_root_path)
   end
 
   def authorize_user!
     @reply = @comment.replies.find(params[:id])
 
     if @reply.user != current_user
-      redirect_to blog_posts_root_path, alert: 'You are not authorized to perform this action.'
+      redirect_to(posts_root_path, alert: 'You are not authorized to perform this action.')
       return false
     end
     true

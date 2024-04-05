@@ -1,9 +1,10 @@
 class Reply < ApplicationRecord
+  include ActionView::RecordIdentifier
   include Likable
 
-  after_create_commit { broadcast_append_to_replies }
-  after_update_commit { broadcast_replace_to_replies }
-  after_destroy_commit { broadcast_remove_to_replies }
+  after_create_commit :broadcast_reply_creation
+  after_update_commit :broadcast_reply_update
+  after_destroy_commit :broadcast_reply_deletion
 
   belongs_to :user
   belongs_to :comment, class_name: 'Comment', foreign_key: 'comment_id'
@@ -15,29 +16,28 @@ class Reply < ApplicationRecord
 
   private
 
-  def broadcast_append_to_replies
-    broadcast_append_to "replies_#{comment_id}", target: "replies_#{comment_id}",
-                                                 partial: 'replies/reply',
-                                                 locals: { reply: self, current_user: Current.user }
-
-    broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment_id}_count",
-                                                        partial: 'replies/replies_count',
-                                                        locals: { comment:, replies: comment.replies }
+  def broadcast_reply_creation
+    broadcast_append_to dom_id(comment, :replies), target: dom_id(comment, :replies)
+    broadcast_replace_to dom_id(comment, :replies_count), target: dom_id(comment, :replies_count),
+                                                          partial: 'replies/replies_count',
+                                                          locals: { comment:, replies: comment.replies }
   end
 
-  def broadcast_replace_to_replies
-    broadcast_replace_to "replies_#{comment_id}", target: "reply_#{id}",
-                                                  partial: 'replies/reply',
-                                                  locals: { reply: self, current_user: Current.user }
+  def broadcast_reply_update
+    return unless comment.replies.any?
+
+    broadcast_replace_to dom_id(comment, :replies)
   end
 
-  def broadcast_remove_to_replies
-    broadcast_remove_to "replies_#{comment_id}", target: "reply_#{id}"
-
+  def broadcast_reply_deletion
     return unless comment.present?
 
-    broadcast_replace_to "replies_#{comment_id}_count", target: "replies_#{comment_id}_count",
-                                                        partial: 'replies/replies_count',
-                                                        locals: { comment:, replies: comment.replies }
+    broadcast_remove_to dom_id(comment, :replies)
+    return unless comment.replies.any?
+
+    broadcast_replace_to dom_id(comment, :replies_count),
+                         target: dom_id(comment, :replies_count),
+                         partial: 'replies/replies_count',
+                         locals: { comment:, replies: comment.replies }
   end
 end

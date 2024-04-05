@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_29_193512) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_04_204940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,24 +52,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_29_193512) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "blog_posts", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.text "content"
-    t.integer "comments_count"
-    t.index ["user_id"], name: "index_blog_posts_on_user_id"
-  end
-
   create_table "comments", force: :cascade do |t|
-    t.bigint "blog_post_id", null: false
+    t.bigint "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.text "content", default: "", null: false
     t.integer "likes_count"
-    t.index ["blog_post_id"], name: "index_comments_on_blog_post_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -80,6 +70,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_29_193512) do
     t.datetime "updated_at", null: false
     t.integer "likable_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.integer "comments_count"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -107,10 +107,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_29_193512) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "blog_posts", "users"
-  add_foreign_key "comments", "blog_posts"
+  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "posts", "users"
   add_foreign_key "replies", "comments"
   add_foreign_key "replies", "users"
 end

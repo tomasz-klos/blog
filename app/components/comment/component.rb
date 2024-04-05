@@ -1,14 +1,9 @@
 class Comment::Component < ApplicationComponent
+  option :author, default: false
   option :comment, Types.Instance(Comment)
-  option :current_user, Types.Instance(User)
-
-  def author?
-    return false unless current_user
-
-    comment.user == current_user
-  end
+  option :user, Types.Instance(User)
 
   def author_of_post?
-    !author? && (comment.post.user == comment.user)
+    (comment.post.user == comment.user)
   end
 end

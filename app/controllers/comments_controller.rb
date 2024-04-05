@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include ActionView::RecordIdentifier
 
-  before_action :authenticate_user!, only: %i[create edit update destroy toggle_like]
+  before_action :authenticate_user!
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def create
@@ -9,14 +9,21 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
 
-    return if @comment.save
+    if @comment.save
 
-    respond_to do |format|
-      format.turbo_stream do
-        render(turbo_stream: turbo_stream.replace(@comment,
-                                                  partial: 'comments/form',
-                                                  locals: { comment: @comment }))
-      end
+      Turbo::StreamsChannel.broadcast_append_to('comments', target: 'comments',
+                                                            partial: 'comments/comment',
+                                                            locals: { author: false, comment: @comment, user: @comment.user })
+
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment.user),
+                                                 target: dom_id(@comment, :controls),
+                                                 partial: 'comments/controls',
+                                                 locals: { comment: @comment })
+
+    else
+      render(turbo_stream: turbo_stream.replace(@comment,
+                                                partial: 'comments/form',
+                                                locals: { post: @post, comment: @comment }))
     end
   end
 
@@ -32,7 +39,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
-      render(partial: 'comments/comment', locals: { comment: @comment, current_user: })
+      render(partial: 'comments/comment', locals: { author: true, comment: @comment, user: @comment.user })
+
+      Turbo::StreamsChannel.broadcast_replace_later_to(dom_id(@comment, :content),
+                                                       target: dom_id(@comment, :content),
+                                                       partial: 'comments/content',
+                                                       locals: { comment: @comment })
     else
       render(partial: 'comments/form', locals: { post: @comment.post, comment: @comment })
     end
@@ -42,18 +54,17 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
 
-    respond_to do |format|
-      format.turbo_stream do
-        turbo_stream.remove(@comment)
-      end
-    end
+    Turbo::StreamsChannel.broadcast_remove_to('comments', target: dom_id(@comment))
   end
 
   def toggle_like
     @comment = Comment.find(params[:id])
+
+    return if @comment.user == current_user
+
     @comment.toggle_like(current_user)
 
-    render(partial: 'comments/comment', locals: { comment: @comment, current_user: })
+    render(partial: 'comments/comment', locals: { author: true, comment: @comment, user: @comment.user })
   end
 
   private

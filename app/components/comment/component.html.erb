@@ -7,23 +7,23 @@
     <span class="dot-divider mt-1"></span>
     <p class="text-sm"><%= time_ago_in_words(comment.created_at) %> ago</p>
     <div class="flex gap-4 items-center ml-auto">
-      <% if author? %>
-        <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-          <% c.with_button %>
-          <%= link_to"edit", edit_comment_path(comment), class: "text-violet-500 menu-item" %>
-          <%= button_to "delete", comment, method: :delete, data: { turbo_confirm: "Are you sure you want to delete this comment?" }, form_class: "w-full", class: "text-red-500 menu-item" %>
+      <%= turbo_frame_tag(dom_id(comment, :controls)) do %>
+        <% if author %>
+          <%= render(partial: 'comments/controls', locals: { comment: comment }) %>
+        <% else %>
+          <% if author_of_post? %>
+            <span class="badge">
+              Author of post
+            </span>
+          <% end %>
         <% end %>
-      <% end %>
-      <% if author_of_post? %>
-        <span class="badge">
-          Author of post
-        </span>
       <% end %>
     </div>
   </div>
+  <%= turbo_stream_from(dom_id(comment, :content)) %>
   <%= render(partial: 'comments/content', locals: { comment: comment }) %>
   <div class="flex items-center gap-2">
-    <%= render(Common::Likes::Component.new(current_user: current_user, target: comment, likes: comment.likes, path: toggle_like_comment_path(comment))) %>
+    <%#= render(Common::Likes::Component.new(can_like: comment.user != user, user: user, target: comment, likes: comment.likes, path: toggle_like_comment_path(comment))) %>
   </div>
-  <%= render(Comment::Replies::Component.new(comment: comment, replies: comment.replies, current_user: current_user)) %>
+  <%#= render(Comment::Replies::Component.new(comment:, replies: comment.replies, user:)) %>
 </article>

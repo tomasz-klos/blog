@@ -9,7 +9,7 @@
     <div class="flex gap-4 items-center ml-auto">
       <%= turbo_frame_tag(dom_id(comment, :controls)) do %>
         <% if author %>
-          <%= render(partial: 'comments/controls', locals: { comment: comment }) %>
+          <%= render(partial: 'comments/controls', locals: { comment: }) %>
         <% else %>
           <% if author_of_post? %>
             <span class="badge">
@@ -21,9 +21,17 @@
     </div>
   </div>
   <%= turbo_stream_from(dom_id(comment, :content)) %>
-  <%= render(partial: 'comments/content', locals: { comment: comment }) %>
-  <div class="flex items-center gap-2">
-    <%#= render(Common::Likes::Component.new(can_like: comment.user != user, user: user, target: comment, likes: comment.likes, path: toggle_like_comment_path(comment))) %>
+  <%= render(partial: 'comments/content', locals: { comment: }) %>
+  <div class="relative flex items-center gap-2">
+    <%= turbo_stream_from(dom_id(comment, :like_count), class: "absolute") %>
+    <%= turbo_stream_from(dom_id(comment, :likes), class: "absolute") %>
+    <%= turbo_frame_tag(dom_id(comment, :likes)) do %>
+      <% if author || !user %>
+        <%= render(partial: 'partials/like', locals: { target: comment }) %>
+      <% else %>
+        <%= render(partial: 'partials/like_form', locals: { user:, target: comment, path: toggle_like_comment_path(comment) }) %>
+      <% end %>
+    <% end %>
   </div>
   <%#= render(Comment::Replies::Component.new(comment:, replies: comment.replies, user:)) %>
 </article>

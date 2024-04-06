@@ -13,12 +13,22 @@ class CommentsController < ApplicationController
 
       Turbo::StreamsChannel.broadcast_append_to('comments', target: 'comments',
                                                             partial: 'comments/comment',
-                                                            locals: { author: false, comment: @comment, user: @comment.user })
+                                                            locals: { author: false, comment: @comment, user: nil })
 
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment.user),
                                                  target: dom_id(@comment, :controls),
                                                  partial: 'comments/controls',
                                                  locals: { comment: @comment })
+
+      users_except_author = User.where.not(id: @comment.user_id)
+
+      users_except_author.each do |user|
+        Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
+                                                   target: dom_id(@comment, :likes),
+                                                   partial: 'partials/like_form',
+                                                   locals: { user:, target: @comment,
+                                                             path: toggle_like_comment_path(@comment) })
+      end
 
     else
       render(turbo_stream: turbo_stream.replace(@comment,
@@ -64,7 +74,23 @@ class CommentsController < ApplicationController
 
     @comment.toggle_like(current_user)
 
-    render(partial: 'comments/comment', locals: { author: true, comment: @comment, user: @comment.user })
+    render(partial: 'comments/comment', locals: { author: false, comment: @comment, user: @comment.user })
+
+    users_except_author = User.where.not(id: @comment.user_id)
+
+    Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment, :like_count),
+                                               target: dom_id(@comment, :like_count),
+                                               partial: 'partials/like',
+                                               locals: { target: @comment })
+
+    users_except_author.each do |user|
+      puts "Broadcasting to #{dom_id(user)}"
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
+                                                 target: dom_id(@comment, :likes),
+                                                 partial: 'partials/like_form',
+                                                 locals: { user:, target: @comment,
+                                                           path: toggle_like_comment_path(@comment) })
+    end
   end
 
   private

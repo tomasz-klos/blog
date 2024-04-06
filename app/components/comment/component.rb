@@ -4,6 +4,6 @@ class Comment::Component < ApplicationComponent
   option :user, Types.Instance(User)
 
   def author_of_post?
-    (comment.post.user == comment.user)
+    comment.post.user == comment.user
   end
 end

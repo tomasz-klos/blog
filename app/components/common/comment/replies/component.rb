@@ -1,5 +1,5 @@
-class Comment::Replies::Component < ApplicationComponent
-  include Comment::Replies
+class Common::Comment::Replies::Component < ApplicationComponent
+  include Common::Comment::Replies
 
   option :replies
   option :comment, Types.Instance(Comment)

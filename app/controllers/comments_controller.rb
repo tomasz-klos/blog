@@ -13,12 +13,12 @@ class CommentsController < ApplicationController
 
       Turbo::StreamsChannel.broadcast_append_to('comments', target: 'comments',
                                                             partial: 'comments/comment',
-                                                            locals: { author: false, comment: @comment, user: nil })
+                                                            locals: { author: false, comment: @comment, user: nil, replies: @comment.replies })
 
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment.user),
                                                  target: dom_id(@comment, :controls),
-                                                 partial: 'comments/controls',
-                                                 locals: { comment: @comment })
+                                                 partial: 'partials/comment_controls',
+                                                 locals: { record: @comment })
 
       users_except_author = User.where.not(id: @comment.user_id)
 
@@ -49,12 +49,13 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
-      render(partial: 'comments/comment', locals: { author: true, comment: @comment, user: @comment.user })
+      render(partial: 'comments/comment',
+             locals: { author: true, comment: @comment, user: @comment.user, replies: @comment.replies })
 
       Turbo::StreamsChannel.broadcast_replace_later_to(dom_id(@comment, :content),
                                                        target: dom_id(@comment, :content),
-                                                       partial: 'comments/content',
-                                                       locals: { comment: @comment })
+                                                       partial: 'partials/comment_content',
+                                                       locals: { record: @comment })
     else
       render(partial: 'comments/form', locals: { post: @comment.post, comment: @comment })
     end
@@ -74,7 +75,8 @@ class CommentsController < ApplicationController
 
     @comment.toggle_like(current_user)
 
-    render(partial: 'comments/comment', locals: { author: false, comment: @comment, user: @comment.user })
+    render(partial: 'comments/comment',
+           locals: { author: false, comment: @comment, user: current_user, replies: @comment.replies })
 
     users_except_author = User.where.not(id: @comment.user_id)
 

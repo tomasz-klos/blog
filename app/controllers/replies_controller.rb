@@ -18,8 +18,8 @@ class RepliesController < ApplicationController
 
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(@reply.user),
                                                  target: dom_id(@reply, :controls),
-                                                 partial: 'replies/controls',
-                                                 locals: { reply: @reply })
+                                                 partial: 'partials/comment_controls',
+                                                 locals: { record: @reply })
 
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment, :replies_count),
                                                  target: dom_id(@comment, :replies_count),
@@ -61,12 +61,12 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
 
     if @reply.update(reply_params(@comment.id))
-      render(partial: 'replies/reply', locals: { reply: @reply, user: @reply.user })
+      render(partial: 'replies/reply', locals: { author: true, reply: @reply, user: @reply.user })
 
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(@reply, :content),
                                                  target: dom_id(@reply, :content),
-                                                 partial: 'replies/content',
-                                                 locals: { reply: @reply, user: @reply.user })
+                                                 partial: 'partials/comment_content',
+                                                 locals: { record: @reply, user: @reply.user })
     else
       render(partial: 'replies/form', locals: { comment: @comment, reply: @reply })
     end
@@ -92,7 +92,7 @@ class RepliesController < ApplicationController
 
     @reply.toggle_like(current_user)
 
-    render(partial: 'replies/reply', locals: { author: false, reply: @reply, user: @reply.user })
+    render(partial: 'replies/reply', locals: { author: false, reply: @reply, user: current_user, replies: nil })
 
     users_except_author = User.where.not(id: @reply.user_id)
 
@@ -105,7 +105,7 @@ class RepliesController < ApplicationController
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
                                                  target: dom_id(@reply, :likes),
                                                  partial: 'partials/like_form',
-                                                 locals: { user: user, target: @reply,
+                                                 locals: { user:, target: @reply,
                                                            path: toggle_like_comment_reply_path(@comment, @reply) })
     end
   end

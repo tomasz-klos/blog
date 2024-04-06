@@ -84,7 +84,6 @@ class CommentsController < ApplicationController
                                                locals: { target: @comment })
 
     users_except_author.each do |user|
-      puts "Broadcasting to #{dom_id(user)}"
       Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
                                                  target: dom_id(@comment, :likes),
                                                  partial: 'partials/like_form',

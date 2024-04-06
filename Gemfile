@@ -62,6 +62,8 @@ gem 'view_component', require: 'view_component/engine'
 
 gem 'dry-initializer', '~> 3.1'
 
+gem 'dry-types'
+
 gem 'dotenv-rails', require: 'dotenv/load'
 
 gem 'inline_svg'

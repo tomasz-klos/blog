@@ -31,7 +31,7 @@
   <div class="flex flex-col items-center gap-8 w-full">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
-        <%= render(Post::Component.new(post: post)) %>
+        <%= render(Post::Component.new(post: post, current_user:)) %>
       <% end %>
     <% else %>
       <p class="text-center">No posts yet. Be the first to write one!</p>

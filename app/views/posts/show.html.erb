@@ -30,11 +30,12 @@
       Comments
     </h2>
     <div class="flex flex-col gap-4">
+      <%= turbo_stream_from(dom_id(current_user)) if current_user %>
       <%= turbo_stream_from("comments") %>
       <%= turbo_frame_tag("comments", class: "flex flex-col gap-4") do %>
         <% if @comments.any? %>
           <% @comments.each do |comment| %>
-            <%= render(partial: 'comments/comment', locals: { comment: comment }) %>
+            <%= render(partial: 'comments/comment', locals: { author: comment.user == current_user, comment:, user: current_user, replies: comment.replies }) %>
           <% end %>
         <% else %>
           <p class="text-zinc-500 text-center">No comments yet</p>

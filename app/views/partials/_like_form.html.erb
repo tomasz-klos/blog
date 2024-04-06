@@ -1,0 +1,4 @@
+<%= button_to(path, method: :post, class: "btn-like #{target.liked_by_user?(user) ? 'liked' : ''}") do %>
+  <%= icon("thumbs-up", class: "mr-2", title: "Like", variant: :outline) %>
+  <%= render(partial: 'partials/like', locals: { target: target }) %>
+<% end %>

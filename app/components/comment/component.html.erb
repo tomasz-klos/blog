@@ -24,7 +24,6 @@
   <%= render(partial: 'comments/content', locals: { comment: }) %>
   <div class="relative flex items-center gap-2">
     <%= turbo_stream_from(dom_id(comment, :like_count), class: "absolute") %>
-    <%= turbo_stream_from(dom_id(comment, :likes), class: "absolute") %>
     <%= turbo_frame_tag(dom_id(comment, :likes)) do %>
       <% if author || !user %>
         <%= render(partial: 'partials/like', locals: { target: comment }) %>
@@ -33,5 +32,5 @@
       <% end %>
     <% end %>
   </div>
-  <%#= render(Comment::Replies::Component.new(comment:, replies: comment.replies, user:)) %>
+  <%= render(Comment::Replies::Component.new(comment:, replies: comment.replies, user:)) %>
 </article>

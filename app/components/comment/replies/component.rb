@@ -1,5 +1,7 @@
 class Comment::Replies::Component < ApplicationComponent
+  include Comment::Replies
+
   option :replies
   option :comment, Types.Instance(Comment)
-  option :current_user, Types.Instance(User)
+  option :user, Types.Instance(User)
 end

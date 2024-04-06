@@ -1,14 +1,9 @@
 class Comment::Reply::Component < ApplicationComponent
+  option :author, default: false
   option :reply, Types.Instance(Reply)
-  option :current_user, Types.Instance(User)
-
-  def author?
-    return false unless current_user
-
-    reply.user == current_user
-  end
+  option :user, Types.Instance(User)
 
   def author_of_post?
-    !author? && (reply.comment.post.user == reply.user)
+    reply.comment.post.user == reply.user
   end
 end

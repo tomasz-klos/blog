@@ -5,31 +5,41 @@ class RepliesController < ApplicationController
   before_action :set_comment, except: %i[show]
   before_action :authorize_user!, only: %i[edit update destroy]
 
-  def new
-    @reply = @comment.replies.build
-
-    render(turbo_stream: turbo_stream.append(@comment,
-                                             partial: 'replies/form',
-                                             locals: { comment: @comment, reply: @reply }))
-  end
-
   def create
     @reply = @comment.replies.build(reply_params(@comment.id))
     @reply.user_id = current_user.id
     @reply.comment_id = @comment.id
 
-    respond_to do |format|
-      if @reply.save
-        format.turbo_stream do
-          turbo_stream.prepend(dom_id(@comment, :replies),
-                               partial: 'replies/reply',
-                               locals: { reply: @reply })
-          turbo_stream.replace(dom_id(@comment, :replies_count),
-                               partial: 'replies/replies_count',
-                               locals: { comment: @comment,
-                                         replies: @comment.replies })
-        end
-      else
+    if @reply.save
+      Turbo::StreamsChannel.broadcast_append_to(dom_id(@comment, :replies),
+                                                target: dom_id(@comment, :replies),
+                                                partial: 'replies/reply',
+                                                locals: { author: nil, reply: @reply, user: nil })
+
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(@reply.user),
+                                                 target: dom_id(@reply, :controls),
+                                                 partial: 'replies/controls',
+                                                 locals: { reply: @reply })
+
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment, :replies_count),
+                                                 target: dom_id(@comment, :replies_count),
+                                                 partial: 'replies/replies_count',
+                                                 locals: {
+                                                   comment: @comment,
+                                                   replies: @comment.replies
+                                                 })
+
+      users_except_author = User.where.not(id: @reply.user_id)
+
+      users_except_author.each do |user|
+        Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
+                                                   target: dom_id(@reply, :likes),
+                                                   partial: 'partials/like_form',
+                                                   locals: { user:, target: @reply,
+                                                             path: toggle_like_comment_reply_path(@comment, @reply) })
+      end
+    else
+      respond_to do |format|
         format.turbo_stream do
           render(turbo_stream: turbo_stream.replace(@reply,
                                                     partial: 'replies/form',
@@ -44,16 +54,19 @@ class RepliesController < ApplicationController
 
     render(turbo_stream: turbo_stream.replace(dom_id(@reply, :content),
                                               partial: 'replies/form',
-                                              locals: {
-                                                comment: @comment, reply: @reply
-                                              }))
+                                              locals: { comment: @comment, reply: @reply }))
   end
 
   def update
     @reply = @comment.replies.find(params[:id])
 
     if @reply.update(reply_params(@comment.id))
-      render(partial: 'replies/reply', locals: { reply: @reply })
+      render(partial: 'replies/reply', locals: { reply: @reply, user: @reply.user })
+
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(@reply, :content),
+                                                 target: dom_id(@reply, :content),
+                                                 partial: 'replies/content',
+                                                 locals: { reply: @reply, user: @reply.user })
     else
       render(partial: 'replies/form', locals: { comment: @comment, reply: @reply })
     end
@@ -63,18 +76,38 @@ class RepliesController < ApplicationController
     @reply = @comment.replies.find(params[:id])
     @reply.destroy
 
-    respond_to do |format|
-      format.turbo_stream do
-        turbo_stream.remove(@reply)
-      end
-    end
+    Turbo::StreamsChannel.broadcast_remove_to(dom_id(@comment, :replies),
+                                              target: dom_id(@reply))
+
+    Turbo::StreamsChannel.broadcast_replace_to(dom_id(@comment, :replies_count),
+                                               target: dom_id(@comment, :replies_count),
+                                               partial: 'replies/replies_count',
+                                               locals: { comment: @comment, replies: @comment.replies })
   end
 
   def toggle_like
     @reply = @comment.replies.find(params[:id])
+
+    return if @reply.user == current_user
+
     @reply.toggle_like(current_user)
 
-    render(partial: 'replies/reply', locals: { reply: @reply })
+    render(partial: 'replies/reply', locals: { author: false, reply: @reply, user: @reply.user })
+
+    users_except_author = User.where.not(id: @reply.user_id)
+
+    Turbo::StreamsChannel.broadcast_replace_to(dom_id(@reply, :like_count),
+                                               target: dom_id(@reply, :like_count),
+                                               partial: 'partials/like',
+                                               locals: { target: @reply })
+
+    users_except_author.each do |user|
+      Turbo::StreamsChannel.broadcast_replace_to(dom_id(user),
+                                                 target: dom_id(@reply, :likes),
+                                                 partial: 'partials/like_form',
+                                                 locals: { user: user, target: @reply,
+                                                           path: toggle_like_comment_reply_path(@comment, @reply) })
+    end
   end
 
   private

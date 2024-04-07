@@ -9,18 +9,22 @@ RSpec.describe 'Delete post', type: :system do
     visit(posts_path)
   end
 
+  shared_examples('deleting a post') do
+    it do
+      click_on('delete')
+
+      expect(page).to have_content('Post was successfully deleted.')
+      expect(page).not_to have_content(post.title)
+    end
+  end
+
   context('from root page') do
     before do
       dropdown_button = find("//button[@name='post_#{post.id}_controls']")
       dropdown_button.click
     end
 
-    it('deletes a post') do
-      click_on('delete')
-
-      expect(page).to have_content('Post was successfully deleted.')
-      expect(page).not_to have_content(post.title)
-    end
+    it_behaves_like('deleting a post')
   end
 
   context('from edit page') do
@@ -34,11 +38,6 @@ RSpec.describe 'Delete post', type: :system do
       expect(page).to have_content("Edit post #{post.title}")
     end
 
-    it('deletes a post') do
-      click_on('Delete')
-
-      expect(page).to have_content('Post was successfully deleted.')
-      expect(page).not_to have_content(post.title)
-    end
+    it_behaves_like('deleting a post')
   end
 end

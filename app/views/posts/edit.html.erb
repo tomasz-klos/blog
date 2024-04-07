@@ -1,7 +1,7 @@
 <section class="relative flex flex-col items-center gap-32 flex-1">
   <div class="panel-header">
     <%= link_to "go back", :back, class: "btn-primary" %>
-    <%= button_to "Delete", @post, method: :delete, data: { turbo_confirm: "
+    <%= button_to "delete", @post, method: :delete, data: { turbo_confirm: "
   Are you sure you want to delete this post?" }, class: "btn-danger" %>
   </div>
   <hgroup class="flex flex-col gap-4 pt-32">

@@ -1,6 +1,7 @@
 <%= button_tag(
   class: "#{class_name} flex select-none rounded p-2 transition-colors hover:bg-zinc-700 aria-expanded:bg-zinc-700",
-  data: { "custom-dropdown-target": "button" }
+  data: { "custom-dropdown-target": "button" },
+  name: name || "dropdown_button",
 ) do %>
   <% if content.present? %>
     <%= content %>

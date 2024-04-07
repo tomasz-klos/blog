@@ -10,10 +10,12 @@ RSpec.describe 'Delete post', type: :system do
   end
 
   context('from root page') do
-    it('deletes a post') do
+    before do
       dropdown_button = find("//button[@name='post_#{post.id}_controls']")
       dropdown_button.click
+    end
 
+    it('deletes a post') do
       click_on('delete')
 
       expect(page).to have_content('Post was successfully deleted.')

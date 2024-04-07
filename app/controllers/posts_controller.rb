@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to @post
+      redirect_to @post, notice: 'Post was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to posts_root_path, notice: 'Post was successfully destroyed.'
+      redirect_to posts_root_path, notice: 'Post was successfully deleted.'
     else
       redirect_to @post
     end

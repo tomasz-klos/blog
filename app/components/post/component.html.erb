@@ -18,7 +18,7 @@
   <div class="flex items-center justify-end gap-2">
     <% if author? %>
       <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-        <% c.with_button %>
+        <% c.with_button(name: "post_#{post.id}_controls") %>
         <%= link_to "edit", edit_post_path(post), class: "text-violet-500 menu-item" %>
         <%= button_to "delete", post, method: :delete, data: { turbo_confirm: "Are you sure you want to delete this post?" }, class: "text-red-500 menu-item" %>
       <% end %>

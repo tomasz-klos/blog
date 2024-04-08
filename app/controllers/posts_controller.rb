@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  before_action :set_post, only: %i[show edit update destroy]
-  before_action :authorize_user!, only: %i[edit update destroy]
+  before_action(:authenticate_user!, except: %i[index show])
+  before_action(:set_post, only: %i[show edit update destroy])
+  before_action(:authorize_user!, only: %i[edit update destroy])
 
   def index
     @posts = Post.all
@@ -19,9 +19,9 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to(@post, notice: 'Post was successfully created.')
     else
-      render :new, status: :unprocessable_entity
+      render(:new, status: :unprocessable_entity)
     end
   end
 
@@ -29,17 +29,17 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to(@post, notice: 'Post was successfully updated.')
     else
-      render :edit, status: :unprocessable_entity
+      render(:edit, status: :unprocessable_entity)
     end
   end
 
   def destroy
     if @post.destroy
-      redirect_to posts_root_path, notice: 'Post was successfully deleted.'
+      redirect_to(posts_root_path, notice: 'Post was successfully deleted.')
     else
-      redirect_to @post
+      redirect_to(@post)
     end
   end
 
@@ -52,12 +52,12 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path
+    redirect_to(root_path)
   end
 
   def authorize_user!
     return if @post.user == current_user
 
-    redirect_to posts_root_path, alert: 'You are not authorized to edit this post.'
+    redirect_to(posts_root_path, alert: 'You are not authorized to edit this post.')
   end
 end

@@ -2,12 +2,12 @@
   <nav class="flex">
     <ul class="flex gap-4 items-center w-full lg:gap-8">
       <li class="flex">
-        <%= link_to posts_root_path do %>
-          <%= image_tag 'logo', class: "w-24", alt: "Dev Blog logo" %>
+        <%= link_to(posts_root_path) do %>
+          <%= image_tag('logo', class: "w-24", alt: "Dev Blog logo") %>
         <% end %>
       </li>
       <li class="flex ml-auto">
-        <%= link_to "Write post", new_post_path, class: "p-3 hover:text-violet-500 transition" %>
+        <%= link_to("Write post", new_post_path, class: "p-3 hover:text-violet-500 transition") %>
       </li>
       <% if user_signed_in? %>
         <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
@@ -18,19 +18,19 @@
             <p><%= current_user.email %></p>
           </div>
           <li class="flex">
-            <%= link_to "Profile", edit_user_registration_path, class: "menu-item" %>
+            <%= link_to("Profile", edit_user_registration_path, class: "menu-item") %>
           </li>
           <li class="flex">
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, form_class: "menu-item" %>
+            <%= button_to("Logout", destroy_user_session_path, method: :delete, form_class: "w-full", class: "menu-item") %>
           </li>
         <% end %>
       <% else %>
         <div class="flex items-center gap-3">
           <li class="flex">
-            <%= link_to "Login", new_user_session_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+            <%= link_to("Login", new_user_session_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition") %>
           </li>
           <li class="flex">
-            <%= link_to "Sign up", new_user_registration_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition" %>
+            <%= link_to("Sign up", new_user_registration_path, class: "py-3 px-5 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition") %>
           </li>
         </div>
       <% end %>

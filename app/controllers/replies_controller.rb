@@ -1,9 +1,9 @@
 class RepliesController < ApplicationController
   include ActionView::RecordIdentifier
 
-  before_action :authenticate_user!, except: %i[show]
-  before_action :set_comment, except: %i[show]
-  before_action :authorize_user!, only: %i[edit update destroy]
+  before_action(:authenticate_user!, except: %i[show])
+  before_action(:set_comment, except: %i[show])
+  before_action(:authorize_user!, only: %i[edit update destroy])
 
   def create
     @reply = @comment.replies.build(reply_params(@comment.id))

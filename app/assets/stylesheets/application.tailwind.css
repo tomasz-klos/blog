@@ -13,18 +13,9 @@
   font-style: normal;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-serif;
-}
-
 @layer components {
   .btn-primary {
-    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition cursor-pointer;
+    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
       @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
@@ -32,7 +23,7 @@ h6 {
   }
 
   .btn-secondary {
-    @apply p-3 bg-violet-500 text-sm text-zinc-100 rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition cursor-pointer;
+    @apply p-3 bg-violet-500 text-sm text-zinc-100 rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
       @apply bg-zinc-500 text-zinc-400 cursor-not-allowed shadow-none;
@@ -40,15 +31,15 @@ h6 {
   }
 
   .btn-cancel {
-    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-zinc-600 transition cursor-pointer;
+    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-zinc-600 transition first-letter:capitalize cursor-pointer;
   }
 
   .btn-danger {
-    @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition cursor-pointer;
+    @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition first-letter:capitalize cursor-pointer;
   }
 
   .btn-like {
-    @apply flex items-center gap-4 border border-zinc-100 rounded-lg p-2 hover:border-violet-500 transition;
+    @apply flex items-center gap-4 border border-zinc-100 rounded-lg p-2 first-letter:capitalize hover:border-violet-500 transition;
 
     &.liked {
       @apply bg-zinc-500;
@@ -136,6 +127,6 @@ h6 {
   }
 
   .menu-item {
-    @apply flex items-center px-3 py-2 text-sm text-zinc-300 rounded w-full min-w-[100px] hover:bg-zinc-700 transition cursor-pointer;
+    @apply flex items-center px-3 py-2 text-sm text-zinc-300 capitalize rounded w-full min-w-[100px] hover:bg-zinc-700 transition cursor-pointer;
   }
 }

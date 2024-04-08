@@ -1,0 +1,11 @@
+<div class="hidden z-[999]" data-controller="custom-modal" data-custom-modal-target="container">
+  <div class="backdrop fixed flex inset-0 bg-black/50 backdrop-blur" data-custom-modal-target="background"></div>
+  <dialog
+    id="<%= id %>"
+    class="fixed inset-0 bg-zinc-900 rounded-lg w-full border border-zinc-800 flex items-center justify-center transition-all opacity-0 open:opacity-100 open:animate-fade-in <%= class_name %>"
+    data-custom-modal-target="dialog"
+    tabIndex="-1"
+  >
+    <%= content %>
+  </dialog>
+</div>

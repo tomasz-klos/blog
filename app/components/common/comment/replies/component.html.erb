@@ -22,7 +22,7 @@
       Hide replies
     </span>
     <span>
-      <%= render "replies/replies_count", comment: comment, replies: replies %>
+      <%= render(partial: "replies/replies_count", locals: { comment:, replies:}) %>
     </span>
   </button>
   <div 
@@ -38,7 +38,7 @@
       <% end %>
     <% end %>
     <div class="flex flex-col gap-4 pt-12">
-      <%= render partial: "replies/form", locals: { comment: comment, reply: comment.replies.build } %>
+      <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
     </div>
   </div>
 </div>

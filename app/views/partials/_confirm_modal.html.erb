@@ -1,0 +1,12 @@
+<%= render(Common::Modal::Component.new(id: "turbo-confirm", class_name: "w-10/12 xs:max-w-[460px] sm:max-w-[480px]")) do %>
+  <form method="dialog" class="flex flex-col gap-8 w-full p-8">
+    <hgroup class="flex flex-col gap-3">
+      <h3 class="text-base text-zinc-100">Are you sure?</h3>
+      <p class="text-sm text-zinc-500">This action cannot be undone.</p>
+    </hgroup>
+    <div class="flex justify-end gap-4">
+      <%= button_tag("cancel", class: "btn-cancel btn-md") %>
+      <%= button_tag("confirm", value: "confirm", class: "btn-secondary btn-md") %>
+    </div>
+  </form>
+<% end %>

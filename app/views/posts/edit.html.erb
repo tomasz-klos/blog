@@ -1,8 +1,8 @@
 <section class="relative flex flex-col items-center gap-32 flex-1">
   <div class="panel-header">
-    <%= link_to "go back", :back, class: "btn-primary" %>
-    <%= button_to "delete", @post, method: :delete, data: { turbo_confirm: "
-  Are you sure you want to delete this post?" }, class: "btn-danger" %>
+    <%= link_to("go back", :back, class: "btn-primary") %>
+    <%= button_to("delete", @post, method: :delete, form: { data: { turbo_confirm: "
+  Are you sure you want to delete '#{@post.title}'?", turbo_confirm_type: "delete" }}, class: "btn-danger") %>
   </div>
   <hgroup class="flex flex-col gap-4 pt-32">
     <h1 class="text-5xl font-medium text-center">
@@ -13,6 +13,6 @@
     </p>
   </hgroup>
   <div class="flex flex-col items-center gap-12 w-full">
-    <%= render 'form', locals: { post: @post } %>
+    <%= render(partial: 'form', locals: { post: @post }) %>
   </div>
 </section>

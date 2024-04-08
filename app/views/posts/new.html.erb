@@ -5,5 +5,5 @@
     </h1>
     <p class="text-zinc-500 text-center">Write a new post. It's up to you.</p>
   </hgroup>
-  <%= render 'form', locals: { post: @post } %>
+  <%= render(partial: 'form', locals: { post: @post }) %>
 </section>

@@ -10,18 +10,18 @@
   <div class="flex flex-col gap-4">
     <% if user_signed_in? %>
       <div class="flex justify-center">
-        <%= link_to "Write Post", new_post_path, class: "btn-primary" %>
+        <%= link_to("Write Post", new_post_path, class: "btn-primary") %>
       </div>
     <% else %>
       <p class="text-center">You must be signed in to create a new post.</p>
       <div class="flex justify-center gap-4">
-        <%= link_to "Login", new_user_session_path, class: "btn-primary" %>
-        <%= link_to "Sign up", new_user_registration_path, class: "btn-primary" %>
+        <%= link_to("Login", new_user_session_path, class: "btn-primary") %>
+        <%= link_to("Sign up", new_user_registration_path, class: "btn-primary") %>
       </div>
     <% end %>
   </div>
   <div class="flex justify-center">
-    <%= link_to "#post-list", class: "p-3 text-sm text-zinc-100 rounded-lg hover:text-violet-500 transition" do %>
+    <%= link_to("#post-list", class: "p-3 text-sm text-zinc-100 rounded-lg hover:text-violet-500 transition") do %>
       Skip to Posts
     <% end %>
   </div>
@@ -31,7 +31,7 @@
   <div class="flex flex-col items-center gap-8 w-full">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
-        <%= render(Post::Component.new(post: post, current_user:)) %>
+        <%= render(Post::Component.new(post:, current_user:)) %>
       <% end %>
     <% else %>
       <p class="text-center">No posts yet. Be the first to write one!</p>

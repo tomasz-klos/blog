@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag("tailwind", "data-turbo-track": "reload") %>
+    <%= stylesheet_link_tag("application", "data-turbo-track": "reload") %>
     <%= javascript_importmap_tags %>
   </head>
   <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
@@ -20,7 +20,7 @@
         <% end %>
       </aside>
     <% end %>
-    <%= render "partials/header" %>
+    <%= render(partial: "partials/header") %>
     <main class="flex flex-col flex-1 mx-auto w-full px-8 lg:px-0 lg:max-w-[85vw] 2xl:max-w-[65vw]">
       <%= yield %>
     </main>

@@ -2,17 +2,17 @@
   <%= form_with(model: [ reply.comment, reply ], local: false, html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field"">
-        <%= form.label :content, class: "hidden" %>
+        <%= form.label(:content, class: "hidden") %>
         <div class="trix-wrapper">
-          <%= form.rich_text_area :content, id: "reply_#{reply.comment.id}[content]", name: "reply_#{reply.comment.id}[content]", placeholder: "Leave a reply", class: "rich-textarea trix-content" %>
+          <%= form.rich_text_area(:content, id: "reply_#{reply.comment.id}[content]", name: "reply_#{reply.comment.id}[content]", placeholder: "Leave a reply", class: "rich-textarea trix-content") %>
           <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
         </div>
         <div class="flex gap-4">
-          <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
+          <%= form.button(class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true) %>
           <% if reply.new_record? %>
-            <%= button_tag "Cancel", type: :reset, class: "btn-cancel btn-md" %>
+            <%= button_tag("Cancel", type: :reset, class: "btn-cancel btn-md") %>
           <% else %>
-            <%= link_to "Cancel", reply.comment.post, class: "btn-cancel btn-md" %>
+            <%= link_to("Cancel", reply.comment.post, class: "btn-cancel btn-md") %>
           <% end %>
         </div>
       </div>

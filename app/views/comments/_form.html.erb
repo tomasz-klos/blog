@@ -2,18 +2,18 @@
   <%= form_with(model: [ @post, @comment ], html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field">
-        <%= form.label :content, class: "hidden" %>
+        <%= form.label(:content, class: "hidden") %>
         <div class="trix-wrapper">
-          <%= form.rich_text_area :content, placeholder: "Leave a comment", class: "rich-textarea trix-content" %>
+          <%= form.rich_text_area(:content, placeholder: "Leave a comment", class: "rich-textarea trix-content") %>
         </div>
         <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
       </div>
       <div class="flex gap-4">
-        <%= form.button class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true %>
+        <%= form.button(class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true) %>
         <% if @comment.new_record? %>
-          <%= button_tag "Cancel", type: :reset, class: "btn-cancel btn-md" %>
+          <%= button_tag("Cancel", type: :reset, class: "btn-cancel btn-md") %>
         <% else %>
-          <%= link_to "Cancel", @comment.post, class: "btn-cancel btn-md" %>
+          <%= link_to("Cancel", @comment.post, class: "btn-cancel btn-md") %>
         <% end %>
       </div>
     </div>

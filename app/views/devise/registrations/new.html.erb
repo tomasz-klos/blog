@@ -6,26 +6,26 @@
   </hgroup>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "form"}) do |f| %>
     <div class="field">
-      <%= f.label :email, class: "input-label" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :email %>
+      <%= f.label(:email, class: "input-label") %>
+      <%= f.email_field(:email, autofocus: true, autocomplete: "email", class: "input") %>
+      <%= render("devise/shared/error_messages", object: resource, field: :email) %>
     </div>
     <div class="field">
-      <%= f.label :password, class: "input-label" %>
+      <%= f.label(:password, class: "input-label") %>
       <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :password %>
+      <%= f.password_field(:password, autocomplete: "new-password", class: "input") %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password) %>
     </div>
     <div class="field">
-      <%= f.label :password_confirmation, class: "input-label" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :password_confirmation %>
+      <%= f.label(:password_confirmation, class: "input-label") %>
+      <%= f.password_field(:password_confirmation, autocomplete: "new-password", class: "input") %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password_confirmation) %>
     </div>
     <div class="actions">
-      <%= f.submit "Sign up", class: "btn-secondary mt-3" %>
+      <%= f.submit("Sign up", class: "btn-secondary mt-3") %>
     </div>
-    <%= render "devise/shared/links" %>
+    <%= render(partial: "devise/shared/links") %>
   <% end %>
 </section>

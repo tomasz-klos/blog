@@ -1,6 +1,6 @@
 <section class="relative flex flex-col items-center gap-32 flex-1">
   <div class="absolute left-0 top-4">
-    <%= link_to "go back", :back, class: "btn-primary" %>
+    <%= link_to("go back", :back, class: "btn-primary") %>
   </div>
   <hgroup class="flex flex-col gap-4 pt-32">
     <h1 class="text-5xl font-medium text-center">
@@ -9,35 +9,37 @@
   </hgroup>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
     <div class="field">
-      <%= f.label :email, class: "input-label" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :email %>
+      <%= f.label(:email, class: "input-label")%>
+      <%= f.email_field(:email, autofocus: true, autocomplete: "email", class: "input") %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :email) %>
     </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
     <div class="field">
-      <%= f.label :password, class: "input-label" %> (leave blank if you don't want to change it)
-      <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+      <%= f.label(:password, class: "input-label") %>
+      (leave blank if you don't want to change it)
+      <%= f.password_field(:password, autocomplete: "new-password", class: "input") %>
       <% if @minimum_password_length %>
         <em><%= @minimum_password_length %> characters minimum</em>
       <% end %>
-      <%= render "devise/shared/error_messages", object: resource, field: :password %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password) %>
     </div>
     <div class="field">
-      <%= f.label :password_confirmation, class: "input-label" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :password_confirmation %>
+      <%= f.label(:password_confirmation, class: "input-label") %>
+      <%= f.password_field(:password_confirmation, autocomplete: "new-password", class: "input") %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password_confirmation) %>
     </div>
     <div class="field">
-      <%= f.label :current_password, class: "input-label" %> (we need your current password to confirm your changes)
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "input" %>
-      <%= render "devise/shared/error_messages", object: resource, field: :current_password %>
+      <%= f.label(:current_password, class: "input-label") %>
+      (we need your current password to confirm your changes)
+      <%= f.password_field(:current_password, autocomplete: "current-password", class: "input") %>
+      <%= render(partial: "devise/shared/error_messages", object: resource, field: :current_password) %>
     </div>
     <div class="actions">
-      <%= f.submit "Update", class: "btn-secondary mt-3" %>
+      <%= f.submit("Update", class: "btn-secondary mt-3") %>
     </div>
   <% end %>
-  <%= link_to "Cancel my account", "javascript:void(0)", data: { confirm: "Are you sure?" }, method: :delete, class: "text-red-500" %>
-  <h3 class="text-center">Unhappy? <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "text-red-500" %>.</h3>
+  <%= link_to("Cancel my account", "javascript:void(0)", data: { confirm: "Are you sure?" }, method: :delete, class: "text-red-500") %>
+  <h3 class="text-center">Unhappy? <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: "text-red-500") %>.</h3>
 </section>

@@ -4,27 +4,27 @@
       Sign <span class="text-violet-500">Up</span>
     </h1>
   </hgroup>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "form"}) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "form"}) do |form| %>
     <div class="field">
-      <%= f.label(:email, class: "input-label") %>
-      <%= f.email_field(:email, autofocus: true, autocomplete: "email", class: "input") %>
-      <%= render("devise/shared/error_messages", object: resource, field: :email) %>
+      <%= form.label(:email, class: "input-label") %>
+      <%= form.email_field(:email, autofocus: true, autocomplete: "email", class: "input") %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :email)) %>
     </div>
     <div class="field">
-      <%= f.label(:password, class: "input-label") %>
+      <%= form.label(:password, class: "input-label") %>
       <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
-      <%= f.password_field(:password, autocomplete: "new-password", class: "input") %>
-      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password) %>
+      <%= form.password_field(:password, autocomplete: "new-password", class: "input") %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :password)) %>
     </div>
     <div class="field">
-      <%= f.label(:password_confirmation, class: "input-label") %>
-      <%= f.password_field(:password_confirmation, autocomplete: "new-password", class: "input") %>
-      <%= render(partial: "devise/shared/error_messages", object: resource, field: :password_confirmation) %>
+      <%= form.label(:password_confirmation, class: "input-label") %>
+      <%= form.password_field(:password_confirmation, autocomplete: "new-password", class: "input") %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :password)) %>
     </div>
     <div class="actions">
-      <%= f.submit("Sign up", class: "btn-secondary mt-3") %>
+      <%= form.submit("Sign up", class: "btn-secondary mt-3") %>
     </div>
     <%= render(partial: "devise/shared/links") %>
   <% end %>

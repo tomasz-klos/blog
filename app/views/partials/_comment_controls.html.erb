@@ -1,10 +1,10 @@
   <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
   <% c.with_button %>
   <% if record.instance_of?(Comment) %>
-    <%= link_to "edit", edit_comment_path(record), class: "text-violet-500 menu-item" %>
-    <%= button_to "delete", record, method: :delete, data: { turbo_confirm: "Are you sure you want to delete this comment?" }, form_class: "w-full", class: "text-red-500 menu-item" %>
+    <%= link_to("edit", edit_comment_path(record), class: "text-violet-500 menu-item") %>
+    <%= button_to("delete", record, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this comment?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "text-red-500 menu-item") %>
   <% elsif record.instance_of?(Reply) %>
-    <%= link_to "edit", edit_comment_reply_path(record.comment, record), class: "text-violet-500 menu-item" %>
-    <%= button_to "delete", comment_reply_path(record.comment, record), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this comment?" }, form_class: "w-full", class: "text-red-500 menu-item" %>
+    <%= link_to("edit", edit_comment_reply_path(record.comment, record), class: "text-violet-500 menu-item") %>
+    <%= button_to("delete", comment_reply_path(record.comment, record), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this comment?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "text-red-500 menu-item") %>
   <% end %>
 <% end %>

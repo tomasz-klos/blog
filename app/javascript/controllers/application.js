@@ -1,4 +1,5 @@
 import { Application } from "@hotwired/stimulus";
+import { setupConfirmMethod } from "../confirm_logic";
 
 const application = Application.start();
 
@@ -11,5 +12,7 @@ window.Stimulus = application;
 application.register("dropdown", Dropdown);
 application.register("modal", Modal);
 application.register("toggle", Toggle);
+
+setupConfirmMethod();
 
 export { application };

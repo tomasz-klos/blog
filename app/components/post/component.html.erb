@@ -19,8 +19,8 @@
     <% if author? %>
       <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
         <% c.with_button(name: "post_#{post.id}_controls") %>
-        <%= link_to("edit", edit_post_path(post), class: "text-violet-500 menu-item") %>
-        <%= button_to("delete", post, method: :delete,form: { data: { turbo_confirm: "Are you sure you want to delete '#{post.title}'?", turbo_confirm_type: "delete" }}, class: "text-red-500 menu-item") %>
+        <%= link_to("edit", edit_post_path(post), class: "menu-item") %>
+        <%= button_to("delete", post, method: :delete,form: { data: { turbo_confirm: "Are you sure you want to delete '#{post.title}'?", turbo_confirm_type: "delete" }}, class: "menu-item") %>
       <% end %>
     <% end %>
   </div>

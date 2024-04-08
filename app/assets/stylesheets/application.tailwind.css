@@ -15,7 +15,7 @@
 
 @layer components {
   .btn-primary {
-    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
+    @apply p-3 bg-zinc-800 border border-zinc-700 text-sm font-medium text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
       @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
@@ -23,15 +23,15 @@
   }
 
   .btn-secondary {
-    @apply p-3 bg-violet-500 text-sm text-zinc-100 rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition first-letter:capitalize cursor-pointer;
+    @apply p-3 bg-violet-500 text-sm text-zinc-100 font-medium rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
-      @apply bg-zinc-500 text-zinc-400 cursor-not-allowed shadow-none;
+      @apply opacity-60 cursor-not-allowed shadow-none;
     }
   }
 
   .btn-cancel {
-    @apply p-3 bg-zinc-500 text-sm text-zinc-100 rounded-lg hover:bg-zinc-600 transition first-letter:capitalize cursor-pointer;
+    @apply p-3 bg-zinc-800 border border-zinc-700 text-sm text-zinc-100 rounded-lg hover:bg-zinc-700 transition first-letter:capitalize cursor-pointer;
   }
 
   .btn-danger {
@@ -63,7 +63,7 @@
   }
 
   .field {
-    @apply flex flex-col gap-4 w-full;
+    @apply flex flex-col gap-2 w-full;
   }
 
   .checkbox-field {
@@ -71,7 +71,7 @@
   }
 
   .input {
-    @apply w-full p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+    @apply w-full p-3 border bg-zinc-800 border-zinc-700 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .field-error {
@@ -87,11 +87,11 @@
   }
 
   .textarea {
-    @apply w-full min-h-[400px] p-3 border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+    @apply w-full min-h-[400px] p-3 border bg-zinc-800 border-zinc-700 text-sm text-zinc-300 rounded-lg resize-y focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .trix-wrapper {
-    @apply w-full border bg-zinc-900 border-zinc-100 text-sm text-zinc-300 rounded-lg resize-y break-words focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+    @apply w-full border bg-zinc-800 border-zinc-700 text-sm text-zinc-300 rounded-lg resize-y break-words focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
   }
 
   .rich-textarea {
@@ -111,7 +111,7 @@
   }
 
   .avatar {
-    @apply flex w-8 h-8 rounded-full bg-violet-500;
+    @apply flex w-6 h-6 rounded-full bg-violet-500;
   }
 
   .panel-header {
@@ -127,6 +127,6 @@
   }
 
   .menu-item {
-    @apply flex items-center px-3 py-2 text-sm text-zinc-300 capitalize rounded w-full min-w-[100px] hover:bg-zinc-700 transition cursor-pointer;
+    @apply flex items-center gap-2 px-2 py-2 text-sm text-zinc-300 capitalize rounded-md w-full min-w-[124px] hover:bg-zinc-700 hover:text-zinc-100 transition cursor-pointer;
   }
 }

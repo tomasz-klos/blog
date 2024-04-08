@@ -22,7 +22,7 @@
       Hide replies
     </span>
     <span>
-      <%= render(partial: "replies/replies_count", comment:, replies:) %>
+      <%= render(partial: "replies/replies_count", locals: { comment:, replies:}) %>
     </span>
   </button>
   <div 

@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   include ActionView::RecordIdentifier
 
-  before_action :authenticate_user!
-  before_action :authorize_user!, only: %i[edit update destroy]
+  before_action(:authenticate_user!)
+  before_action(:authorize_user!, only: %i[edit update destroy])
 
   def create
     @post = Post.find(params[:post_id])

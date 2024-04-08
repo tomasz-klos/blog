@@ -1,11 +1,11 @@
-<div class="fixed inset-x-0 bottom-0 flex justify-center sm:justify-end items-end px-4 py-6 sm:p-6  z-30 pointer-events-none">
+<div class="fixed inset-x-0 bottom-0 flex justify-center sm:justify-end items-end px-4 py-6 sm:p-6 z-30 pointer-events-none">
   <%= content_tag(
     :div,
     "",
     data: { 
-      controller: "alert",
-      "alert-show-delay-value": "500",
-      "alert-dismiss-after-value": "5000",
+      controller: "custom-alert",
+      "custom-alert-show-delay-value": "2000",
+      "custom-alert-dismiss-after-value": "5000",
       transition: "enter-end leave-start",
       "transition-enter": "ease-in-out duration-500",
       "transition-enter-from": "translate-x-full opacity-0",
@@ -14,13 +14,14 @@
       "transition-leave-from": "translate-x-0 opacity-100",
       "transition-leave-to": "translate-x-full opacity-0"
     },
-    class: "max-w-sm w-full shadow-lg rounded-lg p-6 relative bg-zinc-900 border border-zinc-100 #{type == "notice" ? "text-green-500" : "text-red-500"} pointer-events-auto"
+    class: "max-w-sm w-full shadow-lg rounded-lg p-6 relative bg-zinc-800 border border-zinc-700 #{type == "notice" ? "text-green-500" : "text-red-500"} pointer-events-auto"
   ) do %>
     <div class="flex justify-between">
-      <p class="text-sm leading-5 font-medium">
+      <p class="flex items-center gap-4 text-sm leading-5 font-medium">
+        <%= icon("info", title: "Info", class: "text-zinc-100", variant: :outline) %>
         <%= message %>
       </p>
-      <button data-action="alert#close" class="inline-flex text-white focus:outline-none focus:text-gray-300 transition ease-in-out duration-150">
+      <button data-action="custom-alert#close" class="inline-flex text-white focus:outline-none focus:text-gray-300 transition ease-in-out duration-150">
         <%= icon("close", title: "Close", class: "text-zinc-100") %>
       </button>
     </div>

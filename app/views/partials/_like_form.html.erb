@@ -1,4 +1,3 @@
-<%= button_to(path, method: :post, class: "btn-like #{target.liked_by_user?(user) ? 'liked' : ''}") do %>
-  <%= icon("thumbs-up", class: "mr-2", title: "Like", variant: :outline) %>
+<%= button_to(path, method: :post, class: "group rounded-lg transition [&>*]:hover:bg-violet-500 cursor-pointer #{target.liked_by_user?(user) ? '[&>*]:bg-violet-500' : ''}") do %>
   <%= render(partial: 'partials/like', locals: { target: target }) %>
 <% end %>

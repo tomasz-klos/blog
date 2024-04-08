@@ -1,3 +1,4 @@
-<%= turbo_frame_tag(dom_id(target, :like_count)) do %>
-  <%= pluralize(target.likes.count, 'likes') %>
+<%= turbo_frame_tag(dom_id(target, :like_count), class: "flex items-center gap-2 px-2 py-1 rounded-lg text-sm font-medium bg-zinc-800 border border-zinc-700") do %>
+  <%= icon("thumbs-up", class_name: "w-5 h-5", title: "Like", variant: :outline) %>
+  <%= pluralize(target.likes.count, '') %>
 <% end %>

@@ -1,44 +1,13 @@
-<div data-controller="custom-toggle">
-  <button 
-    type="button"
-    class="relative flex items-center gap-2"
-    data-action="click->custom-toggle#toggle touch->custom-toggle#toggle"
-    >
-    <%= turbo_stream_from(dom_id(comment, :replies_count), class: "absolute") %>
-    <span 
-      class="text-sm font-medium"
-      data-custom-toggle-target="show"
-    >
-      <% if replies.any? %>
-        Show replies
-      <% else %>
-        Be the first to reply
-      <% end %>
-    </span>
-    <span 
-      class="hidden text-sm font-medium"
-      data-custom-toggle-target="hide"
-    >
-      Hide replies
-    </span>
-    <span>
-      <%= render(partial: "replies/replies_count", locals: { comment:, replies:}) %>
-    </span>
-  </button>
-  <div 
-    class="hidden flex flex-col gap-4 pt-4"
-    data-custom-toggle-target="toggleable"
-  >
-    <%= turbo_stream_from(dom_id(comment, :replies)) %>
-    <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col gap-4") do %>
-      <% if replies.any? %>
-        <% replies.each do |reply| %>
-          <%= render(partial: "replies/reply", locals: { author: reply.user == user, reply:, user: }) %>
-        <% end %>
+<div class="hidden flex flex-col gap-4 pt-4 ml-6" data-custom-toggle-target="toggleable">
+  <%= turbo_stream_from(dom_id(comment, :replies)) %>
+  <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col gap-4") do %>
+    <% if replies.any? %>
+      <% replies.each do |reply| %>
+        <%= render(partial: "replies/reply", locals: { author: reply.user == user, reply:, user: }) %>
       <% end %>
     <% end %>
-    <div class="flex flex-col gap-4 pt-12">
-      <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
-    </div>
+  <% end %>
+  <div class="flex flex-col gap-4">
+    <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
   </div>
 </div>

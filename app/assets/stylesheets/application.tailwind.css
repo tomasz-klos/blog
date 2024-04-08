@@ -38,14 +38,6 @@
     @apply p-3 bg-red-500 text-sm text-zinc-100 rounded-lg hover:bg-red-600 transition first-letter:capitalize cursor-pointer;
   }
 
-  .btn-like {
-    @apply flex items-center gap-4 border border-zinc-100 rounded-lg p-2 first-letter:capitalize hover:border-violet-500 transition;
-
-    &.liked {
-      @apply bg-zinc-500;
-    }
-  }
-
   .btn-md {
     @apply px-3 py-1.5 text-sm;
   }
@@ -119,11 +111,15 @@
   }
 
   .comment {
-    @apply flex flex-col gap-4 rounded-lg p-6 border border-zinc-800 shadow-md shadow-zinc-800/20;
+    @apply flex flex-col gap-2 rounded-lg p-6 border border-zinc-700 shadow-md shadow-zinc-800/20;
+  }
+
+  .comment-reply {
+    @apply flex flex-col gap-2 p-6 border-l;
   }
 
   .badge {
-    @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-900 rounded-lg;
+    @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-100 rounded-lg;
   }
 
   .menu-item {

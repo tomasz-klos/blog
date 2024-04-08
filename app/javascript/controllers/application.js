@@ -2,13 +2,14 @@ import { Application } from "@hotwired/stimulus";
 
 const application = Application.start();
 
-import { Toggle, Dropdown } from "tailwindcss-stimulus-components";
+import { Dropdown, Modal, Toggle } from "tailwindcss-stimulus-components";
 
 // Configure Stimulus development experience
 application.debug = false;
 window.Stimulus = application;
 
+application.register("dropdown", Dropdown);
+application.register("modal", Modal);
 application.register("toggle", Toggle);
-application.register('dropdown', Dropdown);
 
 export { application };

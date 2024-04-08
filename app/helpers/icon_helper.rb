@@ -4,7 +4,7 @@ module IconHelper
     options[:aria] = true
     options[:nocomment] = true
     options[:variant] ||= :fill
-    options[:class] = options.fetch(:classes, nil)
+    options[:class] = options.fetch(:class_name, nil)
     path = options.fetch(:path, "icons/#{options[:variant]}/#{name}.svg")
     icon = path
     inline_svg_tag(icon, options)

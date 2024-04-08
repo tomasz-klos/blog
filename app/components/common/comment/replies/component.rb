@@ -3,5 +3,5 @@ class Common::Comment::Replies::Component < ApplicationComponent
 
   option :replies
   option :comment, Types.Instance(Comment)
-  option :user, Types.Instance(User)
+  option :user
 end

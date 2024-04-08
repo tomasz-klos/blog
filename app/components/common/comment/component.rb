@@ -3,7 +3,7 @@ class Common::Comment::Component < ApplicationComponent
 
   option :author, default: false
   option :record
-  option :user, Types.Instance(User)
+  option :user
   option :replies
 
   def author_of_post?

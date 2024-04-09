@@ -1,15 +1,25 @@
 <%= turbo_frame_tag(dom_id(@comment, :content),class: "contents", data: { turbo_frame: dom_id(@comment, :content) }) do %>
-  <%= form_with(model: [ @post, @comment ], html: { class: "form max-w-full", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
+  <%= form_with(model: [ @post, @comment ],
+    html: { class: "form max-w-full mb-4",
+    data: { controller: "comment-form", "comment-form-target": "form" } }
+  ) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field">
         <%= form.label(:content, class: "hidden") %>
         <div class="trix-wrapper">
-          <%= form.rich_text_area(:content, placeholder: "Leave a comment", class: "rich-textarea trix-content") %>
+          <%= form.rich_text_area(:content,
+           placeholder: "Leave a comment",
+           class: "rich-textarea trix-content"
+          ) %>
         </div>
         <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
       </div>
       <div class="flex gap-4">
-        <%= form.button(class: "btn-secondary btn-md", data: { "comment-form-target": "submit" }, disabled: true) %>
+        <%= form.button(
+          class: "btn-secondary btn-md",
+          data: { "comment-form-target": "submit" },
+          disabled: true
+        ) %>
         <% if @comment.new_record? %>
           <%= button_tag("Cancel", type: :reset, class: "btn-cancel btn-md") %>
         <% else %>

@@ -1,13 +1,13 @@
-<div class="hidden flex flex-col gap-4 pt-4 ml-6" data-custom-toggle-target="toggleable">
+<div class="hidden flex flex-col gap-8 pt-4 ml-6" data-custom-toggle-target="toggleable">
   <%= turbo_stream_from(dom_id(comment, :replies)) %>
   <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col gap-4") do %>
     <% if replies.any? %>
       <% replies.each do |reply| %>
         <%= render(partial: "replies/reply", locals: { author: reply.user == user, reply:, user: }) %>
       <% end %>
+    <% else %>
+      <p class="text-sm font-medium text-gray-300">No replies yet. Be the first to reply!</p>
     <% end %>
   <% end %>
-  <div class="flex flex-col gap-4">
-    <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
-  </div>
+  <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
 </div>

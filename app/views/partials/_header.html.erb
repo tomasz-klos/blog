@@ -12,17 +12,19 @@
       <% if user_signed_in? %>
         <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
           <% c.with_button(class_name: "p-0 rounded-full") do %>
-            <span class="avatar h-10 w-10"></span>
+            <span class="avatar h-8 w-8"></span>
           <% end %>
-          <div class="px-2 pb-3 border-b border-zinc-700">
+          <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
             <p><%= current_user.email %></p>
           </div>
-          <li class="flex">
-            <%= link_to("Profile", edit_user_registration_path, class: "menu-item") %>
-          </li>
-          <li class="flex">
-            <%= button_to("Logout", destroy_user_session_path, method: :delete, form_class: "w-full", class: "menu-item") %>
-          </li>
+          <%= link_to(edit_user_registration_path, class: "menu-item") do %>
+            <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
+            <span>profile</span>
+          <% end %>
+          <%= button_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
+            <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>
+            <span>logout</span>
+          <% end %>
         <% end %>
       <% else %>
         <div class="flex items-center gap-3">

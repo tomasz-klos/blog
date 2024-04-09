@@ -15,7 +15,7 @@
 
 @layer components {
   .btn-primary {
-    @apply p-3 bg-zinc-800 border border-zinc-700 text-sm font-medium text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
+    @apply flex items-center p-3 bg-zinc-800 border border-zinc-700 text-sm font-medium text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
       @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
@@ -23,7 +23,7 @@
   }
 
   .btn-secondary {
-    @apply p-3 bg-violet-500 text-sm text-zinc-100 font-medium rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition first-letter:capitalize cursor-pointer;
+    @apply flex items-center p-3 bg-violet-500 text-sm text-zinc-100 font-medium rounded-lg hover:shadow-lg hover:shadow-violet-500/20 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
       @apply opacity-60 cursor-not-allowed shadow-none;
@@ -87,7 +87,7 @@
   }
 
   .rich-textarea {
-    @apply p-3 border-none focus:outline-none focus:ring-0 focus:ring-offset-0;
+    @apply p-3 border border-zinc-500 text-zinc-300 mx-2 my-4 rounded-md focus:outline-none focus:ring-0 focus:ring-offset-0;
   }
 
   .error-message {
@@ -123,6 +123,6 @@
   }
 
   .menu-item {
-    @apply flex items-center gap-2 px-2 py-2 text-sm text-zinc-300 capitalize rounded-md w-full min-w-[124px] hover:bg-zinc-700 hover:text-zinc-100 transition cursor-pointer;
+    @apply flex items-center gap-2 px-2 py-2 mx-1 text-sm text-zinc-300 capitalize rounded-md w-[calc(100%-0.5rem)] min-w-[124px] hover:bg-zinc-700 hover:text-zinc-100 transition cursor-pointer;
   }
 }

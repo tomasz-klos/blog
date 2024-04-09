@@ -1,5 +1,5 @@
 <%= turbo_frame_tag(dom_id(@comment, :content),class: "contents", data: { turbo_frame: dom_id(@comment, :content) }) do %>
-  <%= form_with(model: [ @post, @comment ], html: { class: "form mr-auto", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
+  <%= form_with(model: [ @post, @comment ], html: { class: "form max-w-full", data: { controller: "comment-form", "comment-form-target": "form" } }) do |form| %>
     <div class="flex flex-col gap-4">
       <div class="field">
         <%= form.label(:content, class: "hidden") %>

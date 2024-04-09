@@ -28,9 +28,14 @@ export default class extends Controller {
   }
 
   updateButtonsState() {
-    const trimmedValue = this.getCommentInputValue().trim();
+    const commentContent = this.getCommentInputValue().trim();
 
-    this.submitTarget.disabled = trimmedValue === this.initialValue || trimmedValue === "";
+    const cleanedContent = commentContent
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ");
+
+    this.submitTarget.disabled =
+      cleanedContent === this.initialValue || !cleanedContent.trim();
   }
 
   resetForm() {
@@ -42,6 +47,8 @@ export default class extends Controller {
   }
 
   get commentInputTarget() {
-    return this.formTarget.querySelector(this.constructor.COMMENT_INPUT_SELECTOR);
+    return this.formTarget.querySelector(
+      this.constructor.COMMENT_INPUT_SELECTOR
+    );
   }
 }

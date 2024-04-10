@@ -9,9 +9,10 @@
         <div class="trix-wrapper">
           <%= form.rich_text_area(:content,
             id: "reply_#{reply.comment.id}[content]",
+            class: "rich-textarea trix-content",
+            data: { controller: "trix" },
             name: "reply_#{reply.comment.id}[content]",
-            placeholder: "Leave a reply",
-            class: "rich-textarea trix-content"
+            placeholder: "Leave a reply"
           ) %>
           <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
         </div>

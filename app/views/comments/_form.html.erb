@@ -8,8 +8,9 @@
         <%= form.label(:content, class: "hidden") %>
         <div class="trix-wrapper">
           <%= form.rich_text_area(:content,
-           placeholder: "Leave a comment",
-           class: "rich-textarea trix-content"
+            class: "rich-textarea trix-content",
+            data: { controller: "trix" },
+            placeholder: "Leave a comment"
           ) %>
         </div>
         <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>

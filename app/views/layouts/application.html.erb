@@ -9,16 +9,12 @@
     <%= stylesheet_link_tag("application", "data-turbo-track": "reload") %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="flex flex-col bg-zinc-900 text-zinc-100 w-full min-h-screen">
-    <% if notice || alert %>
-      <aside class="fixed top-32 border rounded-lg right-6 p-4">
-        <% if notice %>
-          <p class="text-green-500"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="text-red-500"><%= alert %></p>
-        <% end %>
-      </aside>
+  <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
+    <% if notice %>
+      <%= render(Common::Alert::Component.new(type: "notice", message: notice)) %>
+    <% end %>
+    <% if alert %>
+      <%= render(Common::Alert::Component.new(type: "alert", message: alert)) %>
     <% end %>
     <%= turbo_frame_tag("modal") %>
     <%= render(partial: "partials/confirm_modal") %>

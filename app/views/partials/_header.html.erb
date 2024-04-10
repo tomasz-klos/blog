@@ -7,7 +7,7 @@
         <% end %>
       </li>
       <li class="flex ml-auto">
-        <%= link_to("Write post", new_post_path, class: "p-3 hover:text-violet-500 transition") %>
+        <%= link_to("Write post", new_post_path, class: "p-3 text-sm font-medium hover:text-violet-500 transition") %>
       </li>
       <% if user_signed_in? %>
         <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
@@ -29,10 +29,10 @@
       <% else %>
         <div class="flex items-center gap-3">
           <li class="flex">
-            <%= link_to("Login", new_user_session_path, class: "btn-primary") %>
+            <%= link_to("Login", new_user_session_path, class: "btn-primary btn-md") %>
           </li>
           <li class="flex">
-            <%= link_to("Sign up", new_user_registration_path, class: "btn-primary") %>
+            <%= link_to("Sign up", new_user_registration_path, class: "btn-primary btn-md") %>
           </li>
         </div>
       <% end %>

@@ -10,6 +10,8 @@ class Common::Dropdown::Component < ApplicationComponent
       'right-0'
     when 'right'
       'left-0'
+    when 'center'
+      'left-1/2 transform -translate-x-1/2'
     end
   end
 end

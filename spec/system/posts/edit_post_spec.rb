@@ -38,7 +38,7 @@ RSpec.describe 'Edit post', type: :system do
       find("//a[@href='/posts/#{post.id}']").click
       expect(page).to have_content(post.title)
 
-      click_on('edit')
+      click_on('Edit post')
       expect(page).to have_content("Edit post #{post.title}")
     end
 

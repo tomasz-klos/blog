@@ -1,4 +1,4 @@
-<article class="comment">
+<article class="<%= record.instance_of?(Comment) ? "comment" : "comment-reply" %>">
   <div class="flex gap-3 items-center">
     <div class="flex items-center gap-2">
       <span class="avatar"></span>
@@ -22,18 +22,34 @@
   </div>
   <%= turbo_stream_from(dom_id(record, :content)) %>
   <%= render(partial: 'partials/comment_content', locals: { record: }) %>
-  <div class="relative flex items-center gap-2">
-    <%= turbo_stream_from(dom_id(record, :like_count), class: "absolute") %>
-    <%= turbo_frame_tag(dom_id(record, :likes)) do %>
-      <% if author || !user %>
-        <%= render(partial: 'partials/like', locals: { target: record }) %>
-      <% else %>
-        <%= render(partial: 'partials/like_form', locals: { user: user, target: record, 
+  <div data-controller="custom-toggle">
+    <div class="flex items-center gap-3">
+      <%= turbo_stream_from(dom_id(record, :like_count), class: "absolute") %>
+      <%= turbo_frame_tag(dom_id(record, :likes)) do %>
+        <% if author || !user %>
+          <%= render(partial: 'partials/like', locals: { target: record }) %>
+        <% else %>
+          <%= render(partial: 'partials/like_form', locals: { user: user, target: record, 
         path: record.instance_of?(Comment) ? toggle_like_comment_path(record) : toggle_like_comment_reply_path(record.comment, record) }) %>
+        <% end %>
       <% end %>
+      <% if replies %>
+        <%= turbo_stream_from(dom_id(record, :replies_count), class: "absolute") %>
+        <%= button_tag(
+          class: "relative btn-primary btn-md flex items-center gap-1",
+          data: { action: "click->custom-toggle#toggle touch->custom-toggle#toggle", "custom-toggle-target": "button" },
+          type: "button"
+        ) do %>
+          <p>
+            <%= render(partial: "replies/replies_count", locals: { comment: record, replies:}) %>
+            <span>Replies</span>
+          </p>
+          <%= icon("chevron-down", class_name: "w-4 h-4", variant: :outline) %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if replies %>
+      <%= render(Replies::Component.new(comment: record, replies: replies, user:)) %>
     <% end %>
   </div>
-  <% if replies %>
-    <%= render(Replies::Component.new(comment: record, replies: replies, user:)) %>
-  <% end %>
 </article>

@@ -2,26 +2,32 @@
   <div class="flex gap-3 items-center">
     <div class="flex items-center gap-2">
       <span class="avatar"></span>
-      <p class="text-sm"><%= post.user.email %></p>
     </div>
+    <p class="text-sm truncate"><%= post.user.email %></p>
     <span class="dot-divider mt-1"></span>
-    <span class="text-zinc-500 text-sm"><%= post.created_at.strftime("%B %d, %Y") %></span>
+    <span class="text-zinc-500 text-sm min-w-max"><%= post.created_at.strftime("%B %d, %Y") %></span>
+    <% if author? %>
+      <div class="ml-auto">
+        <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
+          <% c.with_button(name: "post_#{post.id}_controls") %>
+          <%= link_to(edit_post_path(post), class: "menu-item") do %>
+            <%= icon("edit", title: "Edit post", class_name: "w-5 h-5") %>
+            <span>edit</span>
+          <% end %>
+          <%= button_to(post, method: :delete,form: { data: { turbo_confirm: "Are you sure you want to delete '#{post.title}'?", turbo_confirm_type: "delete" }}, class: "menu-item") do %>
+            <%= icon("trash", title: "Delete post", class_name: "w-5 h-5", variant: :outline) %>
+            <span>delete</span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <%= link_to(post, class: "flex flex-col gap-3") do %>
     <h3 class="text-2xl font-medium"><%= post.title %></h3>
     <% if !post.content.nil? %>
       <p class="text-zinc-500">
-        <%= post.content.body.to_plain_text.truncate(100) %>
+        <%= post.content.body.to_plain_text.truncate(200) %>
       </p>
     <% end %>
   <% end %>
-  <div class="flex items-center justify-end gap-2">
-    <% if author? %>
-      <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-        <% c.with_button(name: "post_#{post.id}_controls") %>
-        <%= link_to("edit", edit_post_path(post), class: "menu-item") %>
-        <%= button_to("delete", post, method: :delete,form: { data: { turbo_confirm: "Are you sure you want to delete '#{post.title}'?", turbo_confirm_type: "delete" }}, class: "menu-item") %>
-      <% end %>
-    <% end %>
-  </div>
 </article>

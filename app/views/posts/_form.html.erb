@@ -7,7 +7,10 @@
   <div class="field">
     <%= form.label(:content, class: field_label_classes(form, :content)) %>
     <div class="trix-wrapper">
-      <%= form.rich_text_area(:content, class: "rich-textarea trix-content min-h-[400px]") %>
+      <%= form.rich_text_area(:content,
+        class: "rich-textarea trix-content min-h-[400px]",
+        data: { controller: "trix" }
+      ) %>
     </div>
     <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
   </div>

@@ -1,11 +1,10 @@
-<div class="hidden flex flex-col gap-8 pt-4 ml-6" data-custom-toggle-target="toggleable">
-  <%= turbo_stream_from(dom_id(comment, :replies)) %>
-  <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col gap-4") do %>
+<div class="hidden relative flex flex-col gap-8" data-custom-toggle-target="toggleable">
+  <%= turbo_stream_from(dom_id(comment, :replies), class: "absolute") %>
+  <%= turbo_frame_tag(dom_id(comment, :replies), class: "flex flex-col [&>*]:mt-8") do %>
     <% if replies.any? %>
       <% replies.each do |reply| %>
         <%= render(partial: "replies/reply", locals: { author: reply.user == user, reply:, user: }) %>
       <% end %>
     <% end %>
   <% end %>
-  <%= render(partial: "replies/form", locals: { comment: comment, reply: comment.replies.build }) %>
 </div>

@@ -107,7 +107,7 @@ trix-toolbar {
   }
 
   .avatar {
-    @apply flex w-6 h-6 rounded-full bg-violet-500;
+    @apply flex min-w-6 h-6 rounded-full bg-violet-500;
   }
 
   .panel-header {
@@ -119,11 +119,11 @@ trix-toolbar {
   }
 
   .comment-reply {
-    @apply flex flex-col gap-2 p-6 border-l;
+    @apply flex flex-col gap-2 p-6 border-l border-zinc-700;
   }
 
   .badge {
-    @apply px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-100 rounded-lg;
+    @apply block min-w-max px-3 py-2 text-xs font-medium bg-violet-500 text-zinc-100 rounded-lg;
   }
 
   .menu-item {

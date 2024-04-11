@@ -4,14 +4,19 @@ export default class extends Toggle {
   static targets = ["button"];
 
   connect() {
-    console.log("CustomToggle#connect");
-    super.connect();
-    this.updateToggleState();
+    if (this.hasButtonTarget) {
+      super.connect();
+      this.updateToggleState();
+    }
   }
 
   toggle(event) {
-    console.log("CustomToggle#toggle");
     super.toggle(event);
+    this.updateToggleState();
+  }
+
+  show(event) {
+    super.show(event);
     this.updateToggleState();
   }
 

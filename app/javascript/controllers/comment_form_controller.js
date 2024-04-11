@@ -22,8 +22,13 @@ export default class extends Controller {
   }
 
   setupTurboSubmitEventListener() {
-    document.addEventListener("turbo:submit-end", () => {
+    document.addEventListener("turbo:submit-end", (event) => {
       this.resetForm();
+
+      console.log(this.formTarget.parentElement);
+      if (this.formTarget.parentElement.id === "content_reply") {
+        this.closeForm(event);
+      }
     });
   }
 
@@ -40,6 +45,11 @@ export default class extends Controller {
 
   resetForm() {
     this.formTarget.reset();
+  }
+
+  closeForm(event) {
+    event.preventDefault();
+    this.formTarget.parentElement.remove();
   }
 
   getCommentInputValue() {

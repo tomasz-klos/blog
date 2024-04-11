@@ -5,6 +5,14 @@ class RepliesController < ApplicationController
   before_action(:set_comment, except: %i[show])
   before_action(:authorize_user!, only: %i[edit update destroy])
 
+  def new
+    @reply = @comment.replies.build
+
+    render(turbo_stream: turbo_stream.append(dom_id(@comment, :replies),
+                                             partial: 'replies/form',
+                                             locals: { comment: @comment, reply: @reply }))
+  end
+
   def create
     @reply = @comment.replies.build(reply_params(@comment.id))
     @reply.user_id = current_user.id

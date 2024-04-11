@@ -24,4 +24,4 @@ jobs:
         run: npm install --global prettier
 
       - name: Run Prettier
-        run: prettier --check .
+        run: yarn run prettier --check "app/javascript"

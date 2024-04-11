@@ -46,7 +46,12 @@
           </p>
           <%= icon("chevron-down", class_name: "w-4 h-4", variant: :outline) %>
         <% end %>
-        <%= link_to("Reply", new_comment_reply_path(record), class: "btn-primary btn-md", data: { action: "click->custom-toggle#show touch->custom-toggle#show", turbo_frame: "reply_content" }) %>
+        <%= link_to("Reply",
+          user ? new_comment_reply_path(record) : new_user_session_path(alert: "You need to sign in or sign up before continuing."),
+          class: "btn-primary btn-md",
+          data: { action: "click->custom-toggle#show touch->custom-toggle#show", turbo_frame: "reply_content" },
+          target: user ? nil : "_top"
+        ) %>
       <% end %>
     </div>
     <% if replies %>

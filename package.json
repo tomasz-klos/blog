@@ -4,5 +4,8 @@
   "author": "Tomasz Klos",
   "devDependencies": {
     "prettier": "^3.2.5"
+  },
+  "scripts": {
+    "prettier": "prettier"
   }
 }

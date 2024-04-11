@@ -10,7 +10,7 @@
           <%= form.rich_text_area(:content,
             id: "reply_#{reply.comment.id}[content]",
             class: "rich-textarea trix-content",
-            data: { controller: "trix" },
+            data: { autofocus: true, controller: "trix" },
             name: "reply_#{reply.comment.id}[content]",
             placeholder: "Leave a reply"
           ) %>
@@ -22,11 +22,11 @@
             data: { "comment-form-target": "submit" },
             disabled: true
           ) %>
-          <% if reply.new_record? %>
-            <%= button_tag("Cancel", type: :reset, class: "btn-cancel btn-md") %>
-          <% else %>
-            <%= link_to("Cancel", reply.comment.post, class: "btn-cancel btn-md") %>
-          <% end %>
+          <%= link_to("Cancel",
+            reply.comment.post,
+            class: "btn-cancel btn-md",
+            data: { action: "#{"click->comment-form#closeForm" if reply.new_record?}" }
+          ) %>
         </div>
       </div>
     <% end %>

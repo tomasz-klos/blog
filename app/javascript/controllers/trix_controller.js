@@ -61,17 +61,11 @@ export default class TrixController extends Controller {
   ];
 
   connect() {
-    this.element.addEventListener(
-      "trix-initialize",
-      this.trixInitialize.bind(this)
-    );
+    this.trixInitialize();
   }
 
   disconnect() {
-    this.contentFieldTarget.removeEventListener(
-      "trix-initialize",
-      this.trixInitialize
-    );
+    this.editor = null;
   }
 
   trixInitialize() {
@@ -87,5 +81,15 @@ export default class TrixController extends Controller {
 
       button.innerHTML = group.icon;
     });
+
+    const autofocus = this.element.getAttribute("data-autofocus");
+
+    if (autofocus) {
+      this.editor.element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    }
   }
 }

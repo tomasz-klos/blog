@@ -16,8 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+      - name: Install Ruby version specified in `.ruby-version`
+        uses: eregon/use-ruby-action@master
         with:
           ruby-version: 2.x # Ustaw odpowiednią wersję Ruby
 

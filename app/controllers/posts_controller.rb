@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.published.find(params[:id])
     @comment = @post.comments.new
     @comments = @post.comments.order(created_at: :asc)
   end

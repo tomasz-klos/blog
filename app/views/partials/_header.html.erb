@@ -17,6 +17,10 @@
           <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
             <p><%= current_user.email %></p>
           </div>
+          <%= link_to(dashboard_root_path, class: "menu-item") do %>
+            <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
+            <span>dashboard</span>
+          <% end %>
           <%= link_to(edit_user_registration_path, class: "menu-item") do %>
             <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
             <span>profile</span>

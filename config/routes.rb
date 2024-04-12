@@ -16,6 +16,12 @@ Rails.application.routes.draw do
     resources :replies, concerns: :likable
   end
 
+  namespace :dashboard do
+    resources :posts, only: %i[index]
+
+    root to: 'pages#dashboard'
+  end
+
   # Defines the root path route ("/")
   root 'posts#index', as: 'posts_root'
 end

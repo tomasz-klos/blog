@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :post, only: %i[index show] do
+  resources :posts, only: %i[index show] do
     resources :comments, only: %i[create]
   end
 
@@ -17,7 +17,12 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
-    resources :posts
+    resources :posts do
+      member do
+        post 'publish'
+        post 'unpublish'
+      end
+    end
 
     root to: 'pages#dashboard'
   end

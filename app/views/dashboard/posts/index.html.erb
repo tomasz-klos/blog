@@ -1,3 +1,77 @@
-<section class="flex flex-col gap-4">
-  <h1 class="text-2xl font-medium">Your posts</h1>
+<section class="flex flex-col gap-12 w-full">
+  <div class="flex items-center justify-between">
+    <hgroup class="flex flex-col gap-2">
+      <h1 class="text-2xl font-medium">Your Posts</h1>
+      <p class="text-sm">Manage your posts here.</p>
+    </hgroup>
+    <div class="flex gap-4">
+      <%= link_to("Write post", new_dashboard_post_path, class: "btn-primary btn-md") %>
+    </div>
+  </div>
+  <%= render(Common::Tabs::Component.new) do |c| %>
+    <%= c.with_button(id: "draft-posts", disabled: @posts.draft.empty?) do %>
+      Drafts <%= @posts.draft.count %>
+    <% end %>
+    <%= c.with_panel(id: "draft-posts") do %>
+      <% @posts.draft.each do |post| %>
+        <div class="flex flex-col gap-2 border-b border-zinc-700 py-4">
+          <div class="flex justify-between">
+            <%= link_to(post.title, edit_dashboard_post_path(post), class:"text-lg font-medium transition-colors hover:text-violet-500") %>
+            <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
+              <% c.with_button %>
+              <%= button_to(publish_dashboard_post_path(post), method: :post, class: "menu-item", data: { turbo_confirm: "Are you sure you want to publish this post?" }) do %>
+                <%= icon("eye-check", title: "Publish post", class_name: "w-5 h-5", variant: :outline) %>
+                <span>Publish</span>
+              <% end %>
+              <%= link_to(edit_dashboard_post_path(post), class: "menu-item") do %>
+                <%= icon("edit", title: "Edit post", class_name: "w-5 h-5") %>
+                <span>Edit</span>
+              <% end %>
+              <%= button_to(dashboard_post_path(post), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "menu-item") do %>
+                <%= icon("trash", title: "Delete post", class_name: "w-5 h-5", variant: :outline) %>
+                <span>Delete</span>
+              <% end %>
+            <% end %>
+          </div>
+          <% if (post.updated_at - post.created_at).seconds >= 0.01 %>
+            <p class="text-sm text-zinc-400">Last edited <%= time_ago_in_words(post.updated_at) %> ago</p>
+          <% else %>
+            <p class="text-sm text-zinc-400">Created <%= time_ago_in_words(post.created_at) %> ago</p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= c.with_button(id: "published-posts", disabled: @posts.published.empty?) do %>
+      Published <%= @posts.published.count %>
+    <% end %>
+    <%= c.with_panel(id: "published-posts") do %>
+      <% @posts.published.each do |post| %>
+        <div class="flex flex-col gap-2 border-b border-zinc-700 py-4">
+          <div class="flex justify-between">
+            <%= link_to(post.title, edit_dashboard_post_path(post), class:"text-lg font-medium transition-colors hover:text-violet-500") %>
+            <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
+              <% c.with_button %>
+              <%= button_to(unpublish_dashboard_post_path(post), method: :post, class: "menu-item", data: { turbo_confirm: "Are you sure you want to unpublish this post?" }) do %>
+                <%= icon("eye-off", title: "Publish post", class_name: "w-5 h-5", variant: :outline) %>
+                <span>Unpublish</span>
+              <% end %>
+              <%= link_to(edit_dashboard_post_path(post), class: "menu-item") do %>
+                <%= icon("edit", title: "Edit post", class_name: "w-5 h-5") %>
+                <span>Edit</span>
+              <% end %>
+              <%= button_to(dashboard_post_path(post), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "menu-item") do %>
+                <%= icon("trash", title: "Delete post", class_name: "w-5 h-5", variant: :outline) %>
+                <span>Delete</span>
+              <% end %>
+            <% end %>
+          </div>
+          <% if (post.updated_at - post.created_at).seconds >= 0.01 %>
+            <p class="text-sm text-zinc-400">Last edited <%= time_ago_in_words(post.updated_at) %> ago</p>
+          <% else %>
+            <p class="text-sm text-zinc-400">Created <%= time_ago_in_words(post.created_at) %> ago</p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 </section>

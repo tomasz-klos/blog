@@ -22,7 +22,7 @@ trix-toolbar {
     @apply flex items-center py-2 px-4 bg-zinc-800 border border-zinc-700 text-base font-medium text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
-      @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
+      @apply opacity-60 text-zinc-300 hover:bg-zinc-800 cursor-not-allowed;
     }
   }
 

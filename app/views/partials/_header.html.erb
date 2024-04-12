@@ -7,7 +7,7 @@
         <% end %>
       </li>
       <li class="flex ml-auto">
-        <%= link_to("Write post", new_post_path, class: "p-3 text-sm font-medium hover:text-violet-500 transition") %>
+        <%= link_to("Write post", new_dashboard_post_path, class: "p-3 text-sm font-medium hover:text-violet-500 transition") %>
       </li>
       <% if user_signed_in? %>
         <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>

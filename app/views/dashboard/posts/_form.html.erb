@@ -1,4 +1,8 @@
-<%= form_with(model: @post, html: { class: "form" }) do |form| %>
+<%= form_with(
+  model: @post,
+  url: dashboard_posts_path,
+  html: { class: "form", data: { controller: "auto-save" } }
+) do |form| %>
   <div class="field">
     <%= form.label(:title, class: field_label_classes(form, :title)) %>
     <%= form.text_field(:title, class: "input") %>

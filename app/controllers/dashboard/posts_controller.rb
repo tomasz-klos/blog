@@ -16,7 +16,7 @@ module Dashboard
     def create
       @post = current_user.posts.new(post_params)
       if @post.save
-        redirect_to(dashboard_posts_path, notice: 'Post was successfully created.')
+        redirect_to(edit_dashboard_post_path(@post), notice: 'Draft post was successfully created.')
       else
         render(:new, status: :unprocessable_entity)
       end
@@ -25,11 +25,9 @@ module Dashboard
     def edit; end
 
     def update
-      if @post.update(post_params)
-        redirect_to(@post, notice: 'Post was successfully updated.')
-      else
-        render(:edit, status: :unprocessable_entity)
-      end
+      return if @post.update(post_params)
+
+      render(:edit, status: :unprocessable_entity)
     end
 
     def destroy

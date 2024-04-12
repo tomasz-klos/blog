@@ -17,14 +17,14 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
+    root to: redirect('/dashboard/posts')
+    
     resources :posts do
       member do
         post 'publish'
         post 'unpublish'
       end
     end
-
-    root to: 'pages#dashboard'
   end
 
   # Defines the root path route ("/")

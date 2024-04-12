@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_04_204940) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_12_091238) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -79,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_204940) do
     t.bigint "user_id", null: false
     t.text "content"
     t.integer "comments_count"
+    t.string "state", default: "draft"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

@@ -1,0 +1,11 @@
+<%= button_tag(
+  class: "btn-primary btn-md #{class_name}",
+  data: { 
+    "action": "click->tabs#change",
+    "tabs-target": "tab",
+  },
+  disabled: disabled,
+  id: id
+) do %>
+  <%= content %>
+<% end %>

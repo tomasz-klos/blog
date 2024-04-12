@@ -1,0 +1,10 @@
+<div data-controller="tabs" data-tabs-active-tab-class="bg-violet-500">
+  <div class="flex gap-3 border-b border-zinc-700 pb-4">
+    <% buttons.each do |button| %>
+      <%= button %>
+    <% end %>
+  </div>
+  <% panels.each do |panel| %>
+    <%= panel %>
+  <% end %>
+</div>

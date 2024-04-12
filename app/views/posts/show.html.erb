@@ -28,42 +28,33 @@
               <% @comments.each do |comment| %>
                 <%= render(partial: 'comments/comment', locals: { author: comment.user == current_user, comment:, user: current_user, replies: comment.replies }) %>
               <% end %>
-            <% else %>
-              <p class="text-zinc-500 text-center">No comments yet</p>
             <% end %>
           <% end %>
         </div>
-        <div class="flex flex-col gap-4">
-          <h2 class="text-base font-medium">Add a comment</h2>
-          <% if user_signed_in? %>
-            <%= render(partial: 'comments/form', locals: { post: @post, comment: @comment }) %>
-          <% else %>
-            <p class="text-zinc-500 text-center">You need to <%= link_to("sign in", new_user_session_path, class: "text-violet-500") %> to add a comment</p>
-          <% end %>
-        </div>
+        <% if user_signed_in? %>
+          <%= render(partial: 'comments/form', locals: { post: @post, comment: @comment }) %>
+        <% else %>
+          <p class="text-zinc-500 text-center">You need to <%= link_to("sign in", new_user_session_path, class: "text-violet-500") %> to add a comment</p>
+        <% end %>
       </div>
     </article>
     <aside class="hidden sticky top-56 h-max xl:flex xl:flex-col gap-4 col-span-3">
       <div class="flex flex-col gap-4 rounded-lg border border-zinc-700 px-4 py-6">
+        <p class="text-sm font-medium text-zinc-300 uppercase">Author</p>
+        <div class="flex gap-4 items-center">
+          <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center">
+          </span>
+          <p class="text-sm font-medium text-zinc-500"><%= @post.user.email %></p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-zinc-300 uppercase">Joined</p>
+          <p class="text-sm font-medium text-zinc-500"><%= @post.user.created_at.strftime("%B %d, %Y") %></p>
+        </div>
         <% if @post.user == current_user %>
           <div class="flex flex-col gap-2">
-            <%= link_to(edit_post_path(@post), class: "btn-primary") do %>
+            <%= link_to(edit_dashboard_post_path(@post), class: "btn-primary") do %>
               Edit post
             <% end %>
-            <%= button_to(@post, method: :delete, form: { class: "w-full", data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_confirm_type: "delete" } }, class: "btn-primary w-full") do %>
-              Delete post
-            <% end %>
-          </div>
-        <% else %>
-          <p class="text-sm font-medium text-zinc-300 uppercase">Author</p>
-          <div class="flex gap-4 items-center">
-            <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center">
-            </span>
-            <p class="text-sm font-medium text-zinc-500"><%= @post.user.email %></p>
-          </div>
-          <div class="flex flex-col gap-2">
-            <p class="text-sm font-medium text-zinc-300 uppercase">Joined</p>
-            <p class="text-sm font-medium text-zinc-500"><%= @post.user.created_at.strftime("%B %d, %Y") %></p>
           </div>
         <% end %>
       </div>

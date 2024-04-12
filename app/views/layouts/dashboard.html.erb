@@ -10,22 +10,17 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
-    <% if notice %>
-      <%= render(Common::Alert::Component.new(type: "notice", message: notice)) %>
-    <% end %>
-    <% if alert %>
-      <%= render(Common::Alert::Component.new(type: "alert", message: alert)) %>
+    <% if alert || notice %>
+      <%= render(Common::Alert::Component.new(
+        type: alert ? "alert" : "notice",
+        message: alert || notice
+      )) %>
     <% end %>
     <%= turbo_frame_tag("modal") %>
     <%= render(partial: "partials/confirm_modal") %>
     <%= render(partial: "partials/header") %>
-    <main class="flex gap-12 flex-1 w-full px-8 xl:max-w-[1600px] xl:mx-auto xl:p-12">
-      <nav class="flex flex-col gap-2 lg:w-64 py-1 rounded-lg border border-zinc-700 col-span-2">
-        <%= link_to(dashboard_posts_path, class: "menu-item font-medium #{current_page?(dashboard_posts_path) ? 'bg-zinc-700' : ''}") do %>
-          <%= icon("notes", class: "w-5 h-5", title: "Posts", variant: :outline) %>
-          <span>Posts</span>
-        <% end %>
-      </nav>
+    <main class="flex gap-24 flex-1 w-full px-8 xl:max-w-[1600px] xl:mx-auto xl:p-12">
+      <%= render(partial: "dashboard/partials/nav") %>
       <%= yield %>
     </main>
   </body>

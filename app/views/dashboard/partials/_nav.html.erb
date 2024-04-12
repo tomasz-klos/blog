@@ -1,0 +1,9 @@
+<nav class="flex flex-col gap-2 lg:min-w-[324px] px-4">
+  <%= link_to(
+    dashboard_posts_path,
+    class: "menu-item font-medium #{request.fullpath.include?(dashboard_posts_path) ? 'bg-zinc-700' : ''}"
+  ) do %>
+    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <span>Posts</span>
+  <% end %>
+</nav>

@@ -55,7 +55,7 @@ trix-toolbar {
   }
 
   .form {
-    @apply flex flex-col gap-6 w-full md:max-w-[55vw] lg:max-w-[45vw];
+    @apply flex flex-col gap-6 w-full md:max-w-[55vw] lg:max-w-3xl;
   }
 
   .field {

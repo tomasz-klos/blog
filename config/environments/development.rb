@@ -77,4 +77,6 @@ Rails.application.configure do
 
   config.sass.preferred_syntax = :sass
   config.sass.syntax = :sass
+
+  config.assets.css_compressor = nil
 end

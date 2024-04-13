@@ -74,7 +74,7 @@ jobs:
             PGUSER: postgres
             PGPASSWORD: postgres
         run: |
-            bin/rails db:create db:schema db:migrate
+            bin/rails db:create db:schema:load db:migrate
 
       - name: Rails test
         env:

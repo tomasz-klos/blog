@@ -6,7 +6,7 @@ class Post < ApplicationRecord
     state :published
 
     event :publish do
-      transitions from: :draft, to: :published
+      transitions from: :draft, to: :published, guard: :can_publish?
     end
 
     event :unpublish do
@@ -22,6 +22,9 @@ class Post < ApplicationRecord
   scope :published, -> { where(state: 'published') }
   scope :draft, -> { where(state: 'draft') }
 
-  validates :title, presence: true, length: { minimum: 5, maximum: 200 }, uniqueness: true
-  validates :content, presence: true, length: { minimum: 100 }
+  private
+
+  def can_publish?
+    content.present? && title.present?
+  end
 end

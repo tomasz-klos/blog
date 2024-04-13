@@ -16,7 +16,7 @@ jobs:
       postgres:
         image: postgres:11.6-alpine
         env:
-          RAILS_END: test
+          RAILS_ENV: test
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
@@ -72,7 +72,7 @@ jobs:
         env:
             PGHOST: localhost
             PGUSER: postgres
-            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            PGPASSWORD: postgres
         run: |
             bin/rails db:create db:schema db:migrate
 

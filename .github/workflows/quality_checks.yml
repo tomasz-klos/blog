@@ -59,7 +59,6 @@ jobs:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-          
       - name: Bundle install
         run: |
           bundle config path vendor/bundle
@@ -78,6 +77,8 @@ jobs:
 
       - name: Rails test
         env:
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+            PGHOST: localhost
+            PGUSER: postgres
+            PGPASSWORD: postgres
         run: |
           bundle exec rspec

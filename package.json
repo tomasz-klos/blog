@@ -1,0 +1,11 @@
+{
+  "name": "dev.blog",
+  "version": "1.0.0",
+  "author": "Tomasz Klos",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "scripts": {
+    "prettier": "prettier"
+  }
+}

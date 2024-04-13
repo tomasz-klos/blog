@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
 
 export default class TrixController extends Controller {
   static TOOLBAR_BUTTON_ICONS = [
@@ -58,38 +58,38 @@ export default class TrixController extends Controller {
       identifier: "[title='Redo']",
       icon: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-forward"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" /></svg>`,
     },
-  ];
+  ]
 
   connect() {
-    this.trixInitialize();
+    this.trixInitialize()
   }
 
   disconnect() {
-    this.editor = null;
+    this.editor = null
   }
 
   trixInitialize() {
-    this.editor = this.element.editor;
+    this.editor = this.element.editor
 
-    const toolbarId = this.editor.element.getAttribute("toolbar");
-    const toolbar = document.getElementById(toolbarId);
+    const toolbarId = this.editor.element.getAttribute("toolbar")
+    const toolbar = document.getElementById(toolbarId)
 
     TrixController.TOOLBAR_BUTTON_ICONS.forEach((group) => {
-      const button = toolbar.querySelector(group.identifier);
+      const button = toolbar.querySelector(group.identifier)
 
-      if (!button) return;
+      if (!button) return
 
-      button.innerHTML = group.icon;
-    });
+      button.innerHTML = group.icon
+    })
 
-    const autofocus = this.element.getAttribute("data-autofocus");
+    const autofocus = this.element.getAttribute("data-autofocus")
 
     if (autofocus) {
       this.editor.element.scrollIntoView({
         behavior: "smooth",
         block: "center",
         inline: "nearest",
-      });
+      })
     }
   }
 }

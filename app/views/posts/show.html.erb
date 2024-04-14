@@ -3,19 +3,7 @@
     <aside class="col-span-3">
     </aside>
     <article class="flex flex-col gap-12 col-span-6 w-full">
-      <div class="flex flex-col gap-32">
-        <div class="flex flex-col items-center gap-6">
-          <h1 class="text-5xl font-medium text-center"><%= @post.title %></h1>
-          <div class="flex gap-4 items-center">
-            <p class="text-zinc-300">by</p>
-            <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center">
-            </span>
-            <p class="text-zinc-500"><%= @post.user.email %></p>
-            <p class="text-zinc-500"><%= @post.created_at.strftime("%B %d, %Y") %></p>
-          </div>
-        </div>
-        <%= @post.content %>
-      </div>
+      <%= render(partial: 'partials/post_content', locals: { post: @post }) %>
       <div class="flex flex-col gap-6 w-full">
         <h2 class="text-3xl font-medium">
           Discussion

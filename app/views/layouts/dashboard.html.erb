@@ -19,7 +19,7 @@
     <%= turbo_frame_tag("modal") %>
     <%= render(partial: "partials/confirm_modal") %>
     <%= render(partial: "partials/header") %>
-    <main class="flex gap-24 flex-1 w-full px-8 xl:max-w-[1600px] xl:mx-auto xl:p-12">
+    <main class="grid xl:grid-cols-12 gap-12 flex-1 w-full px-8 xl:p-12">
       <%= render(partial: "dashboard/partials/nav") %>
       <%= yield %>
     </main>

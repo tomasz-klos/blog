@@ -1,5 +1,4 @@
 import { Application } from "@hotwired/stimulus"
-import { setupConfirmMethod } from "../confirm_logic"
 import {
   Alert,
   Autosave,
@@ -8,6 +7,7 @@ import {
   Tabs,
   Toggle,
 } from "tailwindcss-stimulus-components"
+import { setupConfirmMethod } from "../turbo_confirm_logic"
 
 const application = Application.start()
 

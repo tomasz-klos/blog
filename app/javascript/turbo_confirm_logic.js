@@ -1,8 +1,9 @@
 export function setupConfirmMethod() {
-  Turbo.setConfirmMethod((message, element) => {
+  Turbo.setConfirmMethod((title, element) => {
     const dialog = document.getElementById("turbo-confirm")
     const confirmType = element.getAttribute("data-turbo-confirm-type")
-    updateDialogContent(dialog, message, confirmType)
+    const message = element.getAttribute("data-turbo-confirm-message")
+    updateDialogContent(dialog, title, message, confirmType)
 
     showModal(dialog)
 
@@ -19,11 +20,21 @@ export function setupConfirmMethod() {
   })
 }
 
-function updateDialogContent(dialog, message, confirmType) {
-  dialog.querySelector("h3").textContent = message
+function updateDialogContent(dialog, title, message, confirmType) {
+  const confirmButton = dialog.querySelector("button[value=confirm]")
+
+  dialog.querySelector("h3").textContent = title
+  dialog.querySelector("p").textContent = "This action cannot be undone."
+
+  if (message) {
+    dialog.querySelector("p").textContent = message
+  }
+
+  confirmButton.textContent = "confirm"
+  confirmButton.classList.add("btn-secondary")
+  confirmButton.classList.remove("btn-danger")
 
   if (confirmType === "delete") {
-    const confirmButton = dialog.querySelector("button[value=confirm]")
     confirmButton.textContent = "delete"
     confirmButton.classList.remove("btn-secondary")
     confirmButton.classList.add("btn-danger")

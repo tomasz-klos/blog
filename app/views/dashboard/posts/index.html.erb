@@ -1,4 +1,4 @@
-<section class="flex flex-col gap-12 w-full">
+<section class="flex flex-col gap-12 w-full xl:w-3/5">
   <div class="flex items-center justify-between">
     <hgroup class="flex flex-col gap-2">
       <h1 class="text-2xl font-medium">Your Posts</h1>
@@ -16,18 +16,49 @@
       <% @posts.draft.each do |post| %>
         <div class="flex flex-col gap-2 border-b border-zinc-700 py-4">
           <div class="flex justify-between">
-            <%= link_to(post.title, edit_dashboard_post_path(post), class:"text-lg font-medium transition-colors hover:text-violet-500") %>
+            <%= link_to(
+              edit_dashboard_post_path(post),
+              class:"text-lg font-medium transition-colors hover:text-violet-500"
+            ) do %>
+              <% if post.title.blank? %>
+                Untitled
+              <% else %>
+                <%= post.title %>
+              <% end %>
+            <% end %>
             <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
               <% c.with_button %>
-              <%= button_to(publish_dashboard_post_path(post), method: :post, class: "menu-item", data: { turbo_confirm: "Are you sure you want to publish this post?" }) do %>
+              <%= button_to(
+                publish_dashboard_post_path(post),
+                method: :post,
+                class: "menu-item",
+                data: { 
+                  turbo_confirm: "Are you sure you want to publish this post?",
+                  turbo_confirm_message: "Publishing this post will make it visible to others."
+                }
+              ) do %>
                 <%= icon("eye-check", title: "Publish post", class_name: "w-5 h-5", variant: :outline) %>
                 <span>Publish</span>
               <% end %>
-              <%= link_to(edit_dashboard_post_path(post), class: "menu-item") do %>
+              <%= link_to(
+                edit_dashboard_post_path(post),
+                class: "menu-item"
+              ) do %>
                 <%= icon("edit", title: "Edit post", class_name: "w-5 h-5") %>
                 <span>Edit</span>
               <% end %>
-              <%= button_to(dashboard_post_path(post), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "menu-item") do %>
+              <%= button_to(
+                dashboard_post_path(post),
+                method: :delete,
+                form: { 
+                  data: { 
+                    turbo_confirm: "Are you sure you want to delete this post?",
+                    turbo_confirm_type: "delete" 
+                  }
+                },
+                form_class: "w-full",
+                class: "menu-item"
+              ) do %>
                 <%= icon("trash", title: "Delete post", class_name: "w-5 h-5", variant: :outline) %>
                 <span>Delete</span>
               <% end %>
@@ -48,10 +79,22 @@
       <% @posts.published.each do |post| %>
         <div class="flex flex-col gap-2 border-b border-zinc-700 py-4">
           <div class="flex justify-between">
-            <%= link_to(post.title, edit_dashboard_post_path(post), class:"text-lg font-medium transition-colors hover:text-violet-500") %>
+            <%= link_to(
+              post.title,
+              edit_dashboard_post_path(post),
+              class:"text-lg font-medium transition-colors hover:text-violet-500"
+            ) %>
             <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
               <% c.with_button %>
-              <%= button_to(unpublish_dashboard_post_path(post), method: :post, class: "menu-item", data: { turbo_confirm: "Are you sure you want to unpublish this post?" }) do %>
+              <%= button_to(
+                unpublish_dashboard_post_path(post),
+                method: :post,
+                class: "menu-item",
+                data: { 
+                  turbo_confirm: "Are you sure you want to unpublish this post?",
+                  turbo_confirm_message: "This post will not be visible to others."
+                }
+              ) do %>
                 <%= icon("eye-off", title: "Publish post", class_name: "w-5 h-5", variant: :outline) %>
                 <span>Unpublish</span>
               <% end %>
@@ -59,7 +102,18 @@
                 <%= icon("edit", title: "Edit post", class_name: "w-5 h-5") %>
                 <span>Edit</span>
               <% end %>
-              <%= button_to(dashboard_post_path(post), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_confirm_type: "delete" }}, form_class: "w-full", class: "menu-item") do %>
+              <%= button_to(
+                dashboard_post_path(post),
+                method: :delete,
+                form: { 
+                  data: { 
+                    turbo_confirm: "Are you sure you want to delete this post?",
+                    turbo_confirm_type: "delete" 
+                  }
+                },
+                form_class: "w-full",
+                class: "menu-item"
+              ) do %>
                 <%= icon("trash", title: "Delete post", class_name: "w-5 h-5", variant: :outline) %>
                 <span>Delete</span>
               <% end %>

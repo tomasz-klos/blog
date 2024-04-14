@@ -10,7 +10,7 @@
       action: "turbo:submit-end->autosave#success turbo:fetch-request-error->autosave#error",
       "autosave-status-duration-value": "5000",
       turbo: true,
-      "turbo-confirm": "Are you sure you want to update this post?",
+      "turbo-confirm": @post.published? ? "Are you sure you want to save this post?" : nil,
       "turbo-confirm-message": "Make sure that your changes are correct before updating the post."
     } 
   }

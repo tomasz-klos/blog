@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     root to: redirect('/dashboard/posts')
-    
     resources :posts do
       member do
         post 'publish'

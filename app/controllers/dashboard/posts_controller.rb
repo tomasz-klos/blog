@@ -1,5 +1,7 @@
 module Dashboard
   class PostsController < ApplicationController
+    include ActionView::RecordIdentifier
+
     layout('dashboard')
 
     before_action(:set_post, only: %i[edit update destroy publish unpublish])
@@ -15,6 +17,7 @@ module Dashboard
 
     def create
       @post = current_user.posts.new(post_params)
+
       if @post.save
         redirect_to(edit_dashboard_post_path(@post), notice: 'Draft post was successfully created.')
       else
@@ -25,9 +28,13 @@ module Dashboard
     def edit; end
 
     def update
-      return if @post.update(post_params)
-
-      render(:edit, status: :unprocessable_entity)
+      if @post.update(post_params)
+        render(turbo_stream: turbo_stream.replace(dom_id(@post, :content),
+                                                  partial: 'partials/post_content',
+                                                  locals: { post: @post }))
+      else
+        render(:edit, status: :unprocessable_entity)
+      end
     end
 
     def destroy

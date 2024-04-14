@@ -127,6 +127,6 @@ trix-toolbar {
   }
 
   .menu-item {
-    @apply flex items-center gap-2 px-2 py-2 mx-1 text-sm text-zinc-300 capitalize rounded-md w-[calc(100%-0.5rem)] min-w-[124px] hover:bg-zinc-700 hover:text-zinc-100 transition cursor-pointer;
+    @apply flex items-center gap-2 px-2 py-2 mx-1 text-sm text-zinc-300 capitalize rounded-md w-[calc(100%-0.5rem)] min-w-[124px] hover:bg-zinc-900 hover:text-zinc-100 transition cursor-pointer;
   }
 }

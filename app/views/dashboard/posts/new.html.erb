@@ -1,9 +1,19 @@
 <section class="col-start-4 col-span-7 flex flex-col gap-16 flex-1">
-  <hgroup class="flex flex-col gap-4 w-full">
-    <h1 class="text-2xl font-medium">
-      New <span class="text-violet-500">Post</span>
-    </h1>
-    <p class="text-zinc-500">Post will be saved as a draft. You can publish it later.</p>
-  </hgroup>
-  <%= render(partial: 'form', locals: { post: @post }) %>
+  <%= render(Common::Breadcrumb::Component.new(
+    items: [
+      { title: "Dashboard", url: dashboard_root_path },
+      { title: "Posts", url: dashboard_posts_path },
+      { title: "New post" }
+    ]
+  )) %>
+  <div class="flex flex-col gap-8">
+    <hgroup class="flex flex-col gap-4 w-full">
+      <h1 class="text-2xl font-medium">
+        New <span class="text-violet-500">Post</span>
+      </h1>
+      <p class="text-zinc-500">
+        Changes are saved automatically. Post will be saved as a draft. You can publish it later.</p>
+    </hgroup>
+    <%= render(partial: 'form', locals: { post: @post }) %>
+  </div>
 </section>

@@ -18,8 +18,8 @@ module Dashboard
     def create
       @post = current_user.posts.new(post_params)
 
-      if @post.save
-        redirect_to(edit_dashboard_post_path(@post), notice: 'Draft post was successfully created.')
+      if @post.save(validate: false)
+        render(json: { redirect_path: edit_dashboard_post_path(@post) }, status: :created)
       else
         render(:new, status: :unprocessable_entity)
       end
@@ -28,10 +28,19 @@ module Dashboard
     def edit; end
 
     def update
-      if @post.update(post_params)
-        render(turbo_stream: turbo_stream.replace(dom_id(@post, :content),
-                                                  partial: 'partials/post_content',
-                                                  locals: { post: @post }))
+      @post.assign_attributes(post_params)
+
+      if @post.draft? && @post.save(validate: false)
+        render(turbo_stream: turbo_stream.update(dom_id(@post, :content),
+                                                 partial: 'partials/post_content',
+                                                 locals: { post: @post }))
+
+      elsif @post.published? && @post.save
+        render(turbo_stream: [
+                 turbo_stream.update(dom_id(@post, :content), partial: 'partials/post_content', locals: { post: @post }),
+                 turbo_stream.update(dom_id(@post, :form), partial: 'dashboard/posts/form', locals: { post: @post })
+               ])
+
       else
         render(:edit, status: :unprocessable_entity)
       end
@@ -41,18 +50,20 @@ module Dashboard
       if @post.destroy
         redirect_to(dashboard_posts_path, notice: 'Post was successfully deleted.')
       else
-        puts "ERROR: #{@post.errors.full_messages}"
         redirect_to(@post)
       end
     end
 
     def publish
+      redirect_path = request.referrer || dashboard_posts_path
+
       @post.publish!
 
       if @post.published?
-        redirect_to(dashboard_posts_path, notice: 'Post was successfully published.')
+        redirect_to(redirect_path, notice: 'Post was successfully published.')
       else
-        redirect_to(dashboard_posts_path, alert: 'Post could not be published.')
+        error = @post.errors.full_messages.first
+        redirect_to(redirect_path, alert: "Post could not be published, because: #{error}")
       end
     end
 
@@ -75,7 +86,7 @@ module Dashboard
     def set_post
       @post = Post.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to(root_path)
+      redirect_to(posts_root_path)
     end
 
     def authorize_user!

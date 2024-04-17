@@ -1,39 +1,44 @@
-<%= form_with(
-  model: @post,
-  url: @post.persisted? ? dashboard_post_path(@post) : dashboard_posts_path,
-  method: @post.persisted? ? :patch : :post,
-  html: { 
-    class: "form max-w-full",
-    data: { 
-      controller: @post.draft? ? "autosave" : nil,
-      "autosave_target": "form",
-      action: "turbo:submit-end->autosave#success turbo:fetch-request-error->autosave#error",
-      "autosave-status-duration-value": "5000",
-      turbo: true,
-      "turbo-confirm": @post.published? ? "Are you sure you want to save this post?" : nil,
-      "turbo-confirm-message": "Make sure that your changes are correct before updating the post."
-    } 
-  }
-) do |form| %>
-  <div class="empty:hidden animate-fade-in absolute top-0 right-0 rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-800 text-sm font-medium" data-autosave-target="status"></div>
-  <div class="field">
-    <%= form.label(:title, class: field_label_classes(form, :title)) %>
-    <%= form.text_field(:title, class: "input", data: { action: "keyup->autosave#save" }) %>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :title)) %>
-  </div>
-  <div class="field h-full">
-    <%= form.label(:content, class: field_label_classes(form, :content)) %>
-    <div class="trix-wrapper">
-      <%= form.rich_text_area(:content,
+<%= turbo_frame_tag(dom_id(@post, :form)) do %>
+  <%= form_with(
+    model: @post,
+    url: @post.persisted? ? dashboard_post_path(@post) : dashboard_posts_path,
+    method: @post.persisted? ? :patch : :post,
+    html: { 
+      class: "form max-w-full",
+      data: { 
+        turbo: true,
+        "turbo-confirm": @post.published? ? "Are you sure you want to save this post?" : nil,
+        "turbo-confirm-message": @post.published? ? "Make sure that your changes are correct before updating the post." : nil
+      }.tap { |data| 
+        if @post.draft?
+          data[:controller] = "auto-save"
+          data["auto-save_target"] = "form"
+          data["action"] = "turbo:submit-end->auto-save#success turbo:fetch-request-error->auto-save#error"
+          data["auto-save-status-duration-value"] = "5000"
+        end
+      }
+    }
+  ) do |form| %>
+    <div class="empty:hidden animate-fade-in absolute top-0 right-0 rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-800 text-sm font-medium" data-auto-save-target="status"></div>
+    <div class="field">
+      <%= form.label(:title, class: field_label_classes(form, :title)) %>
+      <%= form.text_field(:title, autocomplete: "off", class: "input", data: { action: "keyup->auto-save#save" }) %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :title)) %>
+    </div>
+    <div class="field h-full">
+      <%= form.label(:content, class: field_label_classes(form, :content)) %>
+      <div class="trix-wrapper">
+        <%= form.rich_text_area(:content,
         class: "rich-textarea trix-content min-h-[400px]",
-        data: { action: "trix-change->autosave#save", controller: "trix" }
+        data: { action: "trix-change->auto-save#save", controller: "trix" }
       ) %>
+      </div>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
     </div>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
-  </div>
-  <% if @post.published? %>
-    <div>
-      <%= form.button("Update post", class: "btn-secondary btn-md") %>
-    </div>
+    <% if @post.published? %>
+      <div>
+        <%= form.button("Update post", class: "btn-secondary btn-md") %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

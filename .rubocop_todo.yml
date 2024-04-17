@@ -107,15 +107,7 @@ Style/BlockComments:
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
-  Exclude:
-    - 'app/components/common/alert/component.rb'
-    - 'app/components/common/comment/component.rb'
-    - 'app/components/common/comment/replies/component.rb'
-    - 'app/components/common/dropdown/button/component.rb'
-    - 'app/components/common/dropdown/component.rb'
-    - 'app/components/common/error_messages/component.rb'
-    - 'app/components/common/modal/component.rb'
-    - 'app/components/post/component.rb'
+  Enabled: false
 
 # Offense count: 44
 # Configuration parameters: AllowedConstants.

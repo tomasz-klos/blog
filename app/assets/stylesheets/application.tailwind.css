@@ -94,10 +94,6 @@ trix-toolbar {
     @apply max-h-[700px] overflow-y-auto p-3 border border-zinc-500 text-zinc-300 mx-2 my-4 rounded-md focus:border-violet-500 focus:outline-none focus:ring-0 focus:ring-offset-0;
   }
 
-  .error-message {
-    @apply text-red-500 text-sm;
-  }
-
   .divider {
     @apply w-full h-px bg-zinc-800 mt-px;
   }

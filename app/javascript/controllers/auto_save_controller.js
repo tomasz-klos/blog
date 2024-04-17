@@ -14,6 +14,8 @@ export default class extends Autosave {
       const response = await event.detail.fetchResponse.response.json()
       const redirectionPath = response.redirect_path
 
+      if (!redirectionPath) return
+
       history.pushState({ turbo_frame_history: true }, "", redirectionPath)
 
       Turbo.visit(redirectionPath)

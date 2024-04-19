@@ -1,7 +1,7 @@
 class Common::Tabs::Component < ApplicationComponent
   include Common::Tabs
 
-  option :class_name, Types::String.default(''), optional: true
+  option :class_name, optional: true
   option :tabs_id, default: -> { SecureRandom.hex(10) }, optional: true
 
   renders_many :buttons, lambda { |id:, disabled: false, class_name: '', is_active: false|

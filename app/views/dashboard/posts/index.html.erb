@@ -27,7 +27,7 @@
               <% end %>
             <% end %>
             <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-              <% c.with_button %>
+              <% c.with_button(name: "post_#{post.id}_controls") %>
               <%= button_to(
                 publish_dashboard_post_path(post),
                 method: :post,
@@ -85,7 +85,7 @@
               class:"text-lg font-medium transition-colors hover:text-violet-500"
             ) %>
             <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-              <% c.with_button %>
+              <% c.with_button(name: "post_#{post.id}_controls") %>
               <%= button_to(
                 unpublish_dashboard_post_path(post),
                 method: :post,

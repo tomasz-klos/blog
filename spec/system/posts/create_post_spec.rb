@@ -1,36 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe 'Create post', type: :system do
-  let(:user) { FactoryBot.create(:user) }
-
+RSpec.describe 'Create draft post', type: :system do
   before do
-    login_as(user)
-    visit(new_post_path)
+    user = FactoryBot.create(:user)
+    login_as(user, scope: :user)
+    visit(dashboard_posts_path)
+    click_on('Write post')
   end
 
-  context('with valid data') do
-    it('creates a post') do
-      fill_in('Title', with: 'My first post')
-      trix_editor = find_trix_editor('post_content_trix_input_post')
-      trix_editor.click.set('This is the content of my first post' * 20)
+  it('creates a draft post') do
+    fill_in('Title', with: 'My first draft post')
 
-      click_on('Create Post')
-
-      expect(page).to have_content('Post was successfully created.')
-    end
-  end
-
-  context('with invalid data') do
-    it('does not create a post') do
-      fill_in('Title', with: '')
-      trix_editor = find_trix_editor('post_content_trix_input_post')
-      trix_editor.click.set('')
-
-      click_on('Create Post')
-
-      expect(page).to have_content("can't be blank")
-      expect(page).to have_content('is too short (minimum is 5 characters)')
-      expect(page).to have_content('is too short (minimum is 100 characters)')
-    end
+    expect(page).to have_field('Title', with: 'My first draft post')
+    expect(page).to have_content('Draft')
+    expect(page).to have_current_path(edit_dashboard_post_path(Post.last))
   end
 end

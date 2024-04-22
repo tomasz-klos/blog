@@ -12,6 +12,12 @@ RSpec.configure do |config|
     end
   end
 
+  Capybara.register_driver :selenium_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--window-size=1440,900')
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+  end
+
   config.use_transactional_fixtures = false
 
   config.before(:suite) do

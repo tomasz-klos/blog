@@ -9,7 +9,7 @@
   )) %>
   <%= render(Common::Tabs::Component.new(class_name: "flex flex-col pt-16 lg:pt-0 lg:items-end w-full")) do |c| %>
     <%= c.with_button(id: "edit-post") do %>
-      Edit post
+      Edit
     <% end %>
     <%= c.with_panel(id: "edit-post", class_name: "w-full pb-0 pt-8") do %>
       <section class="flex gap-24 flex-1 w-full">
@@ -33,7 +33,7 @@
       </section>
     <% end %>
     <%= c.with_button(id: "preview-post") do %>
-      Preview post
+      Preview
     <% end %>
     <%= c.with_panel(id: "preview-post", class_name: "w-full pb-0 pt-8") do %>
       <%= render(partial: 'preview', locals: { post: @post }) %>

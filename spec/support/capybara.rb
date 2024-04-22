@@ -1,13 +1,17 @@
 require 'capybara/rspec'
 require 'selenium/webdriver'
 
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.javascript_driver = :selenium_chrome
-
 RSpec.configure do |config|
+  if ENV['HEADLESS']
+    config.before(type: :system) do
+      driven_by :selenium_chrome
+    end
+  else
+    config.before(type: :system) do
+      driven_by :selenium_chrome_headless
+    end
+  end
+
   config.use_transactional_fixtures = false
 
   config.before(:suite) do

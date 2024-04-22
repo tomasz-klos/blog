@@ -10,7 +10,9 @@ export default class extends Autosave {
   }
 
   async redirect(event) {
-    if (event.detail.success) {
+    if (!event.detail.success) return
+
+    try {
       const response = await event.detail.fetchResponse.response.json()
       const redirectionPath = response.redirect_path
 
@@ -19,6 +21,6 @@ export default class extends Autosave {
       history.pushState({ turbo_frame_history: true }, "", redirectionPath)
 
       Turbo.visit(redirectionPath)
-    }
+    } catch (error) {}
   }
 }

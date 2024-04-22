@@ -6,38 +6,37 @@ RSpec.describe 'Delete post', type: :system do
 
   before do
     login_as(user)
-    visit(posts_path)
+    visit(dashboard_posts_path)
   end
 
-  shared_examples('deleting a post') do
+  shared_examples('deleting a post') do |delete_button|
     it do
-      click_on('delete')
+      click_on(delete_button)
+
+      within('dialog') do
+        find("button[value='confirm']").click
+      end
 
       expect(page).to have_content('Post was successfully deleted.')
       expect(page).not_to have_content(post.title)
     end
   end
 
-  context('from root page') do
+  context('from dashboard posts page') do
     before do
-      dropdown_button = find("//button[@name='post_#{post.id}_controls']")
+      dropdown_button = find("button[name='post_#{post.id}_controls']")
       dropdown_button.click
     end
 
-    it_behaves_like('deleting a post')
+    it_behaves_like('deleting a post', 'Delete')
   end
 
   context('from edit page') do
     before do
-      visit(posts_path)
-
-      find("//a[@href='/posts/#{post.id}']").click
-      expect(page).to have_content(post.title)
-
-      click_on('Edit post')
-      expect(page).to have_content("Edit post #{post.title}")
+      click_on(post.title)
+      expect(page).to have_content('Edit post')
     end
 
-    it_behaves_like('deleting a post')
+    it_behaves_like('deleting a post', 'Delete post')
   end
 end

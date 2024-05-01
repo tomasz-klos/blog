@@ -1,14 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe 'Create draft post', type: :system do
+RSpec.describe('Create draft post', type: :system, js: true) do
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
-    user = FactoryBot.create(:user)
     login_as(user, scope: :user)
     visit(dashboard_posts_path)
-    click_on('Write post')
   end
 
   it('creates a draft post') do
+    click_on('Write post')
+
     fill_in('Title', with: 'My first draft post')
 
     expect(page).to have_field('Title', with: 'My first draft post')

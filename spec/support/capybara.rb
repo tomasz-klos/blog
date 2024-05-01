@@ -1,7 +1,11 @@
 require 'capybara/rspec'
 require 'selenium/webdriver'
 
-Capybara.javascript_driver = :selenium_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
+
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
 
 RSpec.configure do |config|
   if ENV['HEADLESS']

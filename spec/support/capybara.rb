@@ -14,9 +14,9 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each, type: :system, js: true) do
-    page.driver.browser.manage.window.resize_to(1920, 1080)
-  end
+  # config.before(:each, type: :system, js: true) do
+  #   page.driver.browser.manage.window.resize_to(1920, 1080)
+  # end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

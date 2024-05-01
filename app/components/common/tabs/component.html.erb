@@ -1,0 +1,14 @@
+<div
+  class="<%= class_name %>"
+  data-controller="tabs"
+  data-tabs-active-tab-class="bg-zinc-900 text-zinc-100"
+>
+  <div class="flex gap-3 rounded-lg bg-zinc-800 p-1 w-max">
+    <% buttons.each do |button| %>
+      <%= button %>
+    <% end %>
+  </div>
+  <% panels.each do |panel| %>
+    <%= panel %>
+  <% end %>
+</div>

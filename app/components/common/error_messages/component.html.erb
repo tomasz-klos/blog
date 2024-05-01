@@ -1,7 +1,10 @@
 <% if form.object.errors[field].any? %>
   <ul>
     <% form.object.errors[field].each do |message| %>
-      <li class="error-message"><%= message %></li>
+      <li class="flex items-center gap-2 text-red-500 text-sm">
+        <%= icon("circle-half-vertical", class_name: "w-4 h-4 transform -rotate-45", variant: :outline) %>
+        <span><%= message %></span>
+      </li>
     <% end %>
   </ul>
 <% end %>

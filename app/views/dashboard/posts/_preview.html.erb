@@ -1,0 +1,15 @@
+<section class="flex gap-24 w-full">
+  <div class="relative flex flex-col gap-8 w-full">
+    <hgroup class="flex flex-col gap-4">
+      <h1 class="text-2xl font-medium">
+        Preview post
+      </h1>
+      <p class="text-zinc-500">
+        See how your post will look like to others.
+      </p>
+    </hgroup>
+    <div class="border-t border-zinc-800 pt-8">
+      <%= render(partial: 'partials/post_content', locals: { post: @post }) %>
+    </div>
+  </div>
+</section>

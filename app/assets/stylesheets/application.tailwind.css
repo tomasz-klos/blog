@@ -22,7 +22,7 @@ trix-toolbar {
     @apply flex items-center py-2 px-4 bg-zinc-800 border border-zinc-700 text-base font-medium text-zinc-100 rounded-lg hover:bg-violet-500 transition first-letter:capitalize cursor-pointer;
 
     &:disabled {
-      @apply bg-zinc-400 text-zinc-300 cursor-not-allowed;
+      @apply opacity-60 text-zinc-300 hover:bg-zinc-800 cursor-not-allowed;
     }
   }
 
@@ -55,7 +55,7 @@ trix-toolbar {
   }
 
   .form {
-    @apply flex flex-col gap-6 w-full md:max-w-[55vw] lg:max-w-[45vw];
+    @apply flex flex-col gap-6 w-full md:max-w-[55vw] lg:max-w-3xl;
   }
 
   .field {
@@ -94,10 +94,6 @@ trix-toolbar {
     @apply max-h-[700px] overflow-y-auto p-3 border border-zinc-500 text-zinc-300 mx-2 my-4 rounded-md focus:border-violet-500 focus:outline-none focus:ring-0 focus:ring-offset-0;
   }
 
-  .error-message {
-    @apply text-red-500 text-sm;
-  }
-
   .divider {
     @apply w-full h-px bg-zinc-800 mt-px;
   }
@@ -127,6 +123,6 @@ trix-toolbar {
   }
 
   .menu-item {
-    @apply flex items-center gap-2 px-2 py-2 mx-1 text-sm text-zinc-300 capitalize rounded-md w-[calc(100%-0.5rem)] min-w-[124px] hover:bg-zinc-700 hover:text-zinc-100 transition cursor-pointer;
+    @apply flex items-center gap-2 px-2 py-2 mx-1 text-sm text-zinc-300 capitalize rounded-md w-[calc(100%-0.5rem)] min-w-[124px] hover:bg-zinc-900 hover:text-zinc-100 transition cursor-pointer;
   }
 }

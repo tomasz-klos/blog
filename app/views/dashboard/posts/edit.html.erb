@@ -1,0 +1,104 @@
+<div class="lg:col-start-4 lg:col-span-7 relative flex justify-between gap-12 xl:gap-24 w-full">
+  <%= render(Common::Breadcrumb::Component.new(
+    class_name: "absolute top-0 left-0",
+    items: [
+      { title: "Dashboard", url: dashboard_root_path },
+      { title: "Posts", url: dashboard_posts_path },
+      { title: "Edit post" }
+    ]
+  )) %>
+  <%= render(Common::Tabs::Component.new(class_name: "flex flex-col pt-16 lg:pt-0 lg:items-end w-full")) do |c| %>
+    <%= c.with_button(id: "edit-post") do %>
+      Edit
+    <% end %>
+    <%= c.with_panel(id: "edit-post", class_name: "w-full pb-0 pt-8") do %>
+      <section class="flex gap-24 flex-1 w-full">
+        <div class="relative flex flex-col gap-8 w-full">
+          <hgroup class="flex flex-col gap-4">
+            <h1 class="text-2xl font-medium">
+              Edit post
+            </h1>
+            <% if @post.draft? %>
+              <p class="text-zinc-500">
+                Changes are saved automatically. Post still is not visible to others. You can publish it later.
+              </p>
+            <% else %>
+              <p class="text-zinc-500">
+                Post is visible to others, so you have to confirm your changes.
+              </p>
+            <% end %>
+          </hgroup>
+          <%= render(partial: 'form', locals: { post: @post }) %>
+        </div>
+      </section>
+    <% end %>
+    <%= c.with_button(id: "preview-post") do %>
+      Preview
+    <% end %>
+    <%= c.with_panel(id: "preview-post", class_name: "w-full pb-0 pt-8") do %>
+      <%= render(partial: 'preview', locals: { post: @post }) %>
+    <% end %>
+  <% end %>
+</div>
+<aside class="col-start-11 col-span-2 w-full">
+  <div class="sticky top-28 flex flex-col gap-8">
+    <div class="flex flex-col gap-3">
+      <h2 class="text-lg font-medium">
+        Post status
+      </h2>
+      <div class="flex flex-col gap-2">
+        <span class="text-zinc-500">
+          <%= @post.state.capitalize %>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h2 class="text-lg font-medium">
+        Actions
+      </h2>
+      <div class="flex flex-col gap-2">
+        <% if @post.draft? %>
+          <%= button_to(
+            "Publish post",
+            publish_dashboard_post_path(@post),
+            method: :post,
+            form: { 
+              data: { 
+                turbo_confirm: "Are you sure you want to publish this post?",
+                turbo_confirm_message: "Publishing this post will make it visible to others."
+              }
+            },
+            class: "text-zinc-500 hover:text-zinc-600"
+          ) %>
+        <% else %>
+          <%= button_to(
+            "Unpublish post",
+            unpublish_dashboard_post_path(@post),
+            method: :post,
+            form: { 
+              data: 
+              { 
+                turbo_confirm: "Are you sure you want to unpublish this post?",
+                turbo_confirm_message: "This post will not be visible to others."
+              }
+            },
+            class: "text-zinc-500 hover:text-zinc-600"
+          ) %>
+        <% end %>
+        <%= button_to(
+          "Delete post",
+          dashboard_post_path(@post),
+          method: :delete,
+          form: { 
+            data: { 
+              turbo_confirm: "Are you sure you want to delete this post?",
+              turbo_confirm_type: "delete" 
+            }
+          },
+          form_class: "w-full",
+          class: "text-zinc-500 hover:text-zinc-600"
+        ) %>
+      </div>
+    </div>
+  </div>
+</aside>

@@ -1,4 +1,4 @@
-<header class="sticky top-0 backdrop-blur-sm bg-zinc-900/20 py-6 px-6 shadow-md shadow-zinc-800/20 lg:px-12 z-[1]">
+<header class="sticky top-0 backdrop-blur-sm bg-zinc-900/20 py-2 px-6 shadow-md shadow-zinc-800/20 lg:px-12 z-[1]">
   <nav class="flex">
     <ul class="flex gap-4 items-center w-full lg:gap-8">
       <li class="flex">
@@ -6,36 +6,44 @@
           <%= image_tag('logo', class: "w-16", alt: "Dev Blog logo") %>
         <% end %>
       </li>
-      <li class="flex ml-auto">
-        <%= link_to("Write post", new_post_path, class: "p-3 text-sm font-medium hover:text-violet-500 transition") %>
-      </li>
-      <% if user_signed_in? %>
-        <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
-          <% c.with_button(class_name: "p-0 rounded-full") do %>
-            <span class="avatar h-8 w-8"></span>
-          <% end %>
-          <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
-            <p><%= current_user.email %></p>
-          </div>
-          <%= link_to(edit_user_registration_path, class: "menu-item") do %>
-            <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
-            <span>profile</span>
-          <% end %>
-          <%= button_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
-            <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>
-            <span>logout</span>
-          <% end %>
+      <div class="flex gap-4 items-center ml-auto">
+        <% if !request.fullpath.include?(dashboard_posts_path) %>
+          <li class="flex">
+            <%= link_to("Write post", new_dashboard_post_path, class: "p-3 text-sm font-medium hover:text-violet-500 transition") %>
+          </li>
         <% end %>
-      <% else %>
-        <div class="flex items-center gap-3">
-          <li class="flex">
-            <%= link_to("Login", new_user_session_path, class: "btn-primary btn-md") %>
-          </li>
-          <li class="flex">
-            <%= link_to("Sign up", new_user_registration_path, class: "btn-secondary btn-md") %>
-          </li>
-        </div>
-      <% end %>
+        <% if user_signed_in? %>
+          <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
+            <% c.with_button(class_name: "p-0 rounded-full") do %>
+              <span class="avatar h-8 w-8"></span>
+            <% end %>
+            <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
+              <p><%= current_user.email %></p>
+            </div>
+            <%= link_to(dashboard_root_path, class: "menu-item") do %>
+              <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
+              <span>dashboard</span>
+            <% end %>
+            <%= link_to(edit_user_registration_path, class: "menu-item") do %>
+              <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
+              <span>profile</span>
+            <% end %>
+            <%= button_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
+              <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>
+              <span>logout</span>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="flex items-center gap-3">
+            <li class="flex">
+              <%= link_to("Login", new_user_session_path, class: "btn-primary btn-md") %>
+            </li>
+            <li class="flex">
+              <%= link_to("Sign up", new_user_registration_path, class: "btn-secondary btn-md") %>
+            </li>
+          </div>
+        <% end %>
+      </div>
     </ul>
   </nav>
 </header>

@@ -1,0 +1,44 @@
+<%= turbo_frame_tag(dom_id(@post, :form)) do %>
+  <%= form_with(
+    model: @post,
+    url: @post.persisted? ? dashboard_post_path(@post) : dashboard_posts_path,
+    method: @post.persisted? ? :patch : :post,
+    html: { 
+      class: "form max-w-full",
+      data: { 
+        turbo: true,
+        "turbo-confirm": @post.published? ? "Are you sure you want to save this post?" : nil,
+        "turbo-confirm-message": @post.published? ? "Make sure that your changes are correct before updating the post." : nil
+      }.tap { |data| 
+        if @post.draft?
+          data[:controller] = "auto-save"
+          data["auto-save_target"] = "form"
+          data["action"] = "turbo:submit-end->auto-save#success turbo:fetch-request-error->auto-save#error"
+          data["auto-save-status-duration-value"] = "5000"
+        end
+      }
+    }
+  ) do |form| %>
+    <div class="empty:hidden animate-fade-in absolute top-0 right-0 rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-800 text-sm font-medium" data-auto-save-target="status"></div>
+    <div class="field">
+      <%= form.label(:title, class: field_label_classes(form, :title)) %>
+      <%= form.text_field(:title, autocomplete: "off", class: "input", data: { action: "keyup->auto-save#save input->auto-save#save" }) %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :title)) %>
+    </div>
+    <div class="field h-full">
+      <%= form.label(:content, class: field_label_classes(form, :content)) %>
+      <div class="trix-wrapper">
+        <%= form.rich_text_area(:content,
+        class: "rich-textarea trix-content min-h-[400px]",
+        data: { action: "trix-change->auto-save#save", controller: "trix" }
+      ) %>
+      </div>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
+    </div>
+    <% if @post.published? %>
+      <div>
+        <%= form.button("Update post", class: "btn-secondary btn-md") %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

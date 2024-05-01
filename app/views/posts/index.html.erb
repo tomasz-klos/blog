@@ -10,7 +10,7 @@
   <div class="flex flex-col gap-4">
     <% if user_signed_in? %>
       <div class="flex justify-center">
-        <%= link_to("Write Post", new_post_path, class: "btn-primary") %>
+        <%= link_to("Write Post", new_dashboard_post_path, class: "btn-primary") %>
       </div>
     <% else %>
       <p class="text-center">You must be signed in to create a new post.</p>

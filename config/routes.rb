@@ -8,12 +8,22 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts do
+  resources :posts, only: %i[index show] do
     resources :comments, only: %i[create]
   end
 
   resources :comments, only: %i[edit update destroy], concerns: :likable do
     resources :replies, concerns: :likable
+  end
+
+  namespace :dashboard do
+    root to: redirect('/dashboard/posts')
+    resources :posts do
+      member do
+        post 'publish'
+        post 'unpublish'
+      end
+    end
   end
 
   # Defines the root path route ("/")

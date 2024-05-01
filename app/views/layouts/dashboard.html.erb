@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="scroll-smooth">
+  <head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag("tailwind", "data-turbo-track": "reload") %>
+    <%= stylesheet_link_tag("application", "data-turbo-track": "reload") %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
+    <% if alert || notice %>
+      <%= render(Common::Alert::Component.new(
+        type: alert ? "alert" : "notice",
+        message: alert || notice
+      )) %>
+    <% end %>
+    <%= turbo_frame_tag("modal") %>
+    <%= render(partial: "partials/confirm_modal") %>
+    <%= render(partial: "partials/header") %>
+    <main class="flex flex-col lg:grid lg:grid-cols-12 gap-12 flex-1 w-full py-4 px-8 lg:p-12">
+      <%= render(partial: "dashboard/partials/nav") %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<nav class="h-max flex flex-col gap-2 rounded-lg px-4 py-1 lg:col-span-3 xl:w-4/5 2xl:w-3/5 lg:sticky lg:top-28">
+  <%= link_to(
+    dashboard_posts_path,
+    class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(dashboard_posts_path) ? 'bg-zinc-800' : ''}"
+  ) do %>
+    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <span>Posts</span>
+  <% end %>
+</nav>

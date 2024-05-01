@@ -1,25 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe 'Edit post', type: :system do
-  let(:user) { FactoryBot.create(:user) }
+RSpec.describe 'Edit post', type: :system, js: true do
+  let!(:user) { FactoryBot.create(:user) }
 
   before do
     login_as(user)
   end
 
   context('draft post') do
+    let!(:post) { FactoryBot.create(:post, user:) }
+
     before do
-      post = FactoryBot.create(:post, user:)
-
       visit(dashboard_posts_path)
-
-      dropdown_button = find("button[name='post_#{post.id}_controls']")
-      dropdown_button.click
-
-      click_on('Edit')
     end
 
     it do
+      dropdown_button = find("button[id='post_#{post.id}_controls']")
+      dropdown_button.click
+
+      expect(page).to have_selector("#post_#{post.id}_menu")
+
+      within("#post_#{post.id}_menu") do
+        click_on('Edit')
+      end
+
       fill_in('Title', with: 'Updated title')
       trix_editor = find_trix_editor("post_content")
 
@@ -37,16 +41,17 @@ RSpec.describe 'Edit post', type: :system do
   end
 
   context('published post') do
+    let!(:post) { FactoryBot.create(:post, user:, state: :published) }
+
     before do
-      post = FactoryBot.create(:post, user:, state: :published)
-
       visit(dashboard_posts_path)
-      find("button[id='published-posts']").click
-
-      click_on(post.title)
     end
 
     it do
+      find("button[id='published-posts']").click
+
+      click_on(post.title)
+
       fill_in('Title', with: 'Updated title')
       trix_editor = find_trix_editor("post_content")
 

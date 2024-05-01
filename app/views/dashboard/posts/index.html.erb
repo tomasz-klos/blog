@@ -26,8 +26,11 @@
                 <%= post.title %>
               <% end %>
             <% end %>
-            <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-              <% c.with_button(name: "post_#{post.id}_controls") %>
+            <%= render(Common::Dropdown::Component.new(
+              id: "post_#{post.id}_menu",
+              position: 'left'
+            )) do |c| %>
+              <% c.with_button(id: "post_#{post.id}_controls") %>
               <%= button_to(
                 publish_dashboard_post_path(post),
                 method: :post,
@@ -84,8 +87,11 @@
               edit_dashboard_post_path(post),
               class:"text-lg font-medium transition-colors hover:text-violet-500"
             ) %>
-            <%= render(Common::Dropdown::Component.new(position: 'left')) do |c| %>
-              <% c.with_button(name: "post_#{post.id}_controls") %>
+            <%= render(Common::Dropdown::Component.new(
+              id: "post_#{post.id}_menu",
+              position: 'left'
+            )) do |c| %>
+              <% c.with_button(id: "post_#{post.id}_controls") %>
               <%= button_to(
                 unpublish_dashboard_post_path(post),
                 method: :post,

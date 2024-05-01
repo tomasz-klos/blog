@@ -4,9 +4,9 @@ require 'selenium/webdriver'
 Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
-  if ENV['HEADLESS']
+  if !ENV['HEADLESS']
     config.before(type: :system) do
-      driven_by :selenium
+      driven_by :selenium_chrome
     end
   else
     config.before(type: :system) do

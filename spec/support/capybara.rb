@@ -1,14 +1,22 @@
 require 'capybara/rspec'
 require 'selenium/webdriver'
 
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.javascript_driver = :selenium_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = false
+  if !ENV['HEADLESS']
+    config.before(type: :system) do
+      driven_by :selenium_chrome
+    end
+  else
+    config.before(type: :system) do
+      driven_by :selenium_chrome_headless
+    end
+  end
+
+  config.before(:each, type: :system, js: true) do
+    page.driver.browser.manage.window.resize_to(1920, 1080)
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

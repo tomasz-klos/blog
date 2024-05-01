@@ -1,47 +1,74 @@
 require 'rails_helper'
 
-RSpec.describe 'Edit post', type: :system do
-  let(:user) { FactoryBot.create(:user) }
-  let!(:post) { FactoryBot.create(:post, user:) }
+RSpec.describe 'Edit post', type: :system, js: true do
+  let!(:user) { FactoryBot.create(:user) }
 
   before do
     login_as(user)
-    visit(posts_path)
   end
 
-  shared_examples('editing a post') do
-    it do
-      fill_in('Title', with: 'Updated title')
-      trix_editor = find_trix_editor("post_content_trix_input_post_#{post.id}")
-      trix_editor.click.set('This is the updated content of my post' * 20)
+  context('draft post') do
+    let!(:post) { FactoryBot.create(:post, user:) }
 
-      click_on('Update Post')
-
-      expect(page).to have_content('Post was successfully updated.')
-      expect(page).to have_content('Updated title')
-    end
-  end
-
-  context('from root page') do
     before do
-      dropdown_button = find("//button[@name='post_#{post.id}_controls']")
+      visit(dashboard_posts_path)
+    end
+
+    it do
+      dropdown_button = find("button[id='post_#{post.id}_controls']")
       dropdown_button.click
 
-      click_on('edit')
-    end
+      expect(page).to have_selector("#post_#{post.id}_menu")
 
-    it_behaves_like('editing a post')
+      within("#post_#{post.id}_menu") do
+        click_on('Edit')
+      end
+
+      fill_in('Title', with: 'Updated title')
+      trix_editor = find_trix_editor("post_content")
+
+      content = 'This is the updated content of my post' * 20
+      trix_editor.click.set(content)
+
+      expect(page).to have_content('Saved')
+
+      find("button[id='preview-post']").click
+
+      expect(page).to have_content('Preview post')
+      expect(page).to have_content('Updated title')
+      expect(page).to have_content(content)
+    end
   end
 
-  context('from show page') do
-    before do
-      find("//a[@href='/posts/#{post.id}']").click
-      expect(page).to have_content(post.title)
+  context('published post') do
+    let!(:post) { FactoryBot.create(:post, user:, state: :published) }
 
-      click_on('Edit post')
-      expect(page).to have_content("Edit post #{post.title}")
+    before do
+      visit(dashboard_posts_path)
     end
 
-    it_behaves_like('editing a post')
+    it do
+      find("button[id='published-posts']").click
+
+      click_on(post.title)
+
+      fill_in('Title', with: 'Updated title')
+      trix_editor = find_trix_editor("post_content")
+
+      content = 'This is the updated content of my post' * 20
+      trix_editor.click.set(content)
+
+      click_on('Update post')
+
+      within('dialog') do
+        find("button[value='confirm']").click
+      end
+
+      find("button[id='preview-post']").click
+
+      expect(page).to have_content('Preview post')
+      expect(page).to have_content('Updated title')
+      expect(page).to have_content(content)
+    end
   end
 end

@@ -22,7 +22,7 @@
     <div class="empty:hidden animate-fade-in absolute top-0 right-0 rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-800 text-sm font-medium" data-auto-save-target="status"></div>
     <div class="field">
       <%= form.label(:title, class: field_label_classes(form, :title)) %>
-      <%= form.text_field(:title, autocomplete: "off", class: "input", data: { action: "keyup->auto-save#save" }) %>
+      <%= form.text_field(:title, autocomplete: "off", class: "input", data: { action: "keyup->auto-save#save input->auto-save#save" }) %>
       <%= render(Common::ErrorMessages::Component.new(form: form, field: :title)) %>
     </div>
     <div class="field h-full">

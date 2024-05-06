@@ -11,6 +11,11 @@
       <%= render(Common::ErrorMessages::Component.new(form: form, field: :email)) %>
     </div>
     <div class="field">
+      <%= form.label(:name, class: "input-label") %>
+      <%= form.text_field(:name, autofocus: true, autocomplete: "name", class: "input") %>
+      <%= render(Common::ErrorMessages::Component.new(form: form, field: :name)) %>
+    </div>
+    <div class="field">
       <%= form.label(:password, class: "input-label") %>
       <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>

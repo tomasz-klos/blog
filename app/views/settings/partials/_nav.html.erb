@@ -3,14 +3,21 @@
     settings_profile_path,
     class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(settings_profile_path) ? 'bg-zinc-800' : ''}"
   ) do %>
-    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
     <span>Profile</span>
   <% end %>
   <%= link_to(
     settings_account_path,
     class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(settings_account_path) ? 'bg-zinc-800' : ''}"
   ) do %>
-    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <%= icon("settings", class_name: "w-5 h-5", title: "Account", variant: :outline) %>
     <span>Account</span>
+  <% end %>
+  <%= link_to(
+    settings_security_path,
+    class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(settings_security_path) ? 'bg-zinc-800' : ''}"
+  ) do %>
+    <%= icon("lock", class_name: "w-5 h-5", title: "Security", variant: :outline) %>
+    <span>Security</span>
   <% end %>
 </nav>

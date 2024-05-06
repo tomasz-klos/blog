@@ -1,0 +1,16 @@
+<nav class="h-max flex flex-col gap-2 rounded-lg px-4 py-1 lg:col-span-3 xl:w-4/5 2xl:w-3/5 lg:sticky lg:top-28">
+  <%= link_to(
+    settings_profile_path,
+    class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(settings_profile_path) ? 'bg-zinc-800' : ''}"
+  ) do %>
+    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <span>Profile</span>
+  <% end %>
+  <%= link_to(
+    settings_account_path,
+    class: "menu-item font-medium hover:bg-zinc-800 #{request.fullpath.include?(settings_account_path) ? 'bg-zinc-800' : ''}"
+  ) do %>
+    <%= icon("notes", class_name: "w-5 h-5", title: "Posts", variant: :outline) %>
+    <span>Account</span>
+  <% end %>
+</nav>

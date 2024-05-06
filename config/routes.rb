@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :settings do
+    root to: redirect('/settings/profile')
+    resource :profile, only: %i[show edit update]
+    resource :account, only: %i[show edit update]
+  end
+
   # Defines the root path route ("/")
   root 'posts#index', as: 'posts_root'
 end

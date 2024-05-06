@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   namespace :settings do
     root to: redirect('/settings/profile')
     resource :profile, only: %i[show edit update]
-    resource :account, only: %i[show edit update]
+    resource :account, only: %i[show destroy]
   end
 
   # Defines the root path route ("/")

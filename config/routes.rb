@@ -30,8 +30,9 @@ Rails.application.routes.draw do
 
   namespace :settings do
     root to: redirect('/settings/profile')
-    resource :profile, only: [:show, :edit, :update]
+    resource :profile, only: [:show, :update]
     resource :account, only: [:show, :destroy]
+    resource :security, only: [:show, :update]
   end
 
   root 'posts#index', as: 'posts_root'

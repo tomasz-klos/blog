@@ -5,10 +5,10 @@ class Common::Avatar::Component < ApplicationComponent
 
   def avatar_size
     {
-      "sm" => "h-5 w-5",
-      "md" => "h-8 w-8",
-      "lg" => "h-12 w-12",
-      "xl" => "h-24 w-24"
+      "sm" => "size-5",
+      "md" => "size-8",
+      "lg" => "size-16",
+      "xl" => "size-24"
     }[size]
   end
 end

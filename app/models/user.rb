@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  validates :name, presence: true, length: { minimum: 3, maximum: 50 }
+  validates :name, presence: true, length: { minimum: 3, maximum: 50 }, uniqueness: true
 
   has_one_attached :avatar
 end

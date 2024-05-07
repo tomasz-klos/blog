@@ -30,8 +30,7 @@
       <div class="flex flex-col gap-4 rounded-lg border border-zinc-700 px-4 py-6">
         <p class="text-sm font-medium text-zinc-300 uppercase">Author</p>
         <div class="flex gap-4 items-center">
-          <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center">
-          </span>
+          <%= render(Common::Avatar::Component.new(user: @post.user)) %>
           <p class="text-sm font-medium text-zinc-500"><%= @post.user.email %></p>
         </div>
         <div class="flex flex-col gap-2">

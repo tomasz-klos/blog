@@ -15,7 +15,7 @@
         <% if user_signed_in? %>
           <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
             <% c.with_button(class_name: "p-0 rounded-full") do %>
-              <span class="avatar h-8 w-8"></span>
+              <%= render(Common::Avatar::Component.new(user: current_user)) %>
             <% end %>
             <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
               <p><%= current_user.name %></p>

@@ -4,8 +4,7 @@
       <h1 class="text-5xl font-medium text-center"><%= @post.title %></h1>
       <div class="flex gap-4 items-center">
         <p class="text-zinc-300">by</p>
-        <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center">
-        </span>
+        <%= render(Common::Avatar::Component.new(user: post.user)) %>
         <p class="text-zinc-500"><%= @post.user.email %></p>
         <p class="text-zinc-500"><%= @post.created_at.strftime("%B %d, %Y") %></p>
       </div>

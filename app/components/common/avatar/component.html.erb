@@ -1,5 +1,5 @@
 <% if user.avatar.attached? %>
-  <%= image_tag(user.avatar, class: "#{avatar_size} rounded-full") %>
+  <%= image_tag(user.avatar, class: "#{avatar_size} rounded-full #{class_name}") %>
 <% else %>
-  <%= icon("user_avatar", class_name: "#{avatar_size} rounded-full", variant: :outline) %>
+  <%= icon("user_avatar", class_name: "#{avatar_size} rounded-full #{class_name}", variant: :outline) %>
 <% end %>

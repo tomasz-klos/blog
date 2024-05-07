@@ -15,18 +15,18 @@
         <% if user_signed_in? %>
           <%= render(Common::Dropdown::Component.new(position: 'left', menu_class: "top-16")) do |c| %>
             <% c.with_button(class_name: "p-0 rounded-full") do %>
-              <span class="avatar h-8 w-8"></span>
+              <%= render(Common::Avatar::Component.new(user: current_user)) %>
             <% end %>
             <div class="px-4 pt-2 pb-3 border-b border-zinc-700">
-              <p><%= current_user.email %></p>
+              <p><%= current_user.name %></p>
             </div>
             <%= link_to(dashboard_root_path, class: "menu-item") do %>
               <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
               <span>dashboard</span>
             <% end %>
-            <%= link_to(edit_user_registration_path, class: "menu-item") do %>
-              <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
-              <span>profile</span>
+            <%= link_to(settings_profile_path, class: "menu-item") do %>
+              <%= icon("settings", class_name: "w-5 h-5", title: "Settings", variant: :outline) %>
+              <span>settings</span>
             <% end %>
             <%= button_to(destroy_user_session_path, method: :delete, class: "menu-item") do %>
               <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>

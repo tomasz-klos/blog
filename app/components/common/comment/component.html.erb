@@ -1,6 +1,6 @@
 <article class="<%= record.instance_of?(Comment) ? "comment" : "comment-reply" %>">
   <div class="flex gap-3 items-center">
-    <span class="avatar"></span>
+    <%= render(Common::Avatar::Component.new(user: record.user)) %>
     <div class="flex items-center gap-2 w-full">
       <p class="text-sm font-medium truncate"><%= record.user.email %></p>
       <span class="dot-divider mt-1"></span>

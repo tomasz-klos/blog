@@ -1,8 +1,6 @@
 <article class="flex flex-col gap-4 border-b border-zinc-800 py-4 w-full max-w-screen-sm">
   <div class="flex gap-3 items-center">
-    <div class="flex items-center gap-2">
-      <span class="avatar"></span>
-    </div>
+    <%= render(Common::Avatar::Component.new(user: post.user)) %>
     <p class="text-sm truncate"><%= post.user.email %></p>
     <span class="dot-divider mt-1"></span>
     <span class="text-zinc-500 text-sm min-w-max"><%= post.created_at.strftime("%B %d, %Y") %></span>

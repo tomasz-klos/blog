@@ -1,4 +1,4 @@
-<section class="flex flex-col gap-4 flex-1 w-full lg:grid lg:grid-cols-12 lg:grid-flow-col lg:gap-12 py-4 lg:py-12 lg:max-w-[1200px] mx-auto">
+<section class="flex flex-col gap-4 flex-10 lg:w-full lg:grid lg:grid-cols-12 lg:grid-flow-col lg:gap-12 py-4 lg:py-12 lg:max-w-[1200px] mx-auto">
   <aside class="flex flex-col gap-4 lg:h-max lg:sticky lg:top-28 lg:col-start-9 lg:col-end-13">
     <%= render(Common::Avatar::Component.new(user: @user, size: "2xl")) %>
     <h1><%= @user.name %></h1>
@@ -8,9 +8,25 @@
       <span class="">Joined:</span>
       <p><%= @user.created_at.strftime("%B %d, %Y") %></p>
     </div>
+    <div class="flex flex-col gap-2 mt-4 pt-4 border-t border-zinc-800">
+      <div class="flex items-center gap-2 text-sm text-zinc-200">
+        <%= icon("notes", class_name: "size-5", variant: :outline) %>
+        <p>
+          <%= number_to_human(@posts.count, format: "%n%u", units: { thousand: "K" }) %>
+          posts published
+        </p>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-zinc-200">
+        <%= icon("message", class_name: "size-5", variant: :outline) %>
+        <p>
+          <%= number_to_human(@comments.count, format: "%n%u", units: { thousand: "K" }) %>
+          comments written
+        </p>
+      </div>
+    </div>
   </aside>
   <div class="lg:col-start-1 lg:col-end-9">
-    <%= render(Common::Tabs::Component.new(class_name: "h-full")) do |c| %>
+    <%= render(Common::Tabs::Component.new(class_name: "h-full pt-12 lg:pt-0")) do |c| %>
       <%= c.with_button(id: "posts") do %>
         Posts
       <% end %>

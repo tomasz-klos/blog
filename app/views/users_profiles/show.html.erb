@@ -1,10 +1,10 @@
-<section class="flex flex-col gap-4 flex-1 lg:grid lg:grid-cols-12 lg:grid-flow-col lg:gap-12 py-4 lg:py-12 lg:max-w-[1200px] mx-auto">
+<section class="flex flex-col gap-4 flex-1 w-full lg:grid lg:grid-cols-12 lg:grid-flow-col lg:gap-12 py-4 lg:py-12 lg:max-w-[1200px] mx-auto">
   <aside class="flex flex-col gap-4 lg:h-max lg:sticky lg:top-28 lg:col-start-9 lg:col-end-13">
-    <%= render(Common::Avatar::Component.new(user: @user, class_name: "size-32")) %>
+    <%= render(Common::Avatar::Component.new(user: @user, size: "2xl")) %>
     <h1><%= @user.name %></h1>
     <p><%= @user.bio %></p>
     <div class="flex items-center gap-2 text-sm text-zinc-200">
-      <%= icon("calendar", class_name: " w-4 h-4", variant: :outline) %>
+      <%= icon("calendar", class_name: "size-4", variant: :outline) %>
       <span class="">Joined:</span>
       <p><%= @user.created_at.strftime("%B %d, %Y") %></p>
     </div>

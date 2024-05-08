@@ -8,7 +8,7 @@
         <p class="text-sm font-medium truncate"><%= record.user.name %></p>
       <% end %>
       <span class="dot-divider mt-1"></span>
-      <p class="text-sm font-medium truncate"><%= time_ago_in_words(record.created_at) %> ago</p>
+      <p class="text-sm truncate"><%= time_ago_in_words(record.created_at) %> ago</p>
     </div>
     <div class="flex gap-4 items-center ml-auto">
       <%= turbo_frame_tag(dom_id(record, :controls)) do %>

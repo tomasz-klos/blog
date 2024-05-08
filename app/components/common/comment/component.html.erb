@@ -1,10 +1,10 @@
 <article class="<%= record.instance_of?(Comment) ? "comment" : "comment-reply" %>">
   <div class="flex gap-3 items-center">
-    <%= link_to(user_profile_path(record.user.name), class: "hover:opacity-80", target: "_top") do %>
+    <%= link_to(user_profile_path(record.user), class: "hover:opacity-80", target: "_top") do %>
       <%= render(Common::Avatar::Component.new(user: record.user)) %>
     <% end %>
     <div class="flex items-center gap-2 w-full">
-      <%= link_to(user_profile_path(record.user.name), class: "link-primary", target: "_top") do %>
+      <%= link_to(user_profile_path(record.user), class: "link-primary", target: "_top") do %>
         <p class="text-sm font-medium truncate"><%= record.user.name %></p>
       <% end %>
       <span class="dot-divider mt-1"></span>

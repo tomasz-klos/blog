@@ -24,6 +24,11 @@
               <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
               <span>dashboard</span>
             <% end %>
+            <%= link_to(user_profile_path(current_user), class: "menu-item") do %>
+              <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
+              <span>profile</span>
+            <% end %>
+            <div class="border-t border-zinc-700"></div>
             <%= link_to(settings_profile_path, class: "menu-item") do %>
               <%= icon("settings", class_name: "w-5 h-5", title: "Settings", variant: :outline) %>
               <span>settings</span>

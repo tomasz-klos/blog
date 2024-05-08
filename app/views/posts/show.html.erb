@@ -30,8 +30,12 @@
       <div class="flex flex-col gap-4 rounded-lg border border-zinc-700 px-4 py-6">
         <p class="text-sm font-medium text-zinc-300 uppercase">Author</p>
         <div class="flex gap-4 items-center">
-          <%= render(Common::Avatar::Component.new(user: @post.user)) %>
-          <p class="text-sm font-medium text-zinc-500"><%= @post.user.email %></p>
+          <%= link_to(user_profile_path(@post.user.name), class: "min-w-max hover:opacity-80") do %>
+            <%= render(Common::Avatar::Component.new(user: @post.user)) %>
+          <% end %>
+          <%= link_to(user_profile_path(@post.user.name), class: "link-primary") do %>
+            <p class="text-sm truncate"><%= @post.user.name %></p>
+          <% end %>
         </div>
         <div class="flex flex-col gap-2">
           <p class="text-sm font-medium text-zinc-300 uppercase">Joined</p>

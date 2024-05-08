@@ -1,7 +1,11 @@
 <article class="flex flex-col gap-4 border-b border-zinc-800 py-4 w-full max-w-screen-sm">
   <div class="flex gap-3 items-center">
-    <%= render(Common::Avatar::Component.new(user: post.user)) %>
-    <p class="text-sm truncate"><%= post.user.email %></p>
+    <%= link_to(user_profile_path(post.user.name), class: "min-w-max hover:opacity-80") do %>
+      <%= render(Common::Avatar::Component.new(user: post.user)) %>
+    <% end %>
+    <%= link_to(user_profile_path(post.user.name), class: "link-primary") do %>
+      <p class="text-sm truncate"><%= post.user.name %></p>
+    <% end %>
     <span class="dot-divider mt-1"></span>
     <span class="text-zinc-500 text-sm min-w-max"><%= post.created_at.strftime("%B %d, %Y") %></span>
     <% if author? %>

@@ -51,10 +51,9 @@ export default class extends Controller {
   }
 
   handleKeyDown(event) {
-    // Sprawdź, czy naciśnięto klawisz Escape
     if (event.key === "Escape") {
-      event.preventDefault() // Zapobiegnij domyślnej akcji przeglądarki
-      this.close() // Zamknij modal
+      event.preventDefault()
+      this.close()
     }
   }
 }

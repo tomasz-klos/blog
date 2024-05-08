@@ -1,13 +1,11 @@
 <%= turbo_frame_tag(dom_id(@post, :content)) do %>
   <div class="flex flex-col gap-32">
     <div class="flex flex-col items-center gap-6">
-      <h1 class="text-5xl font-medium text-center"><%= @post.title %></h1>
-      <div class="flex gap-4 items-center">
-        <p class="text-zinc-300">by</p>
-        <%= render(Common::Avatar::Component.new(user: post.user)) %>
-        <p class="text-zinc-500"><%= @post.user.email %></p>
-        <p class="text-zinc-500"><%= @post.created_at.strftime("%B %d, %Y") %></p>
+      <div class="flex items-center gap-2 w-full text-sm text-zinc-500 mb-8">
+        <%= icon("calendar", class_name: "w-4 h-4",title: "Created at", variant: :outline) %>
+        <p ><%= @post.created_at.strftime("%B %d, %Y") %></p>
       </div>
+      <h1 class="text-5xl font-medium text-center"><%= @post.title %></h1>
     </div>
     <%= @post.content %>
   </div>

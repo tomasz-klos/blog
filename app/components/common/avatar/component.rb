@@ -8,7 +8,8 @@ class Common::Avatar::Component < ApplicationComponent
       "sm" => "size-5",
       "md" => "size-8",
       "lg" => "size-16",
-      "xl" => "size-24"
+      "xl" => "size-24",
+      "2xl" => "size-32"
     }[size]
   end
 end

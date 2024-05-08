@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   mode: "jit",
@@ -7,7 +7,7 @@ module.exports = {
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
     "./app/views/**/*.{erb,haml,html,slim}",
-    "./app/components/**/*.{erb,haml,html,slim}",
+    "./app/components/**/*.{erb,rb,haml,html,slim}",
   ],
   theme: {
     extend: {
@@ -45,4 +45,4 @@ module.exports = {
     require("@tailwindcss/typography"),
     require("@tailwindcss/container-queries"),
   ],
-};
+}

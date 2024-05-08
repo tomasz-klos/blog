@@ -1,0 +1,7 @@
+<div data-controller="slideover">
+  <dialog data-slideover-target="dialog" data-action="click->slideover#backdropClose" class="slideover h-full max-h-full m-0 ml-auto w-96 p-8 backdrop:bg-black/80">
+    <%= content %>
+    <button autofocus data-action="slideover#close" class="px-2.5 py-1 bg-blue-500 text-white text-sm rounded">Close</button>
+  </dialog>
+  <%= trigger %>
+</div>

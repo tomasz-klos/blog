@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resource :security, only: [:show, :update]
   end
 
-  get '@:name', to: 'users_profiles#show', as: 'user_profile'
+  get ':slug', to: 'users_profiles#show', as: 'user_profile'
 
   root 'posts#index', as: 'posts_root'
 end

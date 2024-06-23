@@ -24,23 +24,39 @@
                 <p class="text-xs text-zinc-500"><%= current_user.email %></p>
               </div>
             </div>
-            <%= link_to(dashboard_root_path, class: "menu-item p-1") do %>
-              <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
-              <span>dashboard</span>
-            <% end %>
-            <%= link_to(user_profile_path(current_user), class: "menu-item p-1") do %>
-              <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
-              <span>profile</span>
-            <% end %>
-            <div class="border-t border-zinc-800"></div>
-            <%= link_to(settings_profile_path, class: "menu-item p-1") do %>
-              <%= icon("settings", class_name: "w-5 h-5", title: "Settings", variant: :outline) %>
-              <span>settings</span>
-            <% end %>
-            <%= button_to(destroy_user_session_path, method: :delete, class: "menu-item p-1") do %>
-              <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>
-              <span>logout</span>
-            <% end %>
+            <div class="flex flex-col gap-2">
+              <%= link_to(
+                dashboard_root_path,
+                class: "menu-item p-2 hover:bg-zinc-800 #{request.fullpath.include?(dashboard_root_path) ? 'bg-zinc-800' : ''}"
+              ) do %>
+                <%= icon("dashboard", class_name: "w-5 h-5", title: "Dashboard", variant: :outline) %>
+                <span>dashboard</span>
+              <% end %>
+              <%= link_to(
+                user_profile_path(current_user),
+                class: "menu-item p-2 hover:bg-zinc-800 #{request.fullpath.include?(user_profile_path(current_user)) ? 'bg-zinc-800' : ''}"
+              ) do %>
+                <%= icon("person", class_name: "w-5 h-5", title: "Profile", variant: :outline) %>
+                <span>profile</span>
+              <% end %>
+            </div>
+            <div class="flex flex-col gap-2 pt-3 border-t border-zinc-800">
+              <%= link_to(
+                settings_profile_path,
+                class: "menu-item p-2 hover:bg-zinc-800 #{request.fullpath.include?(settings_profile_path) ? 'bg-zinc-800' : ''}"
+              ) do %>
+                <%= icon("settings", class_name: "w-5 h-5", title: "Settings", variant: :outline) %>
+                <span>settings</span>
+              <% end %>
+              <%= button_to(
+                destroy_user_session_path,
+                method: :delete,
+                class: "menu-item p-2 hover:bg-zinc-800"
+              ) do %>
+                <%= icon("logout", class_name: "w-5 h-5", title: "Logout") %>
+                <span>logout</span>
+              <% end %>
+            </div>
           <% end %>
         <% else %>
           <div class="flex items-center gap-3">

@@ -1,5 +1,5 @@
-class Common::Comment::Component < ApplicationComponent
-  include Common::Comment
+class Comment::Component < ApplicationComponent
+  include Comment
 
   option :author, default: false
   option :record

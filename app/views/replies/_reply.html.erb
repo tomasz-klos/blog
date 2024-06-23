@@ -1,3 +1,3 @@
 <%= turbo_frame_tag(dom_id(reply)) do %>
-  <%= render(Common::Comment::Component.new(author:, record: reply, user:, replies: false)) %>
+  <%= render(Comment::Component.new(author:, record: reply, user:, replies: false)) %>
 <% end %>

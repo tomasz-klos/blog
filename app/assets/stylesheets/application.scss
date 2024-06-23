@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+dialog.slideover[open] {
+  animation: slide-in-from-right 200ms forwards ease-in-out;
+}
+
+dialog.slideover[closing] {
+  pointer-events: none;
+  animation: slide-out-to-right 200ms forwards ease-in-out;
+}
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-out-to-right {
+  to {
+    transform: translateX(100%);
+  }
+}

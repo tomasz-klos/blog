@@ -10,26 +10,43 @@ export default class extends Controller {
     this.setupTurboSubmitEventListener()
   }
 
+  disconnect() {
+    this.teardownFormEventListener()
+    this.teardownTurboSubmitEventListener()
+  }
+
   setOnLoad() {
     this.initialValue = this.getCommentInputValue().trim()
     this.updateButtonsState()
   }
 
   setupFormEventListener() {
-    this.commentInputTarget.addEventListener("trix-change", () => {
-      this.updateButtonsState()
-    })
+    this.trixChangeHandler = () => this.updateButtonsState()
+    this.commentInputTarget.addEventListener(
+      "trix-change",
+      this.trixChangeHandler,
+    )
+  }
+
+  teardownFormEventListener() {
+    this.commentInputTarget.removeEventListener(
+      "trix-change",
+      this.trixChangeHandler,
+    )
   }
 
   setupTurboSubmitEventListener() {
-    document.addEventListener("turbo:submit-end", (event) => {
+    this.turboSubmitEndHandler = (event) => {
       this.resetForm()
-
-      console.log(this.formTarget.parentElement)
       if (this.formTarget.parentElement.id === "content_reply") {
         this.closeForm(event)
       }
-    })
+    }
+    document.addEventListener("turbo:submit-end", this.turboSubmitEndHandler)
+  }
+
+  teardownTurboSubmitEventListener() {
+    document.removeEventListener("turbo:submit-end", this.turboSubmitEndHandler)
   }
 
   updateButtonsState() {

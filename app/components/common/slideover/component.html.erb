@@ -1,0 +1,15 @@
+<div class="flex" data-controller="slideover">
+  <dialog
+    class="slideover h-full max-h-full m-0 ml-auto w-80 px-4 py-8 rounded-l-lg bg-zinc-900 border-l border-zinc-800 backdrop:bg-black/20"
+    data-slideover-target="dialog"
+    data-action="click->slideover#backdropClose"
+    >
+    <div class="flex flex-col gap-3 w-full">
+      <%= button_tag(class: "btn-ghost btn-md p-1.5 ml-auto", autofocus: true, data: { action: "slideover#close" }) do %>
+        <%= icon("close", class_name: "size-5") %>
+      <% end %>
+      <%= content %>
+    </div>
+  </dialog>
+  <%= trigger %>
+</div>

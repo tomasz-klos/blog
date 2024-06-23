@@ -1,4 +1,4 @@
-class Common::Alert::Component < ApplicationComponent
+class Alert::Component < ApplicationComponent
   option :class_name, Types::String, optional: true
   option :type
   option :message

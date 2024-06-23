@@ -13,7 +13,7 @@
           </li>
         <% end %>
         <% if user_signed_in? %>
-          <%= render(Common::Slideover::Component.new) do |c| %>
+          <%= render(Slideover::Component.new) do |c| %>
             <% c.with_trigger(variant: :unstyled) do %>
               <%= render(Avatar::Component.new(user: current_user)) %>
             <% end %>

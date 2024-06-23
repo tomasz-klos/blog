@@ -1,5 +1,5 @@
-class Common::Slideover::Trigger::Component < ApplicationComponent
-  include Common::Slideover::Trigger
+class Slideover::Trigger::Component < ApplicationComponent
+  include Slideover::Trigger
 
   option :id, Types::String, optional: true
   option :class_name, Types::String, optional: true

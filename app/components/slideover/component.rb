@@ -1,5 +1,5 @@
-class Common::Slideover::Component < ApplicationComponent
-  include Common::Slideover
+class Slideover::Component < ApplicationComponent
+  include Slideover
 
   option :class_name, Types::String, optional: true
 

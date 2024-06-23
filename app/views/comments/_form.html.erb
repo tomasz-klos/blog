@@ -13,7 +13,7 @@
             placeholder: "Leave a comment"
           ) %>
         </div>
-        <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
+        <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
       </div>
       <div class="flex gap-4">
         <%= form.button(

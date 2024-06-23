@@ -18,17 +18,17 @@
       <div class="flex flex-col gap-2">
         <%= f.label(:current_password, class: "input-label") %>
         <%= f.password_field(:current_password, class: "input") %>
-        <%= render(Common::ErrorMessages::Component.new(form: f, field: :current_password)) %>
+        <%= render(ErrorMessages::Component.new(form: f, field: :current_password)) %>
       </div>
       <div class="flex flex-col gap-2">
         <%= f.label(:password, class: "input-label") %>
         <%= f.password_field(:password, class: "input") %>
-        <%= render(Common::ErrorMessages::Component.new(form: f, field: :password)) %>
+        <%= render(ErrorMessages::Component.new(form: f, field: :password)) %>
       </div>
       <div class="flex flex-col gap-2">
         <%= f.label(:password_confirmation, class: "input-label") %>
         <%= f.password_field(:password_confirmation, class: "input") %>
-        <%= render(Common::ErrorMessages::Component.new(form: f, field: :password_confirmation)) %>
+        <%= render(ErrorMessages::Component.new(form: f, field: :password_confirmation)) %>
       </div>
       <div class="flex items-center gap-4">
         <%= f.button("Update password", class: "btn-primary btn-md") %>

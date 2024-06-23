@@ -1,7 +1,15 @@
-<div data-controller="slideover">
-  <dialog data-slideover-target="dialog" data-action="click->slideover#backdropClose" class="slideover h-full max-h-full m-0 ml-auto w-96 p-8 backdrop:bg-black/80">
-    <%= content %>
-    <button autofocus data-action="slideover#close" class="px-2.5 py-1 bg-blue-500 text-white text-sm rounded">Close</button>
+<div class="flex" data-controller="slideover">
+  <dialog
+    class="slideover h-full max-h-full m-0 ml-auto w-80 px-4 py-8 rounded-l-lg bg-zinc-900 backdrop:bg-black/20"
+    data-slideover-target="dialog"
+    data-action="click->slideover#backdropClose"
+    >
+    <div class="flex flex-col gap-4 w-full">
+      <%= button_tag(class: "btn-cancel btn-md p-1.5 ml-auto", autofocus: true, data: { action: "slideover#close" }) do %>
+        <%= icon("close", class_name: "size-5") %>
+      <% end %>
+      <%= content %>
+    </div>
   </dialog>
   <%= trigger %>
 </div>

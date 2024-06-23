@@ -38,6 +38,10 @@ trix-toolbar {
     @apply p-3 bg-zinc-800 border border-zinc-700 text-base text-zinc-100 rounded-lg hover:bg-zinc-700 transition first-letter:capitalize cursor-pointer;
   }
 
+  .btn-ghost {
+    @apply flex items-center py-2 px-4 text-base text-zinc-100 rounded-lg hover:bg-zinc-800 transition first-letter:capitalize cursor-pointer;
+  }
+
   .btn-danger {
     @apply p-3 bg-red-500 text-base text-zinc-100 rounded-lg hover:bg-red-600 transition first-letter:capitalize cursor-pointer;
   }
@@ -67,7 +71,11 @@ trix-toolbar {
   }
 
   .input {
-    @apply w-full p-3 border bg-zinc-800 border-zinc-700 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+    @apply w-full px-3 py-2 border bg-zinc-800 border-zinc-700 text-sm text-zinc-300 rounded-lg focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-violet-900;
+  }
+
+  .input-label {
+    @apply text-zinc-100 text-sm font-medium;
   }
 
   .field-error {

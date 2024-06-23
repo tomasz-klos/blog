@@ -26,7 +26,7 @@
     </div>
   </aside>
   <div class="lg:col-start-1 lg:col-end-9">
-    <%= render(Common::Tabs::Component.new(class_name: "h-full pt-12 lg:pt-0")) do |c| %>
+    <%= render(Tabs::Component.new(class_name: "h-full pt-12 lg:pt-0")) do |c| %>
       <%= c.with_button(id: "posts") do %>
         Posts
       <% end %>

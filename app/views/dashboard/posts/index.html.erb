@@ -8,7 +8,7 @@
       <%= link_to("Write post", new_dashboard_post_path, class: "btn-primary btn-md") %>
     </div>
   </div>
-  <%= render(Common::Tabs::Component.new) do |c| %>
+  <%= render(Tabs::Component.new) do |c| %>
     <%= c.with_button(id: "draft-posts", disabled: @posts.draft.empty?) do %>
       Drafts <%= @posts.draft.count %>
     <% end %>

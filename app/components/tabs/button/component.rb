@@ -1,5 +1,5 @@
-class Common::Tabs::Button::Component < ApplicationComponent
-  include Common::Tabs::Button
+class Tabs::Button::Component < ApplicationComponent
+  include Tabs::Button
 
   option :id, Types::String
   option :class_name, optional: true

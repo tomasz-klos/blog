@@ -1,6 +1,6 @@
 <section class="flex flex-col gap-4 flex-10 max-w-full lg:w-full lg:grid lg:grid-cols-12 lg:grid-flow-col lg:gap-12 py-4 lg:py-12 lg:max-w-[1200px] mx-auto">
   <aside class="flex flex-col gap-4 lg:h-max lg:sticky lg:top-28 lg:col-start-9 lg:col-end-13">
-    <%= render(Common::Avatar::Component.new(user: @user, size: "5xl")) %>
+    <%= render(Avatar::Component.new(user: @user, size: "5xl")) %>
     <h1 class="text-lg font-medium"><%= @user.name %></h1>
     <p><%= @user.bio %></p>
     <div class="flex items-center gap-2 text-sm text-zinc-200">
@@ -26,7 +26,7 @@
     </div>
   </aside>
   <div class="lg:col-start-1 lg:col-end-9">
-    <%= render(Common::Tabs::Component.new(class_name: "h-full pt-12 lg:pt-0")) do |c| %>
+    <%= render(Tabs::Component.new(class_name: "h-full pt-12 lg:pt-0")) do |c| %>
       <%= c.with_button(id: "posts") do %>
         Posts
       <% end %>

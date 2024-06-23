@@ -8,12 +8,12 @@
     <div class="field">
       <%= form.label(:email, class: "input-label") %>
       <%= form.email_field(:email, autofocus: true, autocomplete: "email", class: "input") %>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :email)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :email)) %>
     </div>
     <div class="field">
       <%= form.label(:name, class: "input-label") %>
       <%= form.text_field(:name, autofocus: true, autocomplete: "name", class: "input") %>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :name)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :name)) %>
     </div>
     <div class="field">
       <%= form.label(:password, class: "input-label") %>
@@ -21,12 +21,12 @@
         <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
       <%= form.password_field(:password, autocomplete: "new-password", class: "input") %>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :password)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :password)) %>
     </div>
     <div class="field">
       <%= form.label(:password_confirmation, class: "input-label") %>
       <%= form.password_field(:password_confirmation, autocomplete: "new-password", class: "input") %>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :password)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :password)) %>
     </div>
     <div class="actions">
       <%= form.submit("Sign up", class: "btn-secondary mt-3") %>

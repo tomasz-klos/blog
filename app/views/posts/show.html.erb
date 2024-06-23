@@ -31,7 +31,7 @@
         <p class="text-sm font-medium text-zinc-300 uppercase">Author</p>
         <div class="flex gap-4 items-center">
           <%= link_to(user_profile_path(@post.user), class: "min-w-max hover:opacity-80") do %>
-            <%= render(Common::Avatar::Component.new(user: @post.user)) %>
+            <%= render(Avatar::Component.new(user: @post.user)) %>
           <% end %>
           <%= link_to(user_profile_path(@post.user), class: "link-primary") do %>
             <p class="text-sm truncate"><%= @post.user.name %></p>

@@ -3,7 +3,7 @@
   <div class="field">
     <%= form.label(:email) %><br />
     <%= form.email_field(:email, autofocus: true, autocomplete: "email") %>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :email)) %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :email)) %>
   </div>
   <div class="actions">
     <%= form.submit("Send me reset password instructions") %>

@@ -3,7 +3,7 @@
   <div class="field">
     <%= form.label(:email) %><br />
     <%= form.email_field(:email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)) %>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :email)) %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :email)) %>
   </div>
   <div class="actions">
     <%= form.submit("Resend confirmation instructions") %>

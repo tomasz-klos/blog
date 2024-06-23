@@ -11,10 +11,10 @@
   </head>
   <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
     <% if notice %>
-      <%= render(Common::Alert::Component.new(type: "notice", message: notice)) %>
+      <%= render(Alert::Component.new(type: "notice", message: notice)) %>
     <% end %>
     <% if alert %>
-      <%= render(Common::Alert::Component.new(type: "alert", message: alert)) %>
+      <%= render(Alert::Component.new(type: "alert", message: alert)) %>
     <% end %>
     <%= turbo_frame_tag("modal") %>
     <%= render(partial: "partials/confirm_modal") %>

@@ -7,12 +7,12 @@
       <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
     <%= form.password_field(:password, autofocus: true, autocomplete: "new-password") %>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
   </div>
   <div class="field">
     <%= form.label(:password_confirmation, "Confirm new password") %><br />
     <%= form.password_field(:password_confirmation, autocomplete: "new-password") %>
-    <%= render(Common::ErrorMessages::Component.new(form: form, field: :password_confirmation)) %>
+    <%= render(ErrorMessages::Component.new(form: form, field: :password_confirmation)) %>
   </div>
   <div class="actions">
     <%= form.submit("Change my password") %>

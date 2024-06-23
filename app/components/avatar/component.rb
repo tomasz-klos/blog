@@ -1,4 +1,4 @@
-class Common::Avatar::Component < ApplicationComponent
+class Avatar::Component < ApplicationComponent
   option :class_name, optional: true
   option :size, default: -> { "md" }
   option :user

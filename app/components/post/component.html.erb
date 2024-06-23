@@ -1,7 +1,7 @@
 <article class="flex flex-col gap-4 border-b border-zinc-800 py-4 w-full max-w-screen-sm">
   <div class="flex gap-3 items-center">
     <%= link_to(user_profile_path(post.user), class: "min-w-max hover:opacity-80") do %>
-      <%= render(Common::Avatar::Component.new(user: post.user)) %>
+      <%= render(Avatar::Component.new(user: post.user)) %>
     <% end %>
     <%= link_to(user_profile_path(post.user), class: "link-primary") do %>
       <p class="text-sm truncate"><%= post.user.name %></p>
@@ -10,7 +10,7 @@
     <span class="text-zinc-500 text-sm min-w-max"><%= post.created_at.strftime("%B %d, %Y") %></span>
     <% if author? %>
       <div class="ml-auto">
-        <%= render(Common::Dropdown::Component.new(
+        <%= render(Dropdown::Component.new(
           id: "post_#{post.id}_menu",
           position: 'left'
         )) do |c| %>

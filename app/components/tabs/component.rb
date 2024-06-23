@@ -1,5 +1,5 @@
-class Common::Tabs::Component < ApplicationComponent
-  include Common::Tabs
+class Tabs::Component < ApplicationComponent
+  include Tabs
 
   option :class_name, optional: true
   option :tabs_id, default: -> { SecureRandom.hex(10) }, optional: true

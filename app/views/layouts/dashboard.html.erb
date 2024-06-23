@@ -11,7 +11,7 @@
   </head>
   <body class="flex flex-col bg-zinc-900 text-zinc-100 min-h-screen">
     <% if alert || notice %>
-      <%= render(Common::Alert::Component.new(
+      <%= render(Alert::Component.new(
         type: alert ? "alert" : "notice",
         message: alert || notice
       )) %>

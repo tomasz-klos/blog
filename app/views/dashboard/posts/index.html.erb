@@ -8,7 +8,7 @@
       <%= link_to("Write post", new_dashboard_post_path, class: "btn-primary btn-md") %>
     </div>
   </div>
-  <%= render(Common::Tabs::Component.new) do |c| %>
+  <%= render(Tabs::Component.new) do |c| %>
     <%= c.with_button(id: "draft-posts", disabled: @posts.draft.empty?) do %>
       Drafts <%= @posts.draft.count %>
     <% end %>
@@ -26,7 +26,7 @@
                 <%= post.title %>
               <% end %>
             <% end %>
-            <%= render(Common::Dropdown::Component.new(
+            <%= render(Dropdown::Component.new(
               id: "post_#{post.id}_menu",
               position: 'left'
             )) do |c| %>
@@ -87,7 +87,7 @@
               edit_dashboard_post_path(post),
               class:"text-lg font-medium transition-colors hover:text-violet-500"
             ) %>
-            <%= render(Common::Dropdown::Component.new(
+            <%= render(Dropdown::Component.new(
               id: "post_#{post.id}_menu",
               position: 'left'
             )) do |c| %>

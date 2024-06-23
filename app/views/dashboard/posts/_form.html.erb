@@ -23,7 +23,7 @@
     <div class="field">
       <%= form.label(:title, class: field_label_classes(form, :title)) %>
       <%= form.text_field(:title, autocomplete: "off", class: "input", data: { action: "keyup->auto-save#save input->auto-save#save" }) %>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :title)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :title)) %>
     </div>
     <div class="field h-full">
       <%= form.label(:content, class: field_label_classes(form, :content)) %>
@@ -33,7 +33,7 @@
         data: { action: "trix-change->auto-save#save", controller: "trix" }
       ) %>
       </div>
-      <%= render(Common::ErrorMessages::Component.new(form: form, field: :content)) %>
+      <%= render(ErrorMessages::Component.new(form: form, field: :content)) %>
     </div>
     <% if @post.published? %>
       <div>

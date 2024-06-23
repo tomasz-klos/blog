@@ -26,7 +26,7 @@
                 <%= post.title %>
               <% end %>
             <% end %>
-            <%= render(Common::Dropdown::Component.new(
+            <%= render(Dropdown::Component.new(
               id: "post_#{post.id}_menu",
               position: 'left'
             )) do |c| %>
@@ -87,7 +87,7 @@
               edit_dashboard_post_path(post),
               class:"text-lg font-medium transition-colors hover:text-violet-500"
             ) %>
-            <%= render(Common::Dropdown::Component.new(
+            <%= render(Dropdown::Component.new(
               id: "post_#{post.id}_menu",
               position: 'left'
             )) do |c| %>

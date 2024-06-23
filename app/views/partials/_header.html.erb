@@ -15,10 +15,10 @@
         <% if user_signed_in? %>
           <%= render(Common::Slideover::Component.new) do |c| %>
             <% c.with_trigger(variant: :unstyled) do %>
-              <%= render(Common::Avatar::Component.new(user: current_user)) %>
+              <%= render(Avatar::Component.new(user: current_user)) %>
             <% end %>
             <div class="flex items-center gap-3 pt-2 pb-3 border-b border-zinc-800">
-              <%= render(Common::Avatar::Component.new(user: current_user, size: "md")) %>
+              <%= render(Avatar::Component.new(user: current_user, size: "md")) %>
               <div class="flex flex-col">
                 <p class="text-sm text-zinc-100"><%= current_user.name %></p>
                 <p class="text-xs text-zinc-500"><%= current_user.email %></p>
